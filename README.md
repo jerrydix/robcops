@@ -1,1 +1,1 @@
-test3
+A social mobile game made as part of the Social Gaming module at TUM.
