@@ -17,6 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from ServerSide import views
+
+
+# to send and accept requests - just write the following addresses in client
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('send_friend_request/<int:userID>/', views.send_friend_request, name='send_friend_request'),
+    path('accept_friend_request/<int:requestID>/', views.accept_friend_request, name='accept_friend_request'),
+
+    path('edit_money/', views.edit_money, name='edit_money'),
+    path('get_money/', views.get_money, name='get_money'),
+
+    path('edit_amount_of_clicks/', views.edit_amount_of_clicks, name='edit_amount_of_clicks'),
+    path('get_amount_of_clicks/', views.get_amount_of_clicks, name='get_amount_of_clicks'),
+
 ]

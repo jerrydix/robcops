@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# Added 'ServerSide.apps.ServersideConfig' to activate models
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
