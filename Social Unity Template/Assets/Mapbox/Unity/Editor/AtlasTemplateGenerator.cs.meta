@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: cc814d64f35ad4f1bbce68318166b67e
-timeCreated: 1520544854
-licenseType: Pro
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - m_texture: {instanceID: 0}
+  - m_atlasInfo: {fileID: 11400000, guid: e00d7129ae63cce4c8d7e891d1639fbf, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
