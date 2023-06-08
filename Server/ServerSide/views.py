@@ -1,10 +1,49 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 from django.http import HttpResponse
 
 from ServerSide.models import FriendRequest
 from ServerSide.models import Player
 
 from django.shortcuts import render
+
+# User auth
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponse('Login Success')
+        else:
+            return HttpResponse('Login failure')
+
+    else: 
+        return HttpResponse('Login failure')
+    
+@login_required
+def logout_user(request):
+    logout(request)
+    return HttpResponse('Logout Success')
+
+def register_user(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return HttpResponse('Register Success')
+        
+    else: 
+        form = UserCreationForm()
+    return HttpResponse('Register Success')
 
 
 @login_required
