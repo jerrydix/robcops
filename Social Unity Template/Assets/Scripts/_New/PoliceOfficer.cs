@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoliceOfficer : Player
+public class PoliceOfficer : Faction
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<Safe> safes;
+
+    public override bool isRobber()
     {
-        
+        return false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlaceSafe()
     {
-        
+        //TODO: Implement
     }
+
 }

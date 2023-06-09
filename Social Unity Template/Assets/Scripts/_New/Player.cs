@@ -5,12 +5,16 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
+    public Faction faction { get; set; }
     public List<Friend> friends { get; set; }
-    
+
     // TODO: Change MapPosition to whatever Position Property we use
     //private MapPosition _position { get; set; }
 
     public double money { get; set; }
+
+    public int xp { get; set; }
+    public const int xpRequiredForFactionChange = 2000; //Change Value if needed
 
     public List<ItemListElement> items { get; set; }
 
@@ -74,6 +78,19 @@ public class Player : MonoBehaviour
                 return;
             }        
         }
+    }
+
+    /**
+     * Returns true if is Robber, false if is PoliceOfficer
+     */
+    public bool isRobber()
+    {
+        return faction.isRobber();
+    }
+
+    public bool canChangeFaction()
+    {
+        return xp >= xpRequiredForFactionChange;
     }
 
     // Start is called before the first frame update

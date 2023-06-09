@@ -12,7 +12,7 @@ public class MoneyPrintingMachine : MonoBehaviour
     public short level { get; set; }
     public double moneyRequiredforNextLevel {get; private set; }
 
-    public Boolean isMaxLevel()
+    public bool isMaxLevel()
     {
         return level == maxLevel;
     } 

@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class Item : MonoBehaviour
 {
-    public double _price { get; set; }
+    public double price { get; set; }
 
 }
