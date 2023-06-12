@@ -22,14 +22,14 @@ def login_user(request):
             login(request, user)
             money = request.user.player.money
             return HttpResponse(
-                f'Login Success|{money}|{request.user.username}|{request.user.player.amountOfClicks}|'
+                f'1|{request.user.username}|{money}|{request.user.player.amountOfClicks}|'
                 f'{request.user.player.clickPower}|{request.user.player.locationX}|{request.user.player.locationY}|'
                 f'{request.user.player.role}|{request.user.player.guild_id}')
         else:
-            return HttpResponse('Login failure')
+            return HttpResponse('0')
 
     else:
-        return HttpResponse('Login failure')
+        return HttpResponse('0')
 
 
 @login_required
