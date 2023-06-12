@@ -9,7 +9,9 @@ from ServerSide.models import Player
 
 from django.shortcuts import render
 
+
 # User auth
+
 
 def login_user(request):
     if request.method == "POST":
@@ -18,17 +20,23 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponse('Login Success')
+            money = request.user.player.money
+            return HttpResponse(
+                f'Login Success|{money}|{request.user.username}|{request.user.player.amountOfClicks}|'
+                f'{request.user.player.clickPower}|{request.user.player.locationX}|{request.user.player.locationY}|'
+                f'{request.user.player.role}|{request.user.player.guild_id}')
         else:
             return HttpResponse('Login failure')
 
-    else: 
+    else:
         return HttpResponse('Login failure')
-    
+
+
 @login_required
 def logout_user(request):
     logout(request)
     return HttpResponse('Logout Success')
+
 
 def register_user(request):
     if request.method == "POST":
@@ -40,8 +48,8 @@ def register_user(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             return HttpResponse('Register Success')
-        
-    else: 
+
+    else:
         form = UserCreationForm()
     return HttpResponse('Register Success')
 
@@ -109,4 +117,3 @@ def edit_amount_of_clicks(request):
     request.user.player.save()
     response = f'0: changed the amountOfClicks of {request.user.username} to {amountOfClicks}'
     return HttpResponse(response)
-

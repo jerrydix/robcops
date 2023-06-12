@@ -6,8 +6,13 @@ public class S_UserLogin : MonoBehaviour
 {
     // For now only local address
     
-    public string BASE_URL = "http://127.0.0.1:8000/";
-    public string socialTab = "members/";
+    [HideInInspector] public string BASE_URL = "http://127.0.0.1:8000/";
+    [HideInInspector] public string socialTab = "members/";
+    public string username;
+    public string money;
+    public string role;
+    public Vector2 location = new Vector2();
+    public Guild guild;
     
     // Start is called before the first frame update
     void Start()
