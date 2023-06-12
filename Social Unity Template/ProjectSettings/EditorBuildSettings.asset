@@ -6,30 +6,30 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menus/MainMenu.unity
+    path: Assets/Scenes/OLD/Menus/MainMenu.unity
     guid: 91253ae7a20ec1d4e937d42aa3014f7c
   - enabled: 1
-    path: Assets/Scenes/Menus/SignupMenu.unity
+    path: Assets/Scenes/OLD/Menus/SignupMenu.unity
     guid: e53ef3987880eab4d873fb5c690bb246
   - enabled: 1
-    path: Assets/Scenes/Menus/LoginMenu.unity
+    path: Assets/Scenes/OLD/Menus/LoginMenu.unity
     guid: cc698358c90ab8241a152233bf69a1c8
   - enabled: 1
-    path: Assets/Scenes/Menus/PlayMenu.unity
+    path: Assets/Scenes/OLD/Menus/PlayMenu.unity
     guid: b9e401777e7a07d4a840f74f208bfc86
   - enabled: 1
-    path: Assets/Scenes/Social/LeaderboardGame.unity
+    path: Assets/Scenes/OLD/Social/LeaderboardGame.unity
     guid: 2ce8be0690bcea440a4ad3fe775ff8a5
   - enabled: 1
-    path: Assets/Scenes/Social/FriendshipGame.unity
+    path: Assets/Scenes/OLD/Social/FriendshipGame.unity
     guid: a7d42ec8cbac0a64f8bcdb469c24af6a
   - enabled: 1
-    path: Assets/Scenes/Mobile/MapGame.unity
+    path: Assets/Scenes/OLD/Mobile/MapGame.unity
     guid: ce72ba5982dfee14e98ec098eae000a8
   - enabled: 1
-    path: Assets/Scenes/Mobile/WeatherGame.unity
+    path: Assets/Scenes/OLD/Mobile/WeatherGame.unity
     guid: 2925504c4c3905e42a420ed8fac60af3
   - enabled: 1
-    path: Assets/Scenes/Mobile/TiltGame.unity
+    path: Assets/Scenes/OLD/Mobile/TiltGame.unity
     guid: f94b6938b4e64464fb6d2342f501e198
   m_configObjects: {}

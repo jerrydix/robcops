@@ -86,7 +86,7 @@ def get_money(request):
         return HttpResponse('Not signed in')
     if request.method != 'GET':
         return HttpResponse('Incorrect request method')
-    response = f'0: money player: {request.user.player.money}'
+    response = f'money player: {request.user.player.money}'
     return HttpResponse(response)
 
 
