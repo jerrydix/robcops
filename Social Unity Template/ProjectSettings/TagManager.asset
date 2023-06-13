@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PortalButton
   - Safe
+  - map
   layers:
   - Default
   - TransparentFX
