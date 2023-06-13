@@ -20,9 +20,8 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            money = request.user.player.money
             return HttpResponse(
-                f'1|{request.user.username}|{money}|{request.user.player.amountOfClicks}|'
+                f'1|{request.user.username}|{request.user.player.money}|{request.user.player.amountOfClicks}|'
                 f'{request.user.player.clickPower}|{request.user.player.locationX}|{request.user.player.locationY}|'
                 f'{request.user.player.role}|{request.user.player.guild_id}')
         else:
@@ -41,17 +40,19 @@ def logout_user(request):
 def register_user(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
+        print(form.errors)
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
-            user = authenticate(username=username, password=password)
+            user = authenticate(request, username=username, password=password)
             login(request, user)
+            player = Player(user=user)
+            player.save()
             return HttpResponse('Register Success')
-
-    else:
-        form = UserCreationForm()
-    return HttpResponse('Register Success')
+        else:
+            return HttpResponse('Register Form Is Not Valid')
+    return HttpResponse('Register Failed')
 
 
 @login_required
@@ -77,6 +78,7 @@ def accept_friend_request(request, requestID):
         return HttpResponse('Not accepted')
 
 
+@login_required
 def edit_money(request):
     if not request.user.is_authenticated:
         return HttpResponse('Not signed in')
@@ -107,6 +109,7 @@ def get_amount_of_clicks(request):
     return HttpResponse(response)
 
 
+@login_required
 def edit_amount_of_clicks(request):
     if not request.user.is_authenticated:
         return HttpResponse('Not signed in')
