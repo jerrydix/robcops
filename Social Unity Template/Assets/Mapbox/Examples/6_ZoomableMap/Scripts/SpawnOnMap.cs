@@ -1,4 +1,6 @@
-﻿namespace Mapbox.Examples
+﻿using System;
+
+namespace Mapbox.Examples
 {
 	using UnityEngine;
 	using Mapbox.Utils;
@@ -14,7 +16,7 @@
 
 		[SerializeField]
 		[Geocode]
-		string[] _locationStrings;
+		public string[] _locationStrings;
 		Vector2d[] _locations;
 
 		[SerializeField]
@@ -28,10 +30,13 @@
 
 		List<GameObject> _spawnedObjects;
 
+		
+	
+
 		void Start()
 		{
-			_locations = new Vector2d[_locationStrings.Length];
 			_spawnedObjects = new List<GameObject>();
+			_locations = new Vector2d[_locationStrings.Length];
 			for (int i = 0; i < _locationStrings.Length; i++)
 			{
 				var locationString = _locationStrings[i];

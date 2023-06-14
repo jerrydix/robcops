@@ -8,6 +8,7 @@ TagManager:
   - Safe
   - map
   - Server
+  - Spawner
   layers:
   - Default
   - TransparentFX

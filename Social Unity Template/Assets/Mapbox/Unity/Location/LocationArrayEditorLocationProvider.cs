@@ -18,7 +18,7 @@
 		/// </summary>
 		[SerializeField]
 		[Geocode]
-		string[] _latitudeLongitude;
+		public string[] _latitudeLongitude;
 
 		/// <summary>
 		/// The mock heading value.
