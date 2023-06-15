@@ -10,7 +10,7 @@
 		bool _isInitialized;
 
 		ILocationProvider _locationProvider;
-		ILocationProvider LocationProvider
+		public ILocationProvider LocationProvider
 		{
 			get
 			{

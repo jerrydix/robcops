@@ -28,7 +28,7 @@ namespace Mapbox.Examples
 
 		private SafeSpinScript SafeSpinScript;
 
-		List<GameObject> _spawnedObjects;
+		public List<GameObject> _spawnedObjects;
 
 		
 	
