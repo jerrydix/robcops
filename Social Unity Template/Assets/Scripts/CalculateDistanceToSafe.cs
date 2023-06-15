@@ -32,7 +32,7 @@ public class CalculateDistanceToSafe : MonoBehaviour
        
         for (int i = 0; i < distances.Count; i++)
         {
-          //Debug.Log(distances[i]);
+          Debug.Log(distances[i]);
         }
 
         
@@ -44,34 +44,21 @@ public class CalculateDistanceToSafe : MonoBehaviour
         {
             var currentString = _spawnOnMap._locationStrings[i];
             var instance = Conversions.StringToLatLon(currentString);
-            //Debug.Log(instance.x);
-            //var distanceObject = Conversions.LatLonToMeters(instance);
-            //Debug.Log(distanceObject);
             var x = Conversions.StringToLatLon(LocationArrayEditorLocationProvider._latitudeLongitude[0]);
-            float playerLocation =(float) x.x;
-            Debug.Log(playerLocation);
-            float playerLocationy =(float) x.y;
-            //Debug.Log(playerLocation);
-            //Debug.Log(playerLocationy);
-            //var distancePlayer = Conversions.LatLonToMeters(playerLocation.CurrentLocation.LatitudeLongitude);
-            //Debug.Log(distancePlayer);
-
-            var deltaLat = ((float)instance.x - playerLocation) * Mathf.PI / 180;
-            var deltaLon = ((float)instance.y - playerLocationy) * Mathf.PI / 180;
-
-            var a = (Mathf.Pow(Mathf.Sin( deltaLat / 2), 2) + Mathf.Cos( playerLocation * Mathf.PI /180)
-                * Mathf.Cos((float) instance.x * Mathf.PI / 180) * Mathf.Pow(Mathf.Sin((float) deltaLon / 2), 2));
-            var c = 2 * Mathf.Atan2(Mathf.Sqrt(a), Mathf.Sqrt(1 - a));
-            var result = 6371f * c;
-            //result *= 1000;
-            var finalResult = Mathf.Abs(result);
-            //var test = new Vector2d(distanceObject.x - distancePlayer.y, distanceObject.y - distancePlayer.y);
-            Debug.Log(a);
-            Debug.Log(c);
-            Debug.Log(result);
-            Debug.Log(finalResult);
-            //double calcDistance = (distanceObject - distancePlayer).sqrMagnitude;
-            distances.Add(finalResult);
+            double playerLocation =  x.x;
+            double playerLocationy = x.y;
+            var deltaLat = (instance.x - playerLocation) * Mathd.PI / 180d;
+            var deltaLon = (instance.y - playerLocationy) * Mathd.PI / 180d;
+            var a = (Mathd.Pow(Mathd.Sin( deltaLat / 2d), 2d) + Mathd.Cos( playerLocation * Mathd.PI /180d)
+                * Mathd.Cos(instance.x * Mathd.PI / 180d) * Mathd.Pow(Mathd.Sin( deltaLon / 2d), 2d));
+            var c = 2d * Mathd.Atan2(Mathd.Sqrt(a), Mathd.Sqrt(1d - a));
+            var result = 6371d * c;
+            result *= 1000;
+            var finalResult = Mathd.Abs(result);
+            if (finalResult <= 1000)
+            {
+                distances.Add((int) finalResult);
+            }
         }
     }
 }
