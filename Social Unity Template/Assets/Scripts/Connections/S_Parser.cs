@@ -13,7 +13,7 @@ namespace Connections
     
     public static class S_Parser
     {
-        public static ArrayList ParseResponse(string contents, ResponseTypes type)
+        public static List<string> ParseResponse(string contents, ResponseTypes type)
         {
             var substrings = contents.Split('|');
             switch (type)
@@ -28,7 +28,7 @@ namespace Connections
                 }
             }
 
-            var result = new ArrayList();
+            var result = new List<string>();
             for (int i = 1; i < substrings.Length; i++)
             {
                 result.Add(substrings[i]);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Connections;
@@ -15,8 +16,7 @@ public class S_UserLogin : MonoBehaviour
     private int amountOfClicks;
     private float clickPower;
     private Vector2 location = new Vector2();
-    private Guild guild; //todo fetch guilds from server before login, save them in game manager
-    private int guildID;
+    private Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
     
     // Start is called before the first frame update
     void Start()
@@ -48,7 +48,7 @@ public class S_UserLogin : MonoBehaviour
         form.AddField("password", password);
         using WWW www = new WWW(BASE_URL + socialTab + "login_user", form);
         yield return www;
-        //SetData(S_Parser.ParseResponse(www.text, ResponseTypes.Login));
+        SetData(S_Parser.ParseResponse(www.text, ResponseTypes.Login));
         Debug.Log(www.text.TrimStart());
     }
 
@@ -61,7 +61,6 @@ public class S_UserLogin : MonoBehaviour
         form.AddField("password2", passwordRepeat);
         using WWW www = new WWW(BASE_URL + socialTab + "register_user", form);
         yield return www;
-        //SetData(S_Parser.ParseResponse(www.text, ResponseTypes.Login));
         Debug.Log(www.text.TrimStart());
     }
 
@@ -71,18 +70,14 @@ public class S_UserLogin : MonoBehaviour
         yield return www;
     }
     
-    public void SetData(ArrayList list)
+    public void SetData(List<string> list)
     {
-        for (int i = 0; i < list.Count; i++)
-        {
-            Debug.Log(list[i]);
-        }
-        username = (string) list[1];
-        money = (int) list[2];
-        amountOfClicks = (int) list[3];
-        clickPower = (float) list[4];
-        location = new Vector2((float)list[5], (float)list[6]);
-        role = (bool) list[7];
-        guildID = (int) list[8];
+        username = list[0];
+        money = int.Parse(list[1]);
+        amountOfClicks = int.Parse(list[2]);
+        clickPower = float.Parse(list[3]);
+        location = new Vector2(float.Parse(list[4]), float.Parse(list[5]));
+        role = bool.Parse(list[6]);
+        //guild = int.Parse(list[7]);
     }
 }

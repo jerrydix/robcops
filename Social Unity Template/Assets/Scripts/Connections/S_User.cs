@@ -2,26 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class S_User : MonoBehaviour
-{
+public class S_User : MonoBehaviour //not used
+{   
     private string username;
     private int money;
     private int amountOfClicks;
     private float clickPower;
-    private double locationX;
-    private double locationY;
+    private Vector2 location = new Vector2();
     private bool role;
-    private int guildID;
+    private Guild guild;
 
-    public void SetData(ArrayList list)
+    public void SetData(List<string> list)
     {
-        username = (string) list[1];
-        money = (int) list[2];
-        amountOfClicks = (int) list[3];
-        clickPower = (float) list[4];
-        locationX = (double) list[5];
-        locationY = (double) list[6];
-        role = (bool) list[7];
-        guildID = (int) list[8];
+        username = list[0];
+        money = int.Parse(list[1]);
+        amountOfClicks = int.Parse(list[2]);
+        clickPower = float.Parse(list[3]);
+        location = new Vector2(float.Parse(list[4]), float.Parse(list[5]));
+        role = bool.Parse(list[6]);
+        //guild = int.Parse(list[7]);
     }
 }
