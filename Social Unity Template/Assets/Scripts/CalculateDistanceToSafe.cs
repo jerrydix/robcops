@@ -6,8 +6,6 @@ using Mapbox.Map;
 using Mapbox.Unity.Location;
 using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
-using Unity.VisualScripting;
-using UnityEditor.AssetImporters;
 using UnityEngine;
 
 public class CalculateDistanceToSafe : MonoBehaviour
