@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.WebSockets;
 using Connections;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ public class S_UserLogin : MonoBehaviour
     private float clickPower;
     private Vector2 location = new Vector2();
     private Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
+    private WebSocket ws;
     
     // Start is called before the first frame update
     void Start()
