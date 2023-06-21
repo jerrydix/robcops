@@ -1,3 +1,5 @@
+using Unity.VisualScripting;
+
 namespace Mapbox.Unity.MeshGeneration.Data
 {
 	using Mapbox.VectorTile;
@@ -58,6 +60,8 @@ namespace Mapbox.Unity.MeshGeneration.Data
 				}
 				Points.Add(_newPoints);
 			}
+
+			
 		}
 
 		public VectorFeatureUnity(VectorTileFeature feature, List<List<Point2d<float>>> geom, UnityTile tile, float layerExtent, bool buildingsWithUniqueIds = false)
@@ -115,5 +119,6 @@ namespace Mapbox.Unity.MeshGeneration.Data
 			return output;
 		}
 
+		
 	}
 }
