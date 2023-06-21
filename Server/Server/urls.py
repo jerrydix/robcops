@@ -19,7 +19,6 @@ from django.urls import path, include
 
 from ServerSide import views
 
-
 # to send and accept requests - just write the following addresses in client
 
 
@@ -31,10 +30,23 @@ urlpatterns = [
     path('edit_money/', views.edit_money, name='edit_money'),
     path('get_money/', views.get_money, name='get_money'),
 
+    # Lobby Settings
+    path('create_safe/', views.create_test_safe, name='create_safe'),
+    path('create_lobby/<int:safeID>/', views.create_lobby, name='create_lobby'),
+
+    # Get Lists
+    path('get_all_safes/', views.get_all_safes, name='get_all_safes'),
+    path('get_all_robunions/', views.get_all_robunions, name='get_all_robunions'),
+    path('get_robunion_members/<int:robId>', views.get_robunion_members, name='get_robunion_members'),
+
+    # Guild
+    path('create_test_robunion/', views.create_test_robunion, name='create_test_robunion'),
+
+    # Amount of clicks
     path('edit_amount_of_clicks/', views.edit_amount_of_clicks, name='edit_amount_of_clicks'),
     path('get_amount_of_clicks/', views.get_amount_of_clicks, name='get_amount_of_clicks'),
 
-    #path('members/', include('django.contrib.auth.urls'))
+    # path('members/', include('django.contrib.auth.urls'))
     path('members/login_user', views.login_user, name='login_user'),
     path('members/logout_user', views.logout_user, name='logout_user'),
     path('members/register_user', views.register_user, name='register_user'),

@@ -19,22 +19,34 @@ class BreakInEvent(models.Model):
 class Guild(models.Model):
     name = models.CharField(default="NoNameGuild", max_length=30)
     guildMoney = models.IntegerField(default=0)
-    machines = models.IntegerField(default=0)
+
+    class Meta:
+        abstract = True
 
     def __str__(self):
-        return self.guild.name
+        return self.name
+
+
+class PoliceStation(Guild):
+    weaponLvl = models.IntegerField(default=1)
+
+
+class RobUnion(Guild):
+    machines = models.IntegerField(default=0)
 
 
 class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    friends = models.ManyToManyField("self", null=True, blank=True)
+    friends = models.ManyToManyField("self", symmetrical=True, blank=True, default=None)
     money = models.IntegerField(default=0)
     amountOfClicks = models.IntegerField(default=1)
     clickPower = models.FloatField(default=1.0)
     locationX = models.FloatField(default=0.0)
     locationY = models.FloatField(default=0.0)
     role = models.BooleanField(default=0)
-    guild = models.ForeignKey(Guild, null=True, blank=True, related_name='guild', on_delete=models.SET_NULL)
+    robUnion = models.ForeignKey(RobUnion, null=True, blank=True, related_name='robUnion', on_delete=models.SET_NULL)
+    policeStation = models.ForeignKey(PoliceStation, null=True, blank=True, related_name='police_station',
+                                      on_delete=models.SET_NULL)
     event = models.ForeignKey(BreakInEvent, null=True, blank=True, related_name='event', on_delete=models.SET_NULL)
 
     def __str__(self):

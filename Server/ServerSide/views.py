@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 
 from ServerSide.models import FriendRequest
-from ServerSide.models import Player
+from ServerSide.models import *
 
 from django.shortcuts import render
 
@@ -23,7 +23,8 @@ def login_user(request):
             return HttpResponse(
                 f'1|{request.user.username}|{request.user.player.money}|{request.user.player.amountOfClicks}|'
                 f'{request.user.player.clickPower}|{request.user.player.locationX}|{request.user.player.locationY}|'
-                f'{request.user.player.role}|{request.user.player.guild_id}')
+                f'{request.user.player.role}|{request.user.player.robUnion_id}|'
+                f'{request.user.player.policeStation_id}|{request.user.player.friends}')
         else:
             return HttpResponse('0')
 
@@ -119,4 +120,54 @@ def edit_amount_of_clicks(request):
     request.user.player.amountOfClicks = int(amountOfClicks)
     request.user.player.save()
     response = f'0: changed the amountOfClicks of {request.user.username} to {amountOfClicks}'
+    return HttpResponse(response)
+
+
+@login_required
+def create_test_safe(request):
+    safe = Safe(locationX=request.user.player.locationX, locationY=request.user.player.locationY)
+    safe.save()
+    return HttpResponse(safe.id)
+
+
+@login_required
+def create_test_robunion(request):
+    if not request.user.player.role:
+        robunion = RobUnion(name=request.POST['name'])
+        robunion.save()
+        request.user.player.robUnion = robunion
+        request.user.player.policeStation = None
+        request.user.player.save()
+    else:
+        return HttpResponse("You are policeman")
+    return HttpResponse(robunion.id)
+
+
+@login_required
+def create_lobby(request, safeID):
+    safe = Safe.objects.get(id=safeID)
+    breakIn = BreakInEvent(safe=safe)
+    breakIn.save()
+    request.user.player.event = breakIn
+    request.user.player.save()
+    return HttpResponse('Test_Event')
+
+
+def get_all_safes(request):
+    response = "|".join(str(e).replace("(", "").replace(")", "") for e in list(Safe.objects.values_list('id',
+                                                                                                        'level',
+                                                                                                        'hp',
+                                                                                                        'locationX',
+                                                                                                        'locationY')))
+    return HttpResponse(response)
+
+
+def get_all_robunions(request):
+    response = "|".join(str(e).replace("(", "").replace(")", "") for e in list(RobUnion.objects.values_list('id',
+                                                                                                            'name')))
+    return HttpResponse(response)
+
+
+def get_robunion_members(request, robId):
+    response = RobUnion.objects.get(id=robId).objects.all()
     return HttpResponse(response)

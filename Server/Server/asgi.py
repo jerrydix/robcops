@@ -19,9 +19,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Server.settings')
 
 application = ProtocolTypeRouter({
     'http': get_asgi_application(),
-    'websocket': AuthMiddlewareStack(
+    'websocket':
         URLRouter(
             ServerSide.routing.websocket_urlspatterns
         )
-    )
 })
