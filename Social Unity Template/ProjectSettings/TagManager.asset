@@ -9,11 +9,12 @@ TagManager:
   - map
   - Server
   - Spawner
+  - Building
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Path
   - Water
   - UI
   - 

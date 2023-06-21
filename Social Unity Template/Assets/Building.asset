@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48879146f3ce9fb4abc113a9a2bb8e0a, type: 3}
-  m_Name: Test
+  m_Script: {fileID: 11500000, guid: 05ccea17608e94fb994579409c52fb80, type: 3}
+  m_Name: Building
   m_EditorClassIdentifier: 
-  Textures: []
-  Roofs: []
-  AtlasEntityType: 0
+  Active: 1
+  _tag: Building
