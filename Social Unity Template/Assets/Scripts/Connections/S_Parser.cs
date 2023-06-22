@@ -8,7 +8,8 @@ namespace Connections
     
     public enum ResponseTypes
     {
-        Login
+        Login,
+        Signup
     }
     
     public static class S_Parser
@@ -16,16 +17,9 @@ namespace Connections
         public static List<string> ParseResponse(string contents, ResponseTypes type)
         {
             var substrings = contents.Split('|');
-            switch (type)
+            if (substrings[0] == "0")
             {
-                case ResponseTypes.Login:
-                {
-                    if (substrings[0] == "0")
-                    {
-                        throw new HttpListenerException(0, "Login Failure");
-                    }
-                    break;
-                }
+                throw new HttpListenerException(0, substrings[1]);
             }
 
             var result = new List<string>();

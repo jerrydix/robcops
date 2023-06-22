@@ -17,7 +17,7 @@ def login_user(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username, password=password) 
         if user is not None:
             login(request, user)
             return HttpResponse(
@@ -26,10 +26,10 @@ def login_user(request):
                 f'{request.user.player.role}|{request.user.player.robUnion_id}|'
                 f'{request.user.player.policeStation_id}|{request.user.player.friends}')
         else:
-            return HttpResponse('0')
+            return HttpResponse('0|User not found / Wrong password') #TODO wrong password abfrage (this)
 
     else:
-        return HttpResponse('0')
+        return HttpResponse('0|Request failed') 
 
 
 @login_required
@@ -50,10 +50,10 @@ def register_user(request):
             login(request, user)
             player = Player(user=user)
             player.save()
-            return HttpResponse('Register Success')
+            return HttpResponse('1')
         else:
-            return HttpResponse('Register Form Is Not Valid')
-    return HttpResponse('Register Failed')
+            return HttpResponse('0|Register Form is not valid')
+    return HttpResponse('0|Register failed')
 
 
 @login_required
