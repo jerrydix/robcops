@@ -26,7 +26,7 @@ public class LoginScreenUIManager : MonoBehaviour
     {
         if (success)
         {
-            //todo automatically log in
+            
             
         }
     }
