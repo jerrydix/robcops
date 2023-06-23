@@ -24,7 +24,7 @@ public class F_SignupForm : MonoBehaviour
         }
         else
         {
-            Debug.Log("Password are not same");
+            Debug.Log("0|Passwords are not the same");
         }
     }
 }

@@ -17,7 +17,7 @@ def login_user(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(request, username=username, password=password) 
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             return HttpResponse(
@@ -26,10 +26,10 @@ def login_user(request):
                 f'{request.user.player.role}|{request.user.player.robUnion_id}|'
                 f'{request.user.player.policeStation_id}|{request.user.player.friends}')
         else:
-            return HttpResponse('0|User not found / Wrong password') #TODO wrong password abfrage (this)
+            return HttpResponse('0|User not found / Wrong password')  # TODO wrong password abfrage (this)
 
     else:
-        return HttpResponse('0|Request failed') 
+        return HttpResponse('0|Request failed')
 
 
 @login_required
@@ -41,7 +41,7 @@ def logout_user(request):
 def register_user(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
-        print(form.errors)
+        error_message = form.errors.as_text()
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']
@@ -52,7 +52,7 @@ def register_user(request):
             player.save()
             return HttpResponse('1')
         else:
-            return HttpResponse('0|Register Form is not valid')
+            return HttpResponse(f'0|Register Form is not valid:{error_message}')
     return HttpResponse('0|Register failed')
 
 
@@ -154,11 +154,13 @@ def create_lobby(request, safeID):
 
 
 def get_all_safes(request):
-    response = "|".join(str(e).replace("(", "").replace(")", "") for e in list(Safe.objects.values_list('id',
-                                                                                                        'level',
-                                                                                                        'hp',
-                                                                                                        'locationX',
-                                                                                                        'locationY')))
+    response = "|".join(
+        str(e).replace("(", "").replace(")", "").replace(" ", "") for e in list(Safe.objects.values_list(
+            'id',
+            'level',
+            'hp',
+            'locationX',
+            'locationY')))
     return HttpResponse(response)
 
 
