@@ -107,6 +107,10 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < _spawnOnMap._locationStrings.Length; i++)
         {
+            if (_spawnOnMap._locationStrings[i] == null)
+            {
+                continue;
+            }
             // Get Location of Safe and Player
             var currentString = _spawnOnMap._locationStrings[i];
             var instance = Conversions.StringToLatLon(currentString);
@@ -141,6 +145,10 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < _spawnOnMap._locationStrings.Length; i++)
         {
+            if (_spawnOnMap._locationStrings[i] == null)
+            {
+                continue;
+            }
             //Get Locations of Safe and Player
 
             var currentString = _spawnOnMap._locationStrings[i];
