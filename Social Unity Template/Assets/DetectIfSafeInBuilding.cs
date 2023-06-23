@@ -33,10 +33,8 @@ public class DetectIfSafeInBuilding : MonoBehaviour
    {
       if (other.gameObject.CompareTag("Building"))
       {
-         Debug.Log("Connection");
-         _yeetedSafes.Add(gameObject);
-         _spawnOnMap._spawnedObjects.Remove(gameObject);
-         gameObject.Destroy();
+         //Debug.Log("Connection");
+         //gameObject.Destroy();
       }
    }
    */

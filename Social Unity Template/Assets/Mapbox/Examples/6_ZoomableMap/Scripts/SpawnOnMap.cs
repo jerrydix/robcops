@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 
 namespace Mapbox.Examples
@@ -35,7 +35,9 @@ namespace Mapbox.Examples
 		public List<GameObject> _spawnedObjects;
 		private List<GameObject> cubes = new List<GameObject>();
 
-		
+		[SerializeField]
+		private GameObject testo;
+	
 
 		void Start()
 		{
@@ -87,11 +89,10 @@ namespace Mapbox.Examples
 				instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);
 				instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 				_spawnedObjects.Add(instance);
+
 			}
-
-			activateUpdate = true;
-
-		}
+			
+        }
 
 
 
@@ -139,7 +140,33 @@ namespace Mapbox.Examples
 
 			}
 			
-			
+        }
+
+		public bool CheckIsFreePos(Vector3 position)
+		{
+			RaycastHit hit;
+			if(Physics.Raycast(position, Vector3.down, out hit, Mathf.Infinity))
+			{
+				if (hit.collider.gameObject.CompareTag("Building"))
+				{
+					Debug.Log("hit");
+					return false;
+				}
+			}
+			Debug.Log("no hit");
+			return true;
+		}
+
+		public Vector3 ConvertPos(Vector2d cordinate)
+		{
+			return _map.GeoToWorldPosition(cordinate, true);
+        }
+
+		public void test()
+		{
+			Vector3 v = testo.gameObject.transform.position;
+			v.y += 4;
+			CheckIsFreePos(v);
 		}
 		
 		
