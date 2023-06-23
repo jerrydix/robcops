@@ -50,7 +50,7 @@ def register_user(request):
             login(request, user)
             player = Player(user=user)
             player.save()
-            return HttpResponse('1')
+            return HttpResponse('1|Signup Successful')
         else:
             return HttpResponse(f'0|Register Form is not valid:{error_message}')
     return HttpResponse('0|Register failed')

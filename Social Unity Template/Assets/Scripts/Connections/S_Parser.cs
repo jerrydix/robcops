@@ -14,6 +14,7 @@ namespace Connections
     
     public static class S_Parser
     {
+
         public static List<string> ParseResponse(string contents, ResponseTypes type)
         {
             var substrings = contents.Split('|');
@@ -23,7 +24,7 @@ namespace Connections
             }
 
             var result = new List<string>();
-            for (int i = 1; i < substrings.Length; i++)
+            for (int i = 0; i < substrings.Length; i++)
             {
                 result.Add(substrings[i]);
             }

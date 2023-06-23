@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.WebSockets;
 using Connections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class S_UserLogin : MonoBehaviour
 {
@@ -53,7 +54,12 @@ public class S_UserLogin : MonoBehaviour
         using WWW www = new WWW(BASE_URL + socialTab + "login_user", form);
         yield return www;
         Debug.Log(www.text.TrimStart());
-        SetData(S_Parser.ParseResponse(www.text, ResponseTypes.Login));
+        string success = S_Parser.ParseResponse(www.text, ResponseTypes.Signup)[0];
+        if (success == "1")
+        {
+            SetData(S_Parser.ParseResponse(www.text, ResponseTypes.Login));
+            SceneManager.LoadScene(1);
+        }
     }
 
     public IEnumerator Signup(string username, string password, string passwordRepeat)
@@ -66,22 +72,27 @@ public class S_UserLogin : MonoBehaviour
         using WWW www = new WWW(BASE_URL + socialTab + "register_user", form);
         yield return www;
         Debug.Log(www.text.TrimStart());
+        string success = S_Parser.ParseResponse(www.text, ResponseTypes.Signup)[0];
+        Debug.Log(success);
+        if (success == "1")
+            login(username, password);
     }
 
     public IEnumerator Logout()
     {
         using WWW www = new WWW(BASE_URL + socialTab + "logout_user");
         yield return www;
+        Debug.Log(www.text.TrimStart());
     }
     
     public void SetData(List<string> list)
     {
-        username = list[0];
-        money = int.Parse(list[1]);
-        amountOfClicks = int.Parse(list[2]);
-        clickPower = float.Parse(list[3]);
-        location = new Vector2(float.Parse(list[4]), float.Parse(list[5]));
-        role = bool.Parse(list[6]);
+        username = list[1];
+        money = int.Parse(list[2]);
+        amountOfClicks = int.Parse(list[3]);
+        clickPower = float.Parse(list[4]);
+        location = new Vector2(float.Parse(list[5]), float.Parse(list[6]));
+        role = bool.Parse(list[7]);
         //guild = int.Parse(list[7]);
     }
 }

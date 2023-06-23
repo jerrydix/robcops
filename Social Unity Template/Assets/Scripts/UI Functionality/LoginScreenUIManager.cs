@@ -16,21 +16,6 @@ public class LoginScreenUIManager : MonoBehaviour
         registerScreen.SetActive(false);
     }
 
-    public void LoginButton(bool success)
-    {
-        if (success)
-            SceneManager.LoadScene(1); //todo load map scene
-    }
-
-    public void SignupAndLogin(bool success) //todo make coupled
-    {
-        if (success)
-        {
-            
-            
-        }
-    }
-
     public void BackButton()
     {
         registerScreen.SetActive(false);
