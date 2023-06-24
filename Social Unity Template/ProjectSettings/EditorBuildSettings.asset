@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/LoginScreen.unity
+    path: Assets/Scenes/Jerrys Scenes/LoginScreen.unity
     guid: edf382c03febeca4994529afbdb3d7f6
   - enabled: 1
-    path: Assets/Scenes/JerrysTestScene.unity
+    path: Assets/Scenes/Jerrys Scenes/JerrysTestScene.unity
     guid: cbd01d401057bca4c9c4cd8ff64145ac
   m_configObjects: {}
