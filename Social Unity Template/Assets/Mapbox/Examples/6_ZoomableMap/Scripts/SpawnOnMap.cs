@@ -53,7 +53,11 @@ namespace Mapbox.Examples
             int count = _spawnedObjects.Count;
             for (int i = 0; i < count; i++)
             {
-               
+
+                if (_spawnedObjects[i] == null)
+                {
+                    continue;
+                }
                 var spawnedObject = _spawnedObjects[i];
                 var location = _locations[i];
                 spawnedObject.transform.localPosition = _map.GeoToWorldPosition(location, true);
@@ -95,6 +99,8 @@ namespace Mapbox.Examples
                 if (!CheckIsFreePos(test.transform.position))
                 {
                     _locationStrings[i] = null;
+                    _spawnedObjects[i].Destroy();
+                    _spawnedObjects[i] = null;
                 }
             }
 
