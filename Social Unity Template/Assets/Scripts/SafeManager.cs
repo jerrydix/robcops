@@ -20,7 +20,7 @@ public class SafeManager : MonoBehaviour
 
     private void Start()
     {
-        _uiManager = GameObject.Find("UI").GetComponent<UIManager>();
+        //_uiManager = GameObject.Find("UI").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
