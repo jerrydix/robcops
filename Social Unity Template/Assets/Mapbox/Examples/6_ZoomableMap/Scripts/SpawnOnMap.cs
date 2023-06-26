@@ -29,7 +29,7 @@ namespace Mapbox.Examples
 
         public List<GameObject> _spawnedObjects;
         private List<GameObject> cubes = new List<GameObject>();
-
+        [SerializeField] private GameObject testo;
 
         void Start()
         {
