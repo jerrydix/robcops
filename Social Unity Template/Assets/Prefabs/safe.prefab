@@ -1512,6 +1512,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParticleEffectSafe
       objectReference: {fileID: 0}
+    - target: {fileID: 4738045709159830999, guid: d2258576ae983b04fa505f6ffeaef982, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2258576ae983b04fa505f6ffeaef982, type: 3}
 --- !u!4 &1620103844736987936 stripped
