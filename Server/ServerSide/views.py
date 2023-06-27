@@ -1,8 +1,10 @@
+import time
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
 
 from ServerSide.models import FriendRequest
 from ServerSide.models import *
@@ -173,3 +175,18 @@ def get_all_robunions(request):
 def get_robunion_members(request, robId):
     response = RobUnion.objects.get(id=robId).objects.all()
     return HttpResponse(response)
+
+
+@login_required
+def get_lobby_members(request):
+    response = request.user.player.event.members.count()
+    return HttpResponse(response)
+
+
+@login_required
+def damage_safe(request):
+    damage = int(request.user.player.amountOfClicks * request.user.player.clickPower)
+    safe = Safe.objects.get(id=request.user.player.event.safe.id)
+    safe.hp -= damage
+    safe.save()
+    return HttpResponse(safe.hp)

@@ -33,6 +33,8 @@ class PoliceStation(Guild):
 
 class RobUnion(Guild):
     machines = models.IntegerField(default=0)
+    machinesLevels = models.IntegerField(default=1)
+    hp = models.IntegerField(default=1)
 
 
 class Player(models.Model):
@@ -47,7 +49,9 @@ class Player(models.Model):
     robUnion = models.ForeignKey(RobUnion, null=True, blank=True, related_name='robUnion', on_delete=models.SET_NULL)
     policeStation = models.ForeignKey(PoliceStation, null=True, blank=True, related_name='police_station',
                                       on_delete=models.SET_NULL)
-    event = models.ForeignKey(BreakInEvent, null=True, blank=True, related_name='event', on_delete=models.SET_NULL)
+    event = models.ForeignKey(BreakInEvent, null=True, blank=True, related_name='members', on_delete=models.SET_NULL)
+    policeXP = models.IntegerField(default=0)
+    robberXP = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
