@@ -105,7 +105,7 @@ public class Player : MonoBehaviour
 
     private void CalculateDistanceWithImmediatePosition()
     {
-        for (int i = 0; i < _spawnOnMap._locationStrings.Length; i++)
+        for (int i = 0; i < _spawnOnMap._locationStrings.Count; i++)
         {
             if (_spawnOnMap._locationStrings[i] == null)
             {
@@ -143,7 +143,7 @@ public class Player : MonoBehaviour
 
     private void CalculateDistanceInEditor()
     {
-        for (int i = 0; i < _spawnOnMap._locationStrings.Length; i++)
+        for (int i = 0; i < _spawnOnMap._locationStrings.Count; i++)
         {
             if (_spawnOnMap._locationStrings[i] == null)
             {

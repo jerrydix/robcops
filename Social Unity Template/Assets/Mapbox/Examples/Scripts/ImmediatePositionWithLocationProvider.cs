@@ -36,6 +36,8 @@
 			{
 				var map = LocationProviderFactory.Instance.mapManager;
 				transform.localPosition = map.GeoToWorldPosition(LocationProvider.CurrentLocation.LatitudeLongitude);
+				_targetPosition = transform.localPosition;
+				
 			}
 		}
 	}

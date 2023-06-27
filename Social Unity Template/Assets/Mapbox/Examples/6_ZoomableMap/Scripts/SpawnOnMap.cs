@@ -14,7 +14,7 @@ namespace Mapbox.Examples
     {
         [SerializeField] AbstractMap _map;
 
-        [SerializeField] [Geocode] public string[] _locationStrings;
+        [SerializeField] [Geocode] public List<string> _locationStrings;
         Vector2d[] _locations;
         private Vector2d[] _cubeLocations;
 
@@ -69,12 +69,10 @@ namespace Mapbox.Examples
         private IEnumerator WaitForCubeLocationThenSpawnSafe()
         {
             yield return new WaitForSeconds(1);
-            _locations = new Vector2d[_locationStrings.Length];
+            _locations = new Vector2d[_locationStrings.Count];
             _spawnedObjects = new List<GameObject>();
-            for (int i = 0; i < _locationStrings.Length; i++)
+            for (int i = 0; i < _locationStrings.Count; i++)
             {
-               
-                
                 var locationString = _locationStrings[i];
                 _locations[i] = Conversions.StringToLatLon(locationString);
                 var instance = Instantiate(_markerPrefab);
@@ -109,8 +107,8 @@ namespace Mapbox.Examples
 
         private void CheckCollision()
         {
-            _cubeLocations = new Vector2d[_locationStrings.Length];
-            for (int i = 0; i < _locationStrings.Length; i++)
+            _cubeLocations = new Vector2d[_locationStrings.Count];
+            for (int i = 0; i < _locationStrings.Count; i++)
             {
                 var location = _locationStrings[i];
                 _cubeLocations[i] = Conversions.StringToLatLon(location);

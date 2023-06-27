@@ -48,7 +48,7 @@ public class CalculateDistanceToSafe : MonoBehaviour
 
     private void CalculateDistanceWithImmediatePosition()
     {
-        for (int i = 0; i < _spawnOnMap._locationStrings.Length; i++)
+        for (int i = 0; i < _spawnOnMap._locationStrings.Count; i++)
         {
             //Get Locations of Safes and Player
             var currentString = _spawnOnMap._locationStrings[i];
@@ -75,7 +75,7 @@ public class CalculateDistanceToSafe : MonoBehaviour
     
     private void CalculateDistanceInEditor()
     {
-        for(int i = 0; i < _spawnOnMap._locationStrings.Length; i++)
+        for(int i = 0; i < _spawnOnMap._locationStrings.Count; i++)
         {
             //Get Locations of Safes and Player
             var currentString = _spawnOnMap._locationStrings[i];

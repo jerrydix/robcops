@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Jerrys Scenes/LoginScreen.unity
     guid: edf382c03febeca4994529afbdb3d7f6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Jerrys Scenes/JerrysTestScene.unity
     guid: cbd01d401057bca4c9c4cd8ff64145ac
+  - enabled: 1
+    path: Assets/Scenes/TestScene_Jorge.unity
+    guid: 3c6e0a4fb0166ef41b8fc91afa4c3647
   m_configObjects: {}
