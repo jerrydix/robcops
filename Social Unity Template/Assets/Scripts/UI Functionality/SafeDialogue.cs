@@ -11,17 +11,6 @@ public class SafeDialogue : MonoBehaviour
     private TextMeshProUGUI _addressText;
     private TextMeshProUGUI _lobbyText;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void InitializeSafe(string safeDescriptionText, string addressText, string lobbyText)
     {
         _safeDescriptionText.text = safeDescriptionText;
