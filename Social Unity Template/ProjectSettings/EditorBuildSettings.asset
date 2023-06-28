@@ -5,13 +5,28 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Jerrys Scenes/LoginScreen.unity
     guid: edf382c03febeca4994529afbdb3d7f6
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Scenes/Jerrys Scenes/New_jerry_test_scene.unity
+    guid: b09d439d70d8eb34899b1d7f71818743
+  - enabled: 1
     path: Assets/Scenes/Jerrys Scenes/JerrysTestScene.unity
     guid: cbd01d401057bca4c9c4cd8ff64145ac
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene_Jorge.unity
     guid: 3c6e0a4fb0166ef41b8fc91afa4c3647
+  - enabled: 1
+    path: Assets/Scenes/PoliceStation.unity
+    guid: f419f2ed1fe008a48b4bce57fe061417
+  - enabled: 1
+    path: Assets/Scenes/Robunion.unity
+    guid: 94b9ea8460071b44c862a9e6725a351a
+  - enabled: 1
+    path: Assets/Scenes/Backend_Test.unity
+    guid: 88f185ab4884a3745a83fa4cab0fe7ca
+  - enabled: 1
+    path: Assets/Scenes/Mobile/Clicker Game.unity
+    guid: ee703eb0c80af7d4cbba7c083a85bc36
   m_configObjects: {}
