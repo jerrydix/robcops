@@ -1,29 +1,11 @@
 using Mapbox.Unity.Map;
-using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class SpawnChecker : MonoBehaviour
+public static class SpawnChecker
 {
-    [SerializeField]
-    AbstractMap _map;
 
-    [SerializeField]
-    private GameObject testo;
-
-    private int two = 2;
-
-
-    private void Update()
-    {
-       
-        //test();
-    }
-
-    public bool CheckObjectFreePosition(GameObject obj, Vector3 position) //Assume position to be the center
+    public static bool CheckObjectFreePosition(GameObject obj, Vector3 position) //Assume position to be the center
     {
         Vector3[] points = new Vector3[4];
         Vector3 scale = obj.transform.localScale;
@@ -42,30 +24,25 @@ public class SpawnChecker : MonoBehaviour
         return true;
     }
 
-    public bool CheckIsFreePos(Vector3 position)
+    public static bool CheckIsFreePos(Vector3 position)
     {
         RaycastHit hit;
         if (Physics.Raycast(position, Vector3.down, out hit, Mathf.Infinity))
         {
-            if (hit.collider.gameObject.CompareTag("Building"))
+            GameObject other = hit.collider.gameObject;
+            if (other.CompareTag("Building") || other.CompareTag("Safe"))
             {
-                Debug.Log("hit");
+                //Debug.Log("hit");
                 return false;
             }
         }
-        Debug.Log("no hit");
+        //Debug.Log("no hit");
         return true;
     }
 
-    public Vector3 ConvertPos(Vector2d cordinate)
+    public static Vector3 ConvertPos(AbstractMap map, Vector2d cordinate)
     {
-        return _map.GeoToWorldPosition(cordinate, true);
-    }
-
-    public void test()
-    {
-        CheckObjectFreePosition(testo, testo.transform.position);
-        //CheckIsFreePos(testo.transform.position);
+        return map.GeoToWorldPosition(cordinate, true);
     }
 
 
