@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Mapbox.Unity.Location;
 
 namespace Mapbox.Examples
 {
@@ -30,10 +31,13 @@ namespace Mapbox.Examples
         public List<GameObject> _spawnedObjects;
         private List<GameObject> cubes = new List<GameObject>();
         [SerializeField] private GameObject testo;
+        private LocationArrayEditorLocationProvider _locationArrayEditorLocationProvider;
 
         void Start()
         {
-            CheckCollision();
+            _locationArrayEditorLocationProvider = GameObject.FindWithTag("EditorOnly")
+                .GetComponent<LocationArrayEditorLocationProvider>();
+            SpawnCubes();
             StartCoroutine(WaitForCubeLocationThenSpawnSafe());
         }
 
@@ -94,7 +98,7 @@ namespace Mapbox.Examples
                 test.transform.position = new Vector3(_map.GeoToWorldPosition(location, true).x, 3,
                     _map.GeoToWorldPosition(location, true).z);
                 test.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-                if (!CheckIsFreePos(test.transform.position))
+                if (!CheckIsFreePos(test.transform.position) | !CalculateDistanceInEditor(location))
                 {
                     _locationStrings[i] = null;
                     _spawnedObjects[i].Destroy();
@@ -105,7 +109,7 @@ namespace Mapbox.Examples
             activateUpdate = true;
         }
 
-        private void CheckCollision()
+        private void SpawnCubes()
         {
             _cubeLocations = new Vector2d[_locationStrings.Count];
             for (int i = 0; i < _locationStrings.Count; i++)
@@ -121,6 +125,45 @@ namespace Mapbox.Examples
                 pos.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
                 cubes.Add(pos);
             }
+        }
+
+        private bool CalculateDistanceInEditor(Vector2d location)
+        {
+            for (int i = 0; i < _locationStrings.Count; i++)
+            {
+                if (_locationStrings[i] == null)
+                {
+                    continue;
+                }
+                //Get Locations of Safe and Player
+
+                //var currentString = _locationStrings[i];
+                var instance = location;
+                var x = Conversions.StringToLatLon(_locationArrayEditorLocationProvider._latitudeLongitude[0]);
+                double playerLocation = x.x;
+                double playerLocationy = x.y;
+
+                //Calculate the Distance
+
+                var deltaLat = (instance.x - playerLocation) * Mathd.PI / 180;
+                var deltaLon = (instance.y - playerLocationy) * Mathd.PI / 180;
+
+                var calc = (Mathd.Pow(Mathd.Sin(deltaLat / 2), 2) + Mathd.Cos(playerLocation * Mathd.PI / 180)
+                    * Mathd.Cos(instance.x * Mathd.PI / 180) * Mathd.Pow(Mathd.Sin(deltaLon / 2), 2));
+                var temp = 2 * Mathd.Atan2(Mathd.Sqrt(calc), Mathd.Sqrt(1 - calc));
+                var result = 6371 * temp;
+                result *= 1000;
+                var finalResult = Mathd.Abs(result);
+
+                //Filter Safes that are more than 1km away
+
+                if (finalResult <= 350)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool CheckIsFreePos(Vector3 position)
