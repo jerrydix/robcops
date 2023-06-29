@@ -13,30 +13,47 @@ public class ClickerGameUIManager : MonoBehaviour
 
     private float _clickDamageMultiplier;
     [HideInInspector] public float currentSafeHealth;
+    [HideInInspector] public float maxSafeHealth;
+    
     [HideInInspector] public int safeLevel = 1;
     
     [SerializeField] public Sprite[] safeSprites;
     [SerializeField] private Image currentImage;
 
     [SerializeField] private Animator animator;
+
+    [SerializeField] public HealthBarSkript hpBar;
     // Start is called before the first frame update
     void Start()
     {
         _clickDamageMultiplier = 1; //get from GameManager
-        currentSafeHealth = 100; //get from gameManager according to level
+        maxSafeHealth = 100;
+        currentSafeHealth = maxSafeHealth; //get from gameManager according to level
         currentImage.sprite = safeSprites[safeLevel + 1];
+        hpBar = new HealthBarSkript();
+        hpBar.setMaxHp(currentSafeHealth);
+        hpBar.setHp(currentSafeHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
     public void DamageSafe()
     {
+        /*if (currentSafeHealth == maxSafeHealth)
+        {
+            
+            hpBar.setMaxHp(currentSafeHealth);
+            hpBar.setHp(currentSafeHealth);
+        }*/
         currentSafeHealth -= 1 * _clickDamageMultiplier;
         animator.SetTrigger("ClickTrigger");
+        
+        hpBar.setHp(currentSafeHealth);
         //todo Instantiate sprite for click or wobble safe (visual click feedback)
+        
     }
 }
