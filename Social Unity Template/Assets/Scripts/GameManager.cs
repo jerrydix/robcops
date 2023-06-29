@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Mapbox.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -46,14 +47,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            ImmediatePositionWithLocationProvider =
-                GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
-            client = GameObject.FindWithTag("Server").GetComponent<S_UserLogin>();
-            spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
-        }
-        
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         if (Instance == null)
         {
             Instance = this;
@@ -63,6 +58,24 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.buildIndex == 1)
+        {
+            ImmediatePositionWithLocationProvider =
+                GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
+            client = GameObject.FindWithTag("Server").GetComponent<S_UserLogin>();
+            spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
+        }
+        
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
 
     public void GetAllSafes()
     {
@@ -71,14 +84,15 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator SendSafeToServer()
     {
-        string locationX = ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString();
-        string locationY = ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString();
+        string locationX = 48.264518.ToString();//ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(CultureInfo.InvariantCulture);
+        string locationY = 11.6713515.ToString();//ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(CultureInfo.InvariantCulture);
         
         WWWForm form = new WWWForm();
         form.AddField("level", level);
         form.AddField("hp", hp);
         form.AddField("locationX", locationX);
         form.AddField("locationY", locationY);
+        Debug.Log(client);
         using WWW www = new WWW(client.BASE_URL + "create_safe/", form);
         yield return www;
         Debug.Log(www.text);
@@ -120,6 +134,7 @@ public class GameManager : MonoBehaviour
         using WWW www = new WWW(BASE_URL + "get_money/");
         yield return www;
         string temp = www.text;
+        Debug.Log(temp);
         money = int.Parse(temp);
         if (money < 2000 & money > 100)
         {

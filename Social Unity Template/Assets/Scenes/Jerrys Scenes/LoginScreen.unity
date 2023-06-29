@@ -972,7 +972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BASE_URL: http://127.0.0.1:8000/
   socialTab: members/
-  manager: {fileID: 0}
+  manager: {fileID: 968689975}
 --- !u!4 &343435034
 Transform:
   m_ObjectHideFlags: 0

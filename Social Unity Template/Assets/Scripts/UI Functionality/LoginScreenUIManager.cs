@@ -8,7 +8,6 @@ public class LoginScreenUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject loginScreen;
     [SerializeField] private GameObject registerScreen;
-    [SerializeField]
 
     private void Awake()
     {
