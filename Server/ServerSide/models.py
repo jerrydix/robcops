@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -14,6 +16,8 @@ class Safe(models.Model):
 
 class BreakInEvent(models.Model):
     safe = models.OneToOneField(Safe, on_delete=models.CASCADE, primary_key=True)
+    startTime = models.DateTimeField(default=datetime.datetime.now(), auto_now=False, auto_now_add=False)
+    isStarted = models.BooleanField(default=False)
 
 
 class Guild(models.Model):

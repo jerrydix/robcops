@@ -1,3 +1,4 @@
+import datetime
 import time
 
 from django.contrib.auth.decorators import login_required
@@ -99,8 +100,7 @@ def get_money(request):
         return HttpResponse('Not signed in')
     if request.method != 'GET':
         return HttpResponse('Incorrect request method')
-    response = f'money player: {request.user.player.money}'
-    return HttpResponse(response)
+    return HttpResponse(request.user.player.money)
 
 
 def get_amount_of_clicks(request):
@@ -205,3 +205,33 @@ def damage_safe(request):
     safe.hp -= damage
     safe.save()
     return HttpResponse(safe.hp)
+
+
+@login_required
+def getTimeUntilEnd(request):
+    now = datetime.datetime.now()
+    start = request.user.player.event.startTime.replace(tzinfo=None)
+    diff = now - start
+    return HttpResponse(diff)
+
+
+@login_required
+def joinToEvent(request, safeId):
+    safe = Safe.objects.get(id=safeId)
+    request.user.player.event = safe.breakinevent
+    request.user.player.save()
+    response = request.user.player.event.members.count()
+    return HttpResponse(response)
+
+
+@login_required
+def checkIfStarted(request):
+    return HttpResponse(request.user.player.event.isStarted)
+
+
+@login_required
+def startBreakIn(request):
+    request.user.player.event.isStarted = True
+    request.user.player.event.startTime = datetime.datetime.now()
+    request.user.player.event.save()
+    return HttpResponse(request.user.player.event.startTime)

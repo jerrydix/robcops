@@ -36,6 +36,10 @@ urlpatterns = [
     path('create_lobby/<int:safeID>/', views.create_lobby, name='create_lobby'),
     path('get_lobby_members/', views.get_lobby_members, name='get_lobby_members'),
     path('damage_safe/', views.damage_safe, name='damage_safe'),
+    path('getTimeUntilEnd/', views.getTimeUntilEnd, name='getTimeUntilEnd'),
+    path('joinToEvent/<int:safeId>', views.joinToEvent, name='joinToEvent'),
+    path('checkIfStarted/', views.checkIfStarted, name='checkIfStarted'),
+    path('startBreakIn/', views.startBreakIn, name='startBreakIn'),
 
     # Get Lists
     path('get_all_safes/', views.get_all_safes, name='get_all_safes'),
