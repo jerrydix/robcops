@@ -30,7 +30,6 @@ public class ClickerGameUIManager : MonoBehaviour
         maxSafeHealth = 100;
         currentSafeHealth = maxSafeHealth; //get from gameManager according to level
         currentImage.sprite = safeSprites[safeLevel + 1];
-        hpBar = new HealthBarSkript();
         hpBar.setMaxHp(currentSafeHealth);
         hpBar.setHp(currentSafeHealth);
     }
