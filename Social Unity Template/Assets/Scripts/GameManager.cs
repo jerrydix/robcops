@@ -5,6 +5,7 @@ using Mapbox.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,8 +24,8 @@ public class GameManager : MonoBehaviour
     private ImmediatePositionWithLocationProvider ImmediatePositionWithLocationProvider;
 
     private SpawnOnMap spawnOnMap;
-    private static GameManager instance;
-    private GameManager()
+    public static GameManager Instance { set; get; }
+    /*private GameManager()
     {
         if (instance != null)
             return;
@@ -41,19 +42,23 @@ public class GameManager : MonoBehaviour
             }
             return instance;
         }
-    }
+    }*/
 
     private void Start()
     {
-        ImmediatePositionWithLocationProvider =
-            GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
-        client = GameObject.FindWithTag("Server").GetComponent<S_UserLogin>();
-        spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
-        if (instance == null)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            instance = this;
+            ImmediatePositionWithLocationProvider =
+                GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
+            client = GameObject.FindWithTag("Server").GetComponent<S_UserLogin>();
+            spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
+        }
+        
+        if (Instance == null)
+        {
+            Instance = this;
             DontDestroyOnLoad(gameObject);
-        } else if (instance != this)
+        } else if (Instance != this)
         {
             Destroy(gameObject);
         }
