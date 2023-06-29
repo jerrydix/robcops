@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
                 GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
             client = GameObject.FindWithTag("Server").GetComponent<S_UserLogin>();
             spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
+            Instance.GetAllSafes();
         }
         
     }
@@ -80,6 +81,11 @@ public class GameManager : MonoBehaviour
     public void GetAllSafes()
     {
         StartCoroutine(getSafeInfo());
+    }
+    
+    public void InitializeSafe()
+    {
+        StartCoroutine(getMoneyAndSetLevel());
     }
 
     public IEnumerator SendSafeToServer()

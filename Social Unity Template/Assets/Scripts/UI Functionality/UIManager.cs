@@ -77,7 +77,11 @@ public class UIManager : MonoBehaviour
 
     public void PlaceSafeButton()
     {
-        //stuff
-        StartCoroutine(GameManager.Instance.getMoneyAndSetLevel());
+        GameManager.Instance.InitializeSafe();
+    }
+
+    public void GetInfoButton()
+    {
+        GameManager.Instance.GetAllSafes();
     }
 }
