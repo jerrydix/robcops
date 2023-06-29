@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Mapbox.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,6 +29,15 @@ public class GameManager : MonoBehaviour
     public void GetAllSafes()
     {
         StartCoroutine(getSafeInfo());
+    }
+
+    public IEnumerator SendSafeToServer()
+    {
+        
+        using WWW www = new WWW(BASE_URL + "create_safe/");
+        yield return www;
+        Debug.Log(www.text);
+
     }
     
     public IEnumerator getSafeInfo()

@@ -39,7 +39,7 @@ namespace Mapbox.Examples
         public List<int> hps = new List<int>();
 
         void Start()
-        {
+        { 
             gm = GameObject.FindWithTag("GM").GetComponent<GameManager>();
             _locationArrayEditorLocationProvider = GameObject.FindWithTag("EditorOnly")
                 .GetComponent<LocationArrayEditorLocationProvider>();
