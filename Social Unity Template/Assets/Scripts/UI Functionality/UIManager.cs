@@ -17,7 +17,9 @@ public class UIManager : MonoBehaviour
 
     private int currentXP; //verbinden mit gamemanager
     private int XPthreshold;
-    private bool switchButtonActivated; // verbinden mit game manager
+    private bool switchButtonActivated;
+    
+    // verbinden mit game manager
     //get current role gamemanager
 
     private void Start()
@@ -67,11 +69,6 @@ public class UIManager : MonoBehaviour
         }     
     }
 
-    private void OnEnable()
-    {
-        switchRoleButton.interactable = switchButtonActivated;
-    }
-
     public void SwitchRoleButton()
     {
         switchRoleDialogue.gameObject.SetActive(true);
@@ -81,5 +78,6 @@ public class UIManager : MonoBehaviour
     public void PlaceSafeButton()
     {
         //stuff
+        StartCoroutine(GameManager.Instance.getMoneyAndSetLevel());
     }
 }

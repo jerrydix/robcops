@@ -5,6 +5,7 @@ using Mapbox.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,13 +18,50 @@ public class GameManager : MonoBehaviour
     private float clickPower;
     private Vector2 location = new Vector2();
     private Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
+    private int level;
+    private int hp;
+    private S_UserLogin client;
+    private ImmediatePositionWithLocationProvider ImmediatePositionWithLocationProvider;
 
     private SpawnOnMap spawnOnMap;
-
+    public static GameManager Instance { set; get; }
+    /*private GameManager()
+    {
+        if (instance != null)
+            return;
+        instance = this;
+    }
+    
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new GameManager();
+            }
+            return instance;
+        }
+    }*/
 
     private void Start()
     {
-        spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            ImmediatePositionWithLocationProvider =
+                GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
+            client = GameObject.FindWithTag("Server").GetComponent<S_UserLogin>();
+            spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
+        }
+        
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void GetAllSafes()
@@ -33,8 +71,15 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator SendSafeToServer()
     {
+        string locationX = ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString();
+        string locationY = ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString();
         
-        using WWW www = new WWW(BASE_URL + "create_safe/");
+        WWWForm form = new WWWForm();
+        form.AddField("level", level);
+        form.AddField("hp", hp);
+        form.AddField("locationX", locationX);
+        form.AddField("locationY", locationY);
+        using WWW www = new WWW(client.BASE_URL + "create_safe/", form);
         yield return www;
         Debug.Log(www.text);
 
@@ -68,5 +113,35 @@ public class GameManager : MonoBehaviour
         spawnOnMap._locationStrings = locations;
         spawnOnMap.SpawnCubes();
         spawnOnMap.waitForCubeLocationThenSpawnSafe();
+    }
+    
+    public IEnumerator getMoneyAndSetLevel()
+    {
+        using WWW www = new WWW(BASE_URL + "get_money/");
+        yield return www;
+        string temp = www.text;
+        money = int.Parse(temp);
+        if (money < 2000 & money > 100)
+        {
+            level = 1;
+            
+        } 
+        else if (money < 5000 && money > 2000)
+        {
+            level = 2;
+            
+        }
+        else if (money < 10000 && money > 5000)
+        {
+            level = 3;
+            
+        }
+        else if(money < 20000 && money > 10000)
+        {
+            level = 4;
+        }
+
+        hp = 1000 * level;
+        StartCoroutine(SendSafeToServer());
     }
 }
