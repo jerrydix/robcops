@@ -31,8 +31,6 @@ ALLOWED_HOSTS = []
 # Added 'ServerSide.apps.ServersideConfig' to activate models
 
 INSTALLED_APPS = [
-    'daphne',
-    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -72,8 +70,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Server.wsgi.application'
-
-ASGI_APPLICATION = 'Server.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
