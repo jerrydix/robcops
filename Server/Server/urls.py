@@ -31,7 +31,8 @@ urlpatterns = [
     path('get_money/', views.get_money, name='get_money'),
 
     # Lobby Settings
-    path('create_safe/', views.create_test_safe, name='create_safe'),
+    path('create_personal_safe/', views.create_personal_safe, name='create_personal_safe'),
+    path('create_safe/', views.create_safe, name="create_safe"),
     path('create_lobby/<int:safeID>/', views.create_lobby, name='create_lobby'),
     path('get_lobby_members/', views.get_lobby_members, name='get_lobby_members'),
     path('damage_safe/', views.damage_safe, name='damage_safe'),

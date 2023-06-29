@@ -126,10 +126,25 @@ def edit_amount_of_clicks(request):
 
 
 @login_required
-def create_test_safe(request):
+def create_personal_safe(request):
     safe = Safe(locationX=request.user.player.locationX, locationY=request.user.player.locationY)
     safe.save()
     return HttpResponse(safe.id)
+
+
+@login_required
+def create_safe(request):
+    if request.method != 'POST':
+        return HttpResponse('Incorrect request method')
+    else:
+        lvl = request.POST["level"]
+        hp = request.POST["hp"]
+        x = request.POST["locationX"]
+        y = request.POST["locationY"]
+        safe = Safe(level=lvl, hp=hp, locationX=x, locationY=y)
+        safe.save()
+        response = f"Safe {safe.id} level {lvl} with {hp} hp placed at the following location: {x}, {y}"
+        return HttpResponse(response)
 
 
 @login_required

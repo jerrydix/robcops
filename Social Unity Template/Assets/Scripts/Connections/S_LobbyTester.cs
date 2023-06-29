@@ -7,7 +7,11 @@ public class S_LobbyTester : MonoBehaviour
 {
     private S_UserLogin client;
     public TMP_InputField id;
-
+    public TMP_InputField level;
+    public TMP_InputField hp;
+    public TMP_InputField locationX;
+    public TMP_InputField locationY;
+    
     private void Start()
     {
         client = GameObject.FindWithTag("Server").GetComponent<S_UserLogin>();
@@ -27,7 +31,12 @@ public class S_LobbyTester : MonoBehaviour
     
     public IEnumerator CreateSafe()
     {
-        using WWW www = new WWW(client.BASE_URL + "create_safe/");
+        WWWForm form = new WWWForm();
+        form.AddField("level", level.text);
+        form.AddField("hp", hp.text);
+        form.AddField("locationX", locationX.text);
+        form.AddField("locationY", locationY.text);
+        using WWW www = new WWW(client.BASE_URL + "create_safe/", form);
         yield return www;
         Debug.Log(www.text);
     }

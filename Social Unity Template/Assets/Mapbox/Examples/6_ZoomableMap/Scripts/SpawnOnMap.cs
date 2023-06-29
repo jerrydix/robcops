@@ -32,12 +32,21 @@ namespace Mapbox.Examples
         private List<GameObject> cubes = new List<GameObject>();
         [SerializeField] private GameObject testo;
         private LocationArrayEditorLocationProvider _locationArrayEditorLocationProvider;
+        
+        private GameManager gm;
+        public List<int> ids = new List<int>();
+        public List<int> levels = new List<int>();
+        public List<int> hps = new List<int>();
 
         void Start()
         {
+            gm = GameObject.FindWithTag("GM").GetComponent<GameManager>();
             _locationArrayEditorLocationProvider = GameObject.FindWithTag("EditorOnly")
                 .GetComponent<LocationArrayEditorLocationProvider>();
-            SpawnCubes();
+        }
+
+        public void waitForCubeLocationThenSpawnSafe()
+        {
             StartCoroutine(WaitForCubeLocationThenSpawnSafe());
         }
 
@@ -57,7 +66,6 @@ namespace Mapbox.Examples
             int count = _spawnedObjects.Count;
             for (int i = 0; i < count; i++)
             {
-
                 if (_spawnedObjects[i] == null)
                 {
                     continue;
@@ -66,11 +74,11 @@ namespace Mapbox.Examples
                 var location = _locations[i];
                 spawnedObject.transform.localPosition = _map.GeoToWorldPosition(location, true);
                 spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-                Debug.Log("SpawnedSafe");
+                //Debug.Log("SpawnedSafe");
             }
         }
 
-        private IEnumerator WaitForCubeLocationThenSpawnSafe()
+        public IEnumerator WaitForCubeLocationThenSpawnSafe()
         {
             yield return new WaitForSeconds(1);
             _locations = new Vector2d[_locationStrings.Count];
@@ -85,7 +93,6 @@ namespace Mapbox.Examples
                 _spawnedObjects.Add(instance);
             }
         }
-
 
         private IEnumerator UpdateCubeLocation()
         {
@@ -109,7 +116,7 @@ namespace Mapbox.Examples
             activateUpdate = true;
         }
 
-        private void SpawnCubes()
+        public void SpawnCubes()
         {
             _cubeLocations = new Vector2d[_locationStrings.Count];
             for (int i = 0; i < _locationStrings.Count; i++)
@@ -173,12 +180,12 @@ namespace Mapbox.Examples
             {
                 if (hit.collider.gameObject.CompareTag("Building"))
                 {
-                    Debug.Log("hit");
+                    //Debug.Log("hit");
                     return false;
                 }
             }
 
-            Debug.Log("no hit");
+            //Debug.Log("no hit");
             return true;
         }
 

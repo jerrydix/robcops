@@ -10,6 +10,7 @@ TagManager:
   - Server
   - Spawner
   - Building
+  - GM
   layers:
   - Default
   - TransparentFX

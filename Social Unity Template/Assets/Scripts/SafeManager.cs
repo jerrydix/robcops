@@ -11,6 +11,7 @@ public class SafeManager : MonoBehaviour
     private string _safeDescriptionText;
     private string _addressText;
     private string _lobbyText;
+    private S_UserLogin client;
 
     // Start is called before the first frame update
     void Awake()
@@ -20,15 +21,9 @@ public class SafeManager : MonoBehaviour
 
     private void Start()
     {
-        //_uiManager = GameObject.Find("UI").GetComponent<UIManager>();
+        _uiManager = GameObject.Find("UI").GetComponent<UIManager>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     public void SafeClicked()
     {
         Debug.Log("safe clicked");
