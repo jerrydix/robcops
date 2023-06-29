@@ -45,6 +45,7 @@ urlpatterns = [
     path('get_all_safes/', views.get_all_safes, name='get_all_safes'),
     path('get_all_robunions/', views.get_all_robunions, name='get_all_robunions'),
     path('get_robunion_members/<int:robId>', views.get_robunion_members, name='get_robunion_members'),
+    path('get_all_locations/', views.get_all_locations, name='get_all_locations'),
 
     # Guild
     path('create_test_robunion/', views.create_test_robunion, name='create_test_robunion'),

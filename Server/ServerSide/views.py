@@ -141,7 +141,7 @@ def create_safe(request):
         hp = request.POST["hp"]
         x = request.POST["locationX"]
         y = request.POST["locationY"]
-        safe = Safe(level=lvl, hp=hp, locationX=x, locationY=y)
+        safe = Safe(level=lvl, hp=hp, locationX=float(x), locationY=float(y))
         safe.save()
         response = f"Safe {safe.id} level {lvl} with {hp} hp placed at the following location: {x}, {y}"
         return HttpResponse(response)
@@ -235,3 +235,10 @@ def startBreakIn(request):
     request.user.player.event.startTime = datetime.datetime.now()
     request.user.player.event.save()
     return HttpResponse(request.user.player.event.startTime)
+
+
+def get_all_locations(request):
+    response = "|".join(str(e).replace("(", "").replace(")", "") for e in list(Player.objects.values_list('role',
+                                                                                                          'locationX',
+                                                                                                          'locationY')))
+    return HttpResponse(response)

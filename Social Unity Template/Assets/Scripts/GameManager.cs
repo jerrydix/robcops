@@ -84,8 +84,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator SendSafeToServer()
     {
-        string locationX = 48.264518.ToString();//ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(CultureInfo.InvariantCulture);
-        string locationY = 11.6713515.ToString();//ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(CultureInfo.InvariantCulture);
+        string locationX = 48.264518.ToString().Replace(",", ".");//ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(CultureInfo.InvariantCulture);
+        string locationY = 11.6713515.ToString().Replace(",", ".");//ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(CultureInfo.InvariantCulture);
         
         WWWForm form = new WWWForm();
         form.AddField("level", level);
