@@ -37,7 +37,7 @@ urlpatterns = [
     path('get_lobby_members/', views.get_lobby_members, name='get_lobby_members'),
     path('damage_safe/', views.damage_safe, name='damage_safe'),
     path('getTimeUntilEnd/', views.getTimeUntilEnd, name='getTimeUntilEnd'),
-    path('joinToEvent/<int:safeId>', views.joinToEvent, name='joinToEvent'),
+    path('joinToEvent/<int:safeId>/', views.joinToEvent, name='joinToEvent'),
     path('checkIfStarted/', views.checkIfStarted, name='checkIfStarted'),
     path('startBreakIn/', views.startBreakIn, name='startBreakIn'),
 
@@ -49,10 +49,17 @@ urlpatterns = [
 
     # Guild
     path('create_test_robunion/', views.create_test_robunion, name='create_test_robunion'),
+    path('create_police_station/', views.create_police_station, name='create_police_station'),
+    path('join_rob_union/<int:robId>/', views.join_rob_union, name='join_rob_union'),
+    path('join_police_station/<int:policeId>/', views.join_police_station, name='join_police_station'),
+    path('buy_powerup/<int:item>/', views.buy_powerup, name='buy_powerup'),
+    path('donate_to_guild/', views.donate_to_guild, name='donate_to_guild'),
+    path('add_upgrades_to_lobby/<int:item>/', views.add_upgrades_to_lobby, name='add_upgrades_to_lobby'),
 
     # Amount of clicks
-    path('edit_amount_of_clicks/', views.edit_amount_of_clicks, name='edit_amount_of_clicks'),
     path('get_amount_of_clicks/', views.get_amount_of_clicks, name='get_amount_of_clicks'),
+    path('upgrade_click_power/', views.upgrade_click_power, name="upgrade_click_power"),
+    path('upgrade_amount_of_clicks/', views.upgrade_amount_of_clicks, name="upgrade_amount_of_clicks"),
 
     # path('members/', include('django.contrib.auth.urls'))
     path('members/login_user', views.login_user, name='login_user'),

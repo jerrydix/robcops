@@ -113,19 +113,6 @@ def get_amount_of_clicks(request):
 
 
 @login_required
-def edit_amount_of_clicks(request):
-    if not request.user.is_authenticated:
-        return HttpResponse('Not signed in')
-    if request.method != 'POST':
-        return HttpResponse('Incorrect request method')
-    amountOfClicks = request.POST['amountOfClicks']
-    request.user.player.amountOfClicks = int(amountOfClicks)
-    request.user.player.save()
-    response = f'0: changed the amountOfClicks of {request.user.username} to {amountOfClicks}'
-    return HttpResponse(response)
-
-
-@login_required
 def create_personal_safe(request):
     safe = Safe(locationX=request.user.player.locationX, locationY=request.user.player.locationY)
     safe.save()
@@ -161,6 +148,19 @@ def create_test_robunion(request):
 
 
 @login_required
+def create_police_station(request):
+    if not request.user.player.role:
+        police_station = PoliceStation(name=request.POST['name'])
+        police_station.save()
+        request.user.player.policeStation = police_station
+        request.user.player.robUnion = None
+        request.user.player.save()
+    else:
+        return HttpResponse("You are robber")
+    return HttpResponse(police_station.id)
+
+
+@login_required
 def create_lobby(request, safeID):
     safe = Safe.objects.get(id=safeID)
     breakIn = BreakInEvent(safe=safe)
@@ -188,7 +188,7 @@ def get_all_robunions(request):
 
 
 def get_robunion_members(request, robId):
-    response = RobUnion.objects.get(id=robId).objects.all()
+    response = RobUnion.objects.get(id=robId).robUnion.all()
     return HttpResponse(response)
 
 
@@ -242,3 +242,121 @@ def get_all_locations(request):
                                                                                                           'locationX',
                                                                                                           'locationY')))
     return HttpResponse(response)
+
+
+@login_required
+def buy_powerup(request, item):
+    union = request.user.player.robUnion
+    members = union.robUnion.all()
+    if item == 0:
+        if union.guildMoney < 1000:
+            return HttpResponse("0|Not enough money")
+        else:
+            for a in members:
+                a.c4 += 1
+                a.save()
+    elif item == 1:
+        if union.guildMoney < 5000:
+            return HttpResponse("0|Not enough money")
+        else:
+            for a in members:
+                a.alarmDisabler += 1
+                a.save()
+    return HttpResponse("1|Success")
+
+
+@login_required
+def join_rob_union(request, robId):
+    if request.user.player.role == 1:
+        return HttpResponse("0| You are cop. Have a good day")
+    else:
+        request.user.player.policeStation = None
+        union = RobUnion.objects.get(id=robId)
+        request.user.player.robUnion = union
+        request.user.player.save()
+        return HttpResponse(request.user.player.robUnion.id)
+
+
+@login_required
+def join_police_station(request, policeId):
+    if request.user.player.role == 0:
+        return HttpResponse("0| You are rob. Have a good day")
+    else:
+        request.user.player.robUnion = None
+        station = PoliceStation.objects.get(id=policeId)
+        request.user.player.policeStation = station
+        request.user.player.save()
+        return HttpResponse(request.user.player.policeStation.id)
+
+
+@login_required
+def donate_to_guild(request):
+    money = request.user.player.money / 2
+    if request.user.player.role == 0:
+        request.user.player.robUnion.guildMoney += money
+        request.user.player.money -= money
+        request.user.player.robUnion.save()
+        request.user.player.save()
+        response = f"{request.user.player.robUnion.guildMoney}"
+        return HttpResponse(response)
+    else:
+        request.user.player.policeStation.guildMoney += money
+        request.user.player.money -= money
+        request.user.player.policeStation.save()
+        request.user.player.save()
+        response = f"{request.user.player.policeStation.guildMoney}"
+        return HttpResponse(response)
+
+
+@login_required
+def upgrade_amount_of_clicks(request):
+    if request.method != 'POST':
+        return HttpResponse("0|False method")
+    else:
+        cost = request.POST["cost"]
+        if request.user.player.money < cost:
+            return HttpResponse("0|You have not enough money")
+        else:
+            request.user.player.money -= cost
+            request.user.player.amountOfClicks += 1
+            request.user.player.save()
+            response = f"{request.user.player.amountOfClicks}"
+            return HttpResponse(response)
+
+
+@login_required
+def upgrade_click_power(request):
+    if request.method != 'POST':
+        return HttpResponse("0|False method")
+    else:
+        cost = request.POST["cost"]
+        if request.user.player.money < cost:
+            return HttpResponse("0|You have not enough money")
+        else:
+            request.user.player.money -= cost
+            request.user.player.clickPower += 1
+            request.user.player.save()
+            response = f"{request.user.player.clickPower}"
+            return HttpResponse(response)
+
+
+@login_required
+def add_upgrades_to_lobby(request, item):
+    if item == 0:
+        if request.user.player.c4 < 1:
+            return HttpResponse("0|You have not enough c4s")
+        else:
+            request.user.player.event.c4s += 1
+            request.user.player.c4 -= 1
+            request.user.player.save()
+            request.user.player.event.save()
+            return HttpResponse(request.user.player.event.c4s)
+    elif item == 1:
+        if request.user.player.alarmDisabler < 1:
+            return HttpResponse("0|You have not enough alarms")
+        else:
+            request.user.player.event.alarms += 1
+            request.user.player.alarmDisabler -= 1
+            request.user.player.event.save()
+            request.user.player.save()
+            return HttpResponse(request.user.player.event.alarms)
