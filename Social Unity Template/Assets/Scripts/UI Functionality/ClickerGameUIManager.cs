@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ClickerGameUIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private Slider safeHealth;
     [SerializeField] private Button safe;
     [SerializeField] private TextMeshProUGUI clickDamageMultiplierText;
 
@@ -22,7 +21,7 @@ public class ClickerGameUIManager : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
-    [SerializeField] public HealthBarSkript hpBar;
+    [SerializeField] public HealthBar hpBar;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,21 +36,20 @@ public class ClickerGameUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        if (hpBar.slider.value == 0)
+        {
+            //Todo: win screen
+        }
     }
 
     public void DamageSafe()
     {
-        /*if (currentSafeHealth == maxSafeHealth)
+        if (currentSafeHealth != 0)
         {
-            
-            hpBar.setMaxHp(currentSafeHealth);
+            currentSafeHealth -= 1 * _clickDamageMultiplier;
+            animator.SetTrigger("ClickTrigger");
             hpBar.setHp(currentSafeHealth);
-        }*/
-        currentSafeHealth -= 1 * _clickDamageMultiplier;
-        animator.SetTrigger("ClickTrigger");
-        
-        hpBar.setHp(currentSafeHealth);
+        }
         //todo Instantiate sprite for click or wobble safe (visual click feedback)
         
     }
