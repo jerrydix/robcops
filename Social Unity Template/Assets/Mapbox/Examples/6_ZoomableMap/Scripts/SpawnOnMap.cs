@@ -85,10 +85,22 @@ namespace Mapbox.Examples
             _spawnedObjects = new List<GameObject>();
             for (int i = 0; i < _locationStrings.Count; i++)
             {
+                
                 var locationString = _locationStrings[i];
+                Debug.Log(locationString);
                 _locations[i] = Conversions.StringToLatLon(locationString);
                 var instance = Instantiate(_markerPrefab);
+                
+                var currentSafeManager = _markerPrefab.GetComponent<SafeManager>();
+                currentSafeManager.id = ids[i];
+                currentSafeManager.hp = hps[i];
+                currentSafeManager.level = levels[i];
+                currentSafeManager.locationX = _locations[i].x;//locationString.Split(",")[0];
+                currentSafeManager.locationY = _locations[i].y;
+                    
                 instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);
+                
+                
                 instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
                 _spawnedObjects.Add(instance);
             }
@@ -187,11 +199,6 @@ namespace Mapbox.Examples
 
             //Debug.Log("no hit");
             return true;
-        }
-
-        public Vector3 ConvertPos(Vector2d cordinate)
-        {
-            return _map.GeoToWorldPosition(cordinate, true);
         }
 
         public void test()

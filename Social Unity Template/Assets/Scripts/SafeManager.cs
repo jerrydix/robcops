@@ -8,10 +8,13 @@ public class SafeManager : MonoBehaviour
     [SerializeField] private Canvas safeUI;
     private UIManager _uiManager;
     
-    private string _safeDescriptionText;
-    private string _addressText;
-    private string _lobbyText;
     private S_UserLogin client;
+
+    public int level;
+    public int id;
+    public int hp; //todo make ranges of hp depending on level
+    public double locationX;
+    public double locationY;
 
     // Start is called before the first frame update
     void Awake()
@@ -27,6 +30,6 @@ public class SafeManager : MonoBehaviour
     public void SafeClicked()
     {
         Debug.Log("safe clicked");
-        _uiManager.ActivateDialogue(_safeDescriptionText, _addressText, _lobbyText);
+        _uiManager.ActivateDialogue(level, locationX, locationY);
     }
 }

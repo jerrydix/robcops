@@ -27,10 +27,10 @@ public class UIManager : MonoBehaviour
         switchRoleButton.interactable = switchButtonActivated;
     }
 
-    public void ActivateDialogue(string safeDescriptionText, string addressText, string lobbyText)
+    public void ActivateDialogue(int level, double locationX, double locationY)
     {
         safeDialogue.gameObject.SetActive(true);
-        safeDialogue.InitializeSafe(safeDescriptionText, addressText, lobbyText);
+        safeDialogue.InitializeSafe(level, locationX, locationY);
     }
 
     public void GuildButton()

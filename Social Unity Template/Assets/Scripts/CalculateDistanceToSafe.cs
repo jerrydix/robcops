@@ -33,10 +33,8 @@ public class CalculateDistanceToSafe : MonoBehaviour
 
         for (int i = 0; i < distances.Count; i++)
         {
-          Debug.Log(distances[i] + " m");
+            Debug.Log(distances[i] + " m");
         }
-
-        
     }
 
     void Update()

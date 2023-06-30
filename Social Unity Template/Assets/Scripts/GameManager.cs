@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void GetAllSafes()
     {
-        StartCoroutine(getSafeInfo());
+        StartCoroutine(GetSafeInfo());
     }
     
     public void InitializeSafe()
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
 
     }
     
-    public IEnumerator getSafeInfo()
+    public IEnumerator GetSafeInfo()
     {
         using WWW www = new WWW(BASE_URL + "get_all_safes/");
         yield return www;
