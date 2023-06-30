@@ -18,6 +18,8 @@ class BreakInEvent(models.Model):
     safe = models.OneToOneField(Safe, on_delete=models.CASCADE, primary_key=True)
     startTime = models.DateTimeField(default=datetime.datetime.now(), auto_now=False, auto_now_add=False)
     isStarted = models.BooleanField(default=False)
+    c4s = models.IntegerField(default=0)
+    alarms = models.IntegerField(default=0)
 
 
 class Guild(models.Model):
@@ -33,7 +35,17 @@ class Guild(models.Model):
 
 class PoliceStation(Guild):
     weaponLvl = models.IntegerField(default=1)
+    armorLvl = models.IntegerField(default=1)
+    hints = models.IntegerField(default=0)
 
+
+# Powerups RobUnion
+# 1 Bomb = -10 Safe Hp
+# 1 Alarm disabler = +10s Break In
+
+# Personal Powerups
+# amountIf clicks
+# clickPower
 
 class RobUnion(Guild):
     machines = models.IntegerField(default=0)
@@ -56,6 +68,8 @@ class Player(models.Model):
     event = models.ForeignKey(BreakInEvent, null=True, blank=True, related_name='members', on_delete=models.SET_NULL)
     policeXP = models.IntegerField(default=0)
     robberXP = models.IntegerField(default=0)
+    c4 = models.IntegerField(default=0)
+    alarmDisabler = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
