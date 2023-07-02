@@ -1,30 +1,31 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [FormerlySerializedAs("dialogue")] [SerializeField] private SafeDialogue safeDialogue;
+    [FormerlySerializedAs("dialogue")] [SerializeField]
+    private SafeDialogue safeDialogue;
+
     [SerializeField] private SwitchRoleDialogue switchRoleDialogue;
     [SerializeField] private GameObject mapScreenUI;
     [SerializeField] private GameObject guildUI;
     [SerializeField] private GameObject shopUI;
     [SerializeField] private GameObject settingsUI;
     [SerializeField] private Button switchRoleButton;
+    [SerializeField] private GameObject placeSafeButton;
 
     private int currentXP; //verbinden mit gamemanager
-    private int XPthreshold;
     private bool switchButtonActivated;
-    
+    private int XPthreshold;
+
     // verbinden mit game manager
     //get current role gamemanager
 
     private void Start()
     {
         switchRoleButton.interactable = switchButtonActivated;
+        ChangePlaceSafeButton(GameManager.Instance.role);
     }
 
     public void ActivateDialogue(int level, double locationX, double locationY)
@@ -66,7 +67,7 @@ public class UIManager : MonoBehaviour
         {
             switchButtonActivated = true;
             switchRoleButton.interactable = switchButtonActivated;
-        }     
+        }
     }
 
     public void SwitchRoleButton()
@@ -83,5 +84,11 @@ public class UIManager : MonoBehaviour
     public void GetInfoButton()
     {
         GameManager.Instance.GetAllSafes();
+    }
+
+    //when police visible, when robber invisible
+    public void ChangePlaceSafeButton(bool visible)
+    {
+        placeSafeButton.SetActive(visible);
     }
 }

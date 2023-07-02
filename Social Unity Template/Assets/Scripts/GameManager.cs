@@ -1,49 +1,28 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using Mapbox.Examples;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [HideInInspector] public string BASE_URL = "http://127.0.0.1:8000/";
     [HideInInspector] public string socialTab = "members/";
-    private string username;
-    private int money;
-    private bool role;
-    private int amountOfClicks;
-    private float clickPower;
-    private Vector2 location = new Vector2();
-    private Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
-    private int level;
-    private int hp;
-    private S_UserLogin client;
-    private ImmediatePositionWithLocationProvider ImmediatePositionWithLocationProvider;
+    public int amountOfClicks;
+    public float clickPower;
+    public S_UserLogin client;
+    public Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
+    public int hp;
+    public ImmediatePositionWithLocationProvider ImmediatePositionWithLocationProvider;
+    public int level;
+    public Vector2 location;
+    public int money;
+    public bool role;
 
     private SpawnOnMap spawnOnMap;
+    private string username;
+
     public static GameManager Instance { set; get; }
-    /*private GameManager()
-    {
-        if (instance != null)
-            return;
-        instance = this;
-    }
-    
-    public static GameManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new GameManager();
-            }
-            return instance;
-        }
-    }*/
 
     private void Start()
     {
@@ -53,13 +32,19 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-        } else if (Instance != this)
+        }
+        else if (Instance != this)
         {
             Destroy(gameObject);
         }
     }
-    
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.buildIndex == 1)
         {
@@ -69,12 +54,6 @@ public class GameManager : MonoBehaviour
             spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
             Instance.GetAllSafes();
         }
-        
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
 
@@ -82,7 +61,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(GetSafeInfo());
     }
-    
+
     public void InitializeSafe()
     {
         StartCoroutine(getMoneyAndSetLevel());
@@ -90,43 +69,48 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator SendSafeToServer()
     {
-        string locationX = 48.264518.ToString().Replace(",", ".");//ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(CultureInfo.InvariantCulture);
-        string locationY = 11.6713515.ToString().Replace(",", ".");//ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(CultureInfo.InvariantCulture);
-        
-        WWWForm form = new WWWForm();
+        var locationX =
+            48.264518.ToString()
+                .Replace(",",
+                    "."); //ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(CultureInfo.InvariantCulture);
+        var locationY =
+            11.6713515.ToString()
+                .Replace(",",
+                    "."); //ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(CultureInfo.InvariantCulture);
+
+        var form = new WWWForm();
         form.AddField("level", level);
         form.AddField("hp", hp);
         form.AddField("locationX", locationX);
         form.AddField("locationY", locationY);
         Debug.Log(client);
-        using WWW www = new WWW(client.BASE_URL + "create_safe/", form);
+        using var www = new WWW(client.BASE_URL + "create_safe/", form);
         yield return www;
         Debug.Log(www.text);
-
     }
-    
+
     public IEnumerator GetSafeInfo()
     {
-        using WWW www = new WWW(BASE_URL + "get_all_safes/");
+        using var www = new WWW(BASE_URL + "get_all_safes/");
         yield return www;
         Debug.Log(www.text);
         var safesTupels = www.text.Split("|");
-        List<int> ids = new List<int>();
-        List<int> levels = new List<int>();
-        List<int> hps = new List<int>();
-        List<string> locations = new List<string>();
-        for (int i = 1; i < safesTupels.Length; i++)
+        var ids = new List<int>();
+        var levels = new List<int>();
+        var hps = new List<int>();
+        var locations = new List<string>();
+        for (var i = 1; i < safesTupels.Length; i++)
         {
             var tupel = safesTupels[i].Split(",");
             Debug.Log(tupel.Length);
             Debug.Log(safesTupels.Length);
-            ids.Add( int.Parse(tupel[0]));
+            ids.Add(int.Parse(tupel[0]));
             levels.Add(int.Parse(tupel[1]));
             hps.Add(int.Parse(tupel[2]));
-            locations.Add(tupel[3].ToString() + "," + tupel[4].ToString());
-            Debug.Log(tupel[3].ToString() + "," + tupel[4].ToString());
+            locations.Add(tupel[3] + "," + tupel[4]);
+            Debug.Log(tupel[3] + "," + tupel[4]);
         }
-        
+
         spawnOnMap.ids = ids;
         spawnOnMap.levels = levels;
         spawnOnMap.hps = hps;
@@ -134,33 +118,21 @@ public class GameManager : MonoBehaviour
         spawnOnMap.SpawnCubes();
         spawnOnMap.waitForCubeLocationThenSpawnSafe();
     }
-    
+
     public IEnumerator getMoneyAndSetLevel()
     {
-        using WWW www = new WWW(BASE_URL + "get_money/");
+        using var www = new WWW(BASE_URL + "get_money/");
         yield return www;
-        string temp = www.text;
+        var temp = www.text;
         Debug.Log(temp);
         money = int.Parse(temp);
-        if (money < 2000 & money > 100)
-        {
+        if ((money < 2000) & (money > 100))
             level = 1;
-            
-        } 
         else if (money < 5000 && money > 2000)
-        {
             level = 2;
-            
-        }
         else if (money < 10000 && money > 5000)
-        {
             level = 3;
-            
-        }
-        else if(money < 20000 && money > 10000)
-        {
-            level = 4;
-        }
+        else if (money < 20000 && money > 10000) level = 4;
 
         hp = 1000 * level;
         StartCoroutine(SendSafeToServer());

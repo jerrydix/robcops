@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.WebSockets;
@@ -9,22 +8,22 @@ using UnityEngine.SceneManagement;
 public class S_UserLogin : MonoBehaviour
 {
     // For now only local address
-    
+
     [HideInInspector] public string BASE_URL = "http://127.0.0.1:8000/";
     [HideInInspector] public string socialTab = "members/";
-    private string username;
-    private int money;
-    private bool role;
-    private int amountOfClicks;
-    private float clickPower;
-    private Vector2 location = new Vector2();
-    private Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
-    private WebSocket ws;
 
     [SerializeField] private LoginScreenUIManager manager;
-    
+    private int amountOfClicks;
+    private float clickPower;
+    private Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
+    private Vector2 location;
+    private int money;
+    private bool role;
+    private string username;
+    private WebSocket ws;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         //StartCoroutine(Login("admin", "root"));
     }
@@ -32,47 +31,44 @@ public class S_UserLogin : MonoBehaviour
     public void login(string username, string password)
     {
         StartCoroutine(Login(username, password));
-
     }
 
     public void signup(string username, string password, string passwordRepeat)
     {
         StartCoroutine(Signup(username, password, passwordRepeat));
     }
-    
+
     public void logout()
     {
         StartCoroutine(Logout());
-    }
-
-    // ReSharper disable Unity.PerformanceAnalysis
+    } // ReSharper disable Unity.PerformanceAnalysis
     public IEnumerator Login(string username, string password)
     {
-        WWWForm form = new WWWForm();
+        var form = new WWWForm();
         form.AddField("username", username);
         form.AddField("password", password);
-        using WWW www = new WWW(BASE_URL + socialTab + "login_user", form);
+        using var www = new WWW(BASE_URL + socialTab + "login_user", form);
         yield return www;
         Debug.Log(www.text.TrimStart());
-        string success = S_Parser.ParseResponse(www.text, ResponseTypes.Signup)[0];
+        var success = S_Parser.ParseResponse(www.text, ResponseTypes.Signup)[0];
         if (success == "1")
         {
             SetData(S_Parser.ParseResponse(www.text, ResponseTypes.Login));
-            SceneManager.LoadScene(1);
+            SceneManager.LoadSceneAsync(1);
         }
     }
 
     public IEnumerator Signup(string username, string password, string passwordRepeat)
     {
         Debug.Log(username + password + passwordRepeat);
-        WWWForm form = new WWWForm();
+        var form = new WWWForm();
         form.AddField("username", username);
         form.AddField("password1", password);
         form.AddField("password2", passwordRepeat);
-        using WWW www = new WWW(BASE_URL + socialTab + "register_user", form);
+        using var www = new WWW(BASE_URL + socialTab + "register_user", form);
         yield return www;
         Debug.Log(www.text.TrimStart());
-        string success = S_Parser.ParseResponse(www.text, ResponseTypes.Signup)[0];
+        var success = S_Parser.ParseResponse(www.text, ResponseTypes.Signup)[0];
         Debug.Log(success);
         if (success == "1")
             login(username, password);
@@ -80,11 +76,11 @@ public class S_UserLogin : MonoBehaviour
 
     public IEnumerator Logout()
     {
-        using WWW www = new WWW(BASE_URL + socialTab + "logout_user");
+        using var www = new WWW(BASE_URL + socialTab + "logout_user");
         yield return www;
         Debug.Log(www.text.TrimStart());
     }
-    
+
     public void SetData(List<string> list)
     {
         username = list[1];
