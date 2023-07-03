@@ -1,4 +1,5 @@
 import datetime
+import random
 import time
 
 from django.contrib.auth.decorators import login_required
@@ -261,6 +262,8 @@ def get_all_locations(request):
 @login_required
 def check_lobby_info(request):
     response = request.user.player.event.members.count() + "|" + request.user.player.event.isStarted + "|"
+    response += request.user.player.event.c4s + "|"
+    response += request.user.player.event.alarms + "|"
     for member in request.user.player.event.members:
         response += member.user.username + "|"
     return HttpResponse(response)
@@ -414,3 +417,47 @@ def leave_lobby(request):
 def destroy_event(request):
     request.user.player.event.delete()
     return HttpResponse(request.user.player.event)
+
+
+@login_required
+def get_safe_hp(request):
+    return HttpResponse(request.user.player.event.safe.hp)
+
+
+# TODO Balance
+@login_required
+def start_robbery(request):
+    breakInCurrent = request.user.player.event
+    breakInCurrent.isStarted = True
+    breakInCurrent.startTime = datetime.datetime.now()
+    breakInCurrent.safe.hp -= breakInCurrent.c4s * 500
+    breakInCurrent.safe.status = 2
+    breakInCurrent.safe.save()
+    breakInCurrent.timeForRobbery += breakInCurrent.alarms * 0.16
+    breakInCurrent.reward = breakInCurrent.safe.level * random.randint(10000, 30000)
+    breakInCurrent.save()
+    response = f'{breakInCurrent.timeForRobbery}|{breakInCurrent.safe.hp}'
+    return HttpResponse(response)
+
+
+@login_required
+def check_if_arrested(request):
+    return HttpResponse(request.user.player.event.arrested)
+
+
+@login_required
+def end_robbery_success(request):
+    request.user.player.money += request.user.player.event.reward
+    request.user.player.event.safe.delete()
+    request.user.player.event.delete()
+    request.user.player.save()
+    return HttpResponse(request.user.player.money)
+
+
+@login_required
+def end_robbery_unsuccess(request):
+    request.user.player.money /= 2
+    request.user.player.event.safe.delete()
+    request.user.player.event.delete()
+    request.user.player.save()
+    return HttpResponse(request.user.player.money)

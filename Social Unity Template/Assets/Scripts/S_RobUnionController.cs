@@ -16,15 +16,33 @@ public class S_RobUnionController : MonoBehaviour
     void Start()
     {
         StartCoroutine(CreateUnion());
+        StartCoroutine(GetMoney());
         //StartCoroutine(getInfo());
     }
 
     public IEnumerator CreateUnion()
     {
+        clearList();
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_machines/");
         yield return www;
         Debug.Log(www.text);
-        SpawnMachines(int.Parse(www.text));
+        int amount = int.Parse(www.text);
+        if (amount > 0)
+        {
+            SpawnMachines(int.Parse(www.text));
+        }
+        else
+        {
+            Instantiate(plusPrefab, new Vector3(transform.position.x, transform.position.y - 3, transform.position.z), Quaternion.identity);
+        }
+    }
+
+    public IEnumerator GetMoney()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "get_guild_money/");
+        yield return www;
+        Debug.Log(www.text);
+        moneyText.text = www.text;
     }
 
     public void SpawnMachines(int amount)

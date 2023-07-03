@@ -41,8 +41,14 @@ urlpatterns = [
     path('checkIfStarted/', views.checkIfStarted, name='checkIfStarted'),
     path('startBreakIn/', views.startBreakIn, name='startBreakIn'),
     path('checkLobby/<int:safeId>/', views.checkLobby, name='checkLobby'),
+    path('check_lobby_info/', views.check_lobby_info, name='check_lobby_info'),
     path('destroy_event/', views.destroy_event, name='destroy_event'),
     path('leave_lobby/', views.leave_lobby, name='leave_lobby'),
+    path('start_robbery/', views.start_robbery, name='start_robbery'),
+    path('get_safe_hp/', views.get_safe_hp, name='get_safe_hp'),
+    path('check_if_arrested/', views.check_if_arrested, name='check_if_arrested'),
+    path('end_robbery_success/', views.end_robbery_success, name='end_robbery_success'),
+    path('end_robbery_unsuccess/', views.end_robbery_unsuccess, name='end_robbery_unsuccess'),
 
     # Get Lists
     path('get_all_safes/', views.get_all_safes, name='get_all_safes'),

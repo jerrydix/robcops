@@ -12,6 +12,10 @@ class Safe(models.Model):
     hp = models.IntegerField(default=100)
     locationX = models.FloatField(default=0.0)
     locationY = models.FloatField(default=0.0)
+    # 1 = free
+    # 2 = lobby is there
+    # 3 = inactive
+    status = models.IntegerField(default=1)
 
 
 class BreakInEvent(models.Model):
@@ -20,6 +24,9 @@ class BreakInEvent(models.Model):
     isStarted = models.BooleanField(default=False)
     c4s = models.IntegerField(default=0)
     alarms = models.IntegerField(default=0)
+    timeForRobbery = models.FloatField(default=10.0)
+    reward = models.IntegerField(default=0)
+    arrested = models.BooleanField(default=False)
 
 
 class Guild(models.Model):
