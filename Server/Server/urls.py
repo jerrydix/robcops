@@ -41,6 +41,8 @@ urlpatterns = [
     path('checkIfStarted/', views.checkIfStarted, name='checkIfStarted'),
     path('startBreakIn/', views.startBreakIn, name='startBreakIn'),
     path('checkLobby/<int:safeId>/', views.checkLobby, name='checkLobby'),
+    path('destroy_event/', views.destroy_event, name='destroy_event'),
+    path('leave_lobby/', views.leave_lobby, name='leave_lobby'),
 
     # Get Lists
     path('get_all_safes/', views.get_all_safes, name='get_all_safes'),
@@ -56,6 +58,9 @@ urlpatterns = [
     path('buy_powerup/<int:item>/', views.buy_powerup, name='buy_powerup'),
     path('donate_to_guild/', views.donate_to_guild, name='donate_to_guild'),
     path('add_upgrades_to_lobby/<int:item>/', views.add_upgrades_to_lobby, name='add_upgrades_to_lobby'),
+    path('get_machines/', views.get_machines, name='get_machines'),
+    path('get_police_stats/', views.get_police_stats, name='get_police_stats'),
+    path('get_guild_money/', views.get_guild_money, name='get_guild_money'),
 
     # Amount of clicks
     path('get_amount_of_clicks/', views.get_amount_of_clicks, name='get_amount_of_clicks'),

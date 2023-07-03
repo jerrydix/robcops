@@ -382,3 +382,35 @@ def add_upgrades_to_lobby(request, item):
             request.user.player.event.save()
             request.user.player.save()
             return HttpResponse(request.user.player.event.alarms)
+
+
+@login_required
+def get_guild_money(request):
+    if request.user.player.role == 0:
+        return HttpResponse(request.user.player.robUnion.guildMoney)
+    else:
+        return HttpResponse(request.user.player.policeStation.guildMoney)
+
+
+@login_required
+def get_machines(request):
+    return HttpResponse(request.user.player.robUnion.machines)
+
+
+@login_required
+def get_police_stats(request):
+    response = f'{request.user.player.policeStation.weaponLvl}|{request.user.player.policeStation.armorLvl}'
+    return HttpResponse(response)
+
+
+@login_required
+def leave_lobby(request):
+    request.user.player.event = None
+    request.user.player.save()
+    return HttpResponse(request.user.player.event)
+
+
+@login_required
+def destroy_event(request):
+    request.user.player.event.delete()
+    return HttpResponse(request.user.player.event)

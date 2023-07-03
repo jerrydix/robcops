@@ -15,8 +15,16 @@ public class S_RobUnionController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnMachines(5);
+        StartCoroutine(CreateUnion());
         //StartCoroutine(getInfo());
+    }
+
+    public IEnumerator CreateUnion()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "get_machines/");
+        yield return www;
+        Debug.Log(www.text);
+        SpawnMachines(int.Parse(www.text));
     }
 
     public void SpawnMachines(int amount)
