@@ -452,10 +452,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1509428502003932802, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
-      propertyPath: safeUIManager
-      value: 
-      objectReference: {fileID: 1509428502640118910, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+    - target: {fileID: 402947610, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393240631, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1509428502003932808, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
       propertyPath: m_Name
       value: UI
@@ -544,14 +548,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1509428502205676114, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1509428502640118910, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
-    - target: {fileID: 1509428502468700285, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1509428502640118910, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
 --- !u!1001 &773682131

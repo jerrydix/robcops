@@ -336,16 +336,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ab81e834efe1d4e804d2e922c807f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeLevelTextDialogue: {fileID: 0}
-  locationTextDialogue: {fileID: 0}
-  safeLevelTextScreen: {fileID: 0}
-  locationTextScreen: {fileID: 0}
-  membersText: {fileID: 0}
-  lobbyCountText: {fileID: 0}
+  safeLevelTextDialogue: {fileID: 1509428502168378122}
+  locationTextDialogue: {fileID: 1509428502209180431}
+  safeLevelTextScreen: {fileID: 750505355}
+  membersText: {fileID: 1664066592}
+  lobbyCountText: {fileID: 5286567373291960856}
   wireCutterCountText: 0
   c4CountText: 0
-  heistPrepScreen: {fileID: 0}
-  safeDialogue: {fileID: 0}
+  heistPrepScreen: {fileID: 1393240631}
+  safeDialogue: {fileID: 1509428502640118904}
   members: []
   minigameIndex: 0
 --- !u!1 &412546681
@@ -1171,7 +1170,7 @@ GameObject:
   - component: {fileID: 750505356}
   - component: {fileID: 750505355}
   m_Layer: 5
-  m_Name: WaitingForPlayersText
+  m_Name: LevelTextAndWaitingForPlayers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5094,14 +5093,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e479336e8ea2664d923195897f48de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeUIManager: {fileID: 0}
-  switchRoleDialogue: {fileID: 0}
+  safeUIManager: {fileID: 642850096}
+  switchRoleDialogue: {fileID: 1243365066}
   mapScreenUI: {fileID: 1323002587}
   guildUI: {fileID: 1782859427}
   shopUI: {fileID: 846921371}
   settingsUI: {fileID: 965735621}
   switchRoleButton: {fileID: 1752451788}
-  placeSafeButton: {fileID: 0}
+  placeSafeButton: {fileID: 1140517682}
 --- !u!114 &642850094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5375,8 +5374,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SafeDialogue, Assembly-CSharp
+      - m_Target: {fileID: 642850096}
+        m_TargetAssemblyTypeName: SafeUIManager, Assembly-CSharp
         m_MethodName: LobbyScreenButton
         m_Mode: 1
         m_Arguments:
@@ -5834,9 +5833,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SafeDialogue, Assembly-CSharp
-        m_MethodName: PressCancelButton
+      - m_Target: {fileID: 642850096}
+        m_TargetAssemblyTypeName: SafeUIManager, Assembly-CSharp
+        m_MethodName: CancelButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6453,7 +6452,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0 / 5 joined
+  m_text: -1 / 5 joined
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56c4e1f8e7a35e740932858b3510e53b, type: 2}
   m_sharedMaterial: {fileID: -5405882748149710917, guid: 56c4e1f8e7a35e740932858b3510e53b, type: 2}

@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -10,7 +10,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private SwitchRoleDialogue switchRoleDialogue;
     [SerializeField] private GameObject mapScreenUI;
-    [SerializeField] private GameObject guildUI;
     [SerializeField] private GameObject shopUI;
     [SerializeField] private GameObject settingsUI;
     [SerializeField] private Button switchRoleButton;
@@ -29,17 +28,15 @@ public class UIManager : MonoBehaviour
         ChangePlaceSafeButton(GameManager.Instance.role);
     }
 
-    public void ActivateDialogue(int level, double locationX, double locationY, bool createLobby, int playerCount,
-        List<string> names)
+    public void ActivateDialogue(int level, double locationX, double locationY, bool createLobby, int id)
     {
         safeUIManager.gameObject.SetActive(true);
-        safeUIManager.InitializeSafe(level, locationX, locationY, createLobby, playerCount, names);
+        safeUIManager.InitializeSafe(level, locationX, locationY, createLobby, id);
     }
 
     public void GuildButton()
     {
-        mapScreenUI.SetActive(false);
-        guildUI.SetActive(true);
+        SceneManager.LoadScene("Scenes/Robunion");
     }
 
     public void ShopButton()
@@ -58,7 +55,6 @@ public class UIManager : MonoBehaviour
     {
         settingsUI.SetActive(false);
         shopUI.SetActive(false);
-        guildUI.SetActive(false);
         mapScreenUI.SetActive(true);
     }
 
