@@ -5,17 +5,11 @@ using UnityEngine;
 
 namespace Connections
 {
-    
-    public enum ResponseTypes
-    {
-        Login,
-        Signup
-    }
-    
+
     public static class S_Parser
     {
 
-        public static List<string> ParseResponse(string contents, ResponseTypes type)
+        public static List<string> ParseResponse(string contents)
         {
             var substrings = contents.Split('|');
             if (substrings[0] == "0")

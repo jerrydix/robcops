@@ -1,11 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [FormerlySerializedAs("dialogue")] [SerializeField]
-    private SafeDialogue safeDialogue;
+    [FormerlySerializedAs("safeDialogue")] [FormerlySerializedAs("dialogue")] [SerializeField]
+    private SafeUIManager safeUIManager;
 
     [SerializeField] private SwitchRoleDialogue switchRoleDialogue;
     [SerializeField] private GameObject mapScreenUI;
@@ -28,10 +29,11 @@ public class UIManager : MonoBehaviour
         ChangePlaceSafeButton(GameManager.Instance.role);
     }
 
-    public void ActivateDialogue(int level, double locationX, double locationY)
+    public void ActivateDialogue(int level, double locationX, double locationY, bool createLobby, int playerCount,
+        List<string> names)
     {
-        safeDialogue.gameObject.SetActive(true);
-        safeDialogue.InitializeSafe(level, locationX, locationY);
+        safeUIManager.gameObject.SetActive(true);
+        safeUIManager.InitializeSafe(level, locationX, locationY, createLobby, playerCount, names);
     }
 
     public void GuildButton()

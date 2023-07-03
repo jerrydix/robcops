@@ -50,10 +50,10 @@ public class S_UserLogin : MonoBehaviour
         using var www = new WWW(BASE_URL + socialTab + "login_user", form);
         yield return www;
         Debug.Log(www.text.TrimStart());
-        var success = S_Parser.ParseResponse(www.text, ResponseTypes.Signup)[0];
+        var success = S_Parser.ParseResponse(www.text)[0];
         if (success == "1")
         {
-            SetData(S_Parser.ParseResponse(www.text, ResponseTypes.Login));
+            SetData(S_Parser.ParseResponse(www.text));
             SceneManager.LoadSceneAsync(1);
         }
     }
@@ -68,7 +68,7 @@ public class S_UserLogin : MonoBehaviour
         using var www = new WWW(BASE_URL + socialTab + "register_user", form);
         yield return www;
         Debug.Log(www.text.TrimStart());
-        var success = S_Parser.ParseResponse(www.text, ResponseTypes.Signup)[0];
+        var success = S_Parser.ParseResponse(www.text)[0];
         Debug.Log(success);
         if (success == "1")
             login(username, password);

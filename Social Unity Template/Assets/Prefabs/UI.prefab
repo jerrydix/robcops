@@ -294,13 +294,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 402947611}
+  - component: {fileID: 642850096}
   m_Layer: 5
   m_Name: BreakInUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &402947611
 RectTransform:
   m_ObjectHideFlags: 0
@@ -323,6 +324,30 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &642850096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402947610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ab81e834efe1d4e804d2e922c807f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  safeLevelTextDialogue: {fileID: 0}
+  locationTextDialogue: {fileID: 0}
+  safeLevelTextScreen: {fileID: 0}
+  locationTextScreen: {fileID: 0}
+  membersText: {fileID: 0}
+  lobbyCountText: {fileID: 0}
+  wireCutterCountText: 0
+  c4CountText: 0
+  heistPrepScreen: {fileID: 0}
+  safeDialogue: {fileID: 0}
+  members: []
+  minigameIndex: 0
 --- !u!1 &412546681
 GameObject:
   m_ObjectHideFlags: 0
@@ -5069,13 +5094,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e479336e8ea2664d923195897f48de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeDialogue: {fileID: 1509428502640118910}
+  safeUIManager: {fileID: 0}
   switchRoleDialogue: {fileID: 0}
   mapScreenUI: {fileID: 1323002587}
   guildUI: {fileID: 1782859427}
   shopUI: {fileID: 846921371}
   settingsUI: {fileID: 965735621}
   switchRoleButton: {fileID: 1752451788}
+  placeSafeButton: {fileID: 0}
 --- !u!114 &642850094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5349,7 +5375,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1509428502640118910}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SafeDialogue, Assembly-CSharp
         m_MethodName: LobbyScreenButton
         m_Mode: 1
@@ -5808,7 +5834,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1509428502640118910}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SafeDialogue, Assembly-CSharp
         m_MethodName: PressCancelButton
         m_Mode: 1
@@ -5844,14 +5870,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1509428502640118905}
-  - component: {fileID: 1509428502640118910}
   m_Layer: 5
   m_Name: SafeDialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1509428502640118905
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5878,23 +5903,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1509428502640118910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1509428502640118904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4ab81e834efe1d4e804d2e922c807f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  safeLevelText: {fileID: 1509428502168378122}
-  locationText: {fileID: 1509428502209180431}
-  heistPrepScreen: {fileID: 1393240631}
-  members: []
-  minigameIndex: 0
 --- !u!1 &1509428503141901257
 GameObject:
   m_ObjectHideFlags: 0
