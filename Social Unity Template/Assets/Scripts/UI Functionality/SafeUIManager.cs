@@ -56,9 +56,9 @@ public class SafeUIManager : MonoBehaviour
     public void LobbyScreenButton()
     {
         if (_createLobby)
-            StartCoroutine(createBreakIn());
+            StartCoroutine(CreateBreakIn());
         else
-            StartCoroutine(joinBreakIn());
+            StartCoroutine(JoinBreakIn());
     }
 
     public void RobberyButton()
@@ -70,8 +70,10 @@ public class SafeUIManager : MonoBehaviour
 
     public void CancelButton()
     {
-        //todo inform server that user has left the lobby
-        gameObject.SetActive(false);
+        if (_createLobby)
+            StartCoroutine(DisbandLobby());
+        else
+            StartCoroutine(LeaveLobby());
     }
 
     public void WireCutterButton()
@@ -84,7 +86,7 @@ public class SafeUIManager : MonoBehaviour
         _c4Count++;
     }
 
-    private IEnumerator createBreakIn()
+    private IEnumerator CreateBreakIn()
     {
         using var www = new WWW(GameManager.Instance.client.BASE_URL + "create_lobby/" + _id + "/");
         yield return www;
@@ -95,12 +97,11 @@ public class SafeUIManager : MonoBehaviour
         membersText.text = _lobbyNames[0];
         _lobbyPlayerCount = 1;
         lobbyCountText.text = _lobbyPlayerCount + "/5";
-        ;
         heistPrepScreen.SetActive(true);
         safeDialogue.SetActive(false);
     }
 
-    private IEnumerator joinBreakIn()
+    private IEnumerator JoinBreakIn()
     {
         using var www = new WWW(GameManager.Instance.client.BASE_URL + "joinToEvent/" + _id + "/");
         yield return www;
@@ -123,6 +124,24 @@ public class SafeUIManager : MonoBehaviour
         lobbyCountText.text = _lobbyPlayerCount + "/5";
         heistPrepScreen.SetActive(true);
         safeDialogue.SetActive(false);
+    }
+
+    private IEnumerator DisbandLobby()
+    {
+        using var www = new WWW(GameManager.Instance.client.BASE_URL + "destroy_event" + "/");
+        yield return www;
+        safeDialogue.SetActive(true);
+        heistPrepScreen.SetActive(false);
+        gameObject.SetActive(false);
+    }
+
+    private IEnumerator LeaveLobby()
+    {
+        using var www = new WWW(GameManager.Instance.client.BASE_URL + "leave_lobby" + "/");
+        yield return www;
+        safeDialogue.SetActive(true);
+        heistPrepScreen.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     //TODO Powerup shop + guild powerup UI add, remove
