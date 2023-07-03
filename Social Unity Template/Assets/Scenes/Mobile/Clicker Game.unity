@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -372,6 +372,7 @@ MonoBehaviour:
   currentImage: {fileID: 1006209900}
   animator: {fileID: 1006209902}
   hpBar: {fileID: 581608673}
+  winScreen: {fileID: 0}
 --- !u!1 &160891023
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,7 +523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &267653351
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2590,6 +2591,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safeUI: {fileID: 513406214267115875}
+  level: 0
+  id: 0
+  hp: 0
+  locationX: 0
+  locationY: 0
+  createLobby: 0
+  lobbyPlayerCount: 0
+  lobbyNames: []
 --- !u!4 &6439707132193834264
 Transform:
   m_ObjectHideFlags: 0

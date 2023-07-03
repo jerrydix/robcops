@@ -26,7 +26,7 @@ public class SafeUIManager : MonoBehaviour
 
     [HideInInspector] public string[] members; //todo get members from game manager / server
 
-    public int minigameIndex; //todo get minigame index from server
+    public int minigameIndex = 2; //todo get minigame index from server
     private int _c4Count;
 
     private bool _createLobby;
@@ -63,9 +63,7 @@ public class SafeUIManager : MonoBehaviour
 
     public void RobberyButton()
     {
-        SceneManager
-            .LoadSceneAsync(
-                minigameIndex); //todo add mini game parameters thru loading them in gamemanager first, then taking them from there
+        StartCoroutine(StartRobbery());
     }
 
     public void CancelButton()
@@ -99,6 +97,7 @@ public class SafeUIManager : MonoBehaviour
         lobbyCountText.text = _lobbyPlayerCount + "/5";
         heistPrepScreen.SetActive(true);
         safeDialogue.SetActive(false);
+        StartCoroutine(UpdateSafeUI());
     }
 
     private IEnumerator JoinBreakIn()
@@ -124,6 +123,7 @@ public class SafeUIManager : MonoBehaviour
         lobbyCountText.text = _lobbyPlayerCount + "/5";
         heistPrepScreen.SetActive(true);
         safeDialogue.SetActive(false);
+        StartCoroutine(UpdateSafeUI());
     }
 
     private IEnumerator DisbandLobby()
@@ -142,6 +142,43 @@ public class SafeUIManager : MonoBehaviour
         safeDialogue.SetActive(true);
         heistPrepScreen.SetActive(false);
         gameObject.SetActive(false);
+    }
+
+    private IEnumerator UpdateSafeUI()
+    {
+        while (true)
+        {
+            using var www = new WWW(GameManager.Instance.client.BASE_URL + "check_lobby_info" + "/");
+            yield return www;
+            var response = S_Parser.ParseResponse(www.text);
+            Debug.Log(www.text);
+            if (Convert.ToBoolean(response[1]))
+            {
+                RobberyButton();
+                break;
+            }
+
+            lobbyCountText.text = response[0] + "/5";
+            c4CountText = int.Parse(response[2]);
+            wireCutterCountText = int.Parse(response[3]);
+            var currentMembersText = "";
+            for (var i = 4; i < response.Count - 1; i++) currentMembersText += response[i] + "\n";
+            membersText.text = currentMembersText;
+            Debug.Log(lobbyCountText.text + " " + c4CountText + " " + wireCutterCountText + " " + membersText.text);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    private IEnumerator StartRobbery()
+    {
+        using var www = new WWW(GameManager.Instance.client.BASE_URL + "start_robbery" + "/");
+        yield return www;
+        var response = S_Parser.ParseResponse(www.text);
+        Debug.Log("time: " + response[0]);
+        Debug.Log("hp: " + response[1]);
+
+
+        SceneManager.LoadScene(2); //todo change to minigame index
     }
 
     //TODO Powerup shop + guild powerup UI add, remove

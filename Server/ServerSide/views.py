@@ -232,7 +232,7 @@ def joinToEvent(request, safeId):
         request.user.player.event = safe.breakinevent
         request.user.player.save()
         response = f"1|{request.user.player.event.members.count()}|"
-        for member in request.user.player.event.members:
+        for member in request.user.player.event.members.all():
             response += member.user.username + "|"
         return HttpResponse(response)
     else:
@@ -261,10 +261,10 @@ def get_all_locations(request):
 
 @login_required
 def check_lobby_info(request):
-    response = request.user.player.event.members.count() + "|" + request.user.player.event.isStarted + "|"
-    response += request.user.player.event.c4s + "|"
-    response += request.user.player.event.alarms + "|"
-    for member in request.user.player.event.members:
+    response = str(request.user.player.event.members.count()) + "|" + str(request.user.player.event.isStarted) + "|"
+    response += str(request.user.player.event.c4s) + "|"
+    response += str(request.user.player.event.alarms) + "|"
+    for member in request.user.player.event.members.all():
         response += member.user.username + "|"
     return HttpResponse(response)
 
