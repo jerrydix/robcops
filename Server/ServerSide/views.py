@@ -167,7 +167,7 @@ def create_lobby(request, safeID):
     breakIn.save()
     request.user.player.event = breakIn
     request.user.player.save()
-    return HttpResponse('Test_Event')
+    return HttpResponse(request.user.username)
 
 
 def get_all_safes(request):
@@ -218,7 +218,7 @@ def getTimeUntilEnd(request):
 @login_required
 def checkLobby(request, safeId):
     safe = Safe.objects.get(id=safeId)
-    if safe.breakinevent is not None:
+    if hasattr(safe, "breakinevent"):
         return HttpResponse("0")
     else:
         return HttpResponse("1")
@@ -230,7 +230,9 @@ def joinToEvent(request, safeId):
     if not safe.breakinevent.isStarted or safe.breakinevent.members.count() < 5:
         request.user.player.event = safe.breakinevent
         request.user.player.save()
-        response = request.user.player.event.members.count()
+        response = f"1|{request.user.player.event.members.count()}|"
+        for member in request.user.player.event.members:
+            response += member.user.username + "|"
         return HttpResponse(response)
     else:
         return HttpResponse("0|You can't join the event")
@@ -253,6 +255,14 @@ def get_all_locations(request):
     response = "|".join(str(e).replace("(", "").replace(")", "") for e in list(Player.objects.values_list('role',
                                                                                                           'locationX',
                                                                                                           'locationY')))
+    return HttpResponse(response)
+
+
+@login_required
+def check_lobby_info(request):
+    response = request.user.player.event.members.count() + "|" + request.user.player.event.isStarted + "|"
+    for member in request.user.player.event.members:
+        response += member.user.username + "|"
     return HttpResponse(response)
 
 
