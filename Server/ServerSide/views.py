@@ -230,7 +230,9 @@ def joinToEvent(request, safeId):
     if not safe.breakinevent.isStarted or safe.breakinevent.members.count() < 5:
         request.user.player.event = safe.breakinevent
         request.user.player.save()
-        response = request.user.player.event.members.count()
+        response = f"1|{request.user.player.event.members.count()}|"
+        for member in request.user.player.event.members:
+            response += member.user.username + "|"
         return HttpResponse(response)
     else:
         return HttpResponse("0|You can't join the event")
