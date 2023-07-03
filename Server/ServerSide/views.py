@@ -218,7 +218,7 @@ def getTimeUntilEnd(request):
 @login_required
 def checkLobby(request, safeId):
     safe = Safe.objects.get(id=safeId)
-    if safe.breakinevent is not None:
+    if hasattr(safe, "breakinevent"):
         return HttpResponse("0")
     else:
         return HttpResponse("1")
