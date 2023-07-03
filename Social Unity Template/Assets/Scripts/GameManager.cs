@@ -12,7 +12,10 @@ public class GameManager : MonoBehaviour
     public float clickPower;
     public S_UserLogin client;
     public Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
+    public int currentHP;
     public int hp;
+    public int currentMinutes;
+    public int currentSeconds;
     public ImmediatePositionWithLocationProvider ImmediatePositionWithLocationProvider;
     public int level;
     public Vector2 location;

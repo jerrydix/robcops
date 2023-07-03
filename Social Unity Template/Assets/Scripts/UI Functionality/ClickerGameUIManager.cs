@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,13 +8,11 @@ public class ClickerGameUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Button safe;
     [SerializeField] private TextMeshProUGUI clickDamageMultiplierText;
-
-    private float _clickDamageMultiplier;
     [HideInInspector] public float currentSafeHealth;
     [HideInInspector] public float maxSafeHealth;
-    
+
     [HideInInspector] public int safeLevel = 1;
-    
+
     [SerializeField] public Sprite[] safeSprites;
     [SerializeField] private Image currentImage;
 
@@ -26,22 +22,24 @@ public class ClickerGameUIManager : MonoBehaviour
 
     [SerializeField] public GameObject winScreen;
 
-    private float startTime;
+    private float _clickDamageMultiplier;
 
     private float finalTime;
 
-    private String[] players;
+    private string[] players;
+
+    private float startTime;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _clickDamageMultiplier = 1; //get from GameManager
-        maxSafeHealth = 2;
-        currentSafeHealth = maxSafeHealth; //get from gameManager according to level
+        currentSafeHealth = GameManager.Instance.currentHP; //get from gameManager according to level
         currentImage.sprite = safeSprites[safeLevel + 1];
         //HealthBar Setup
         hpBar.setMaxHp(currentSafeHealth);
         hpBar.setHp(currentSafeHealth);
-        
+
         //Win Screen Setup
         winScreen.SetActive(false);
         startTime = Time.time;
@@ -52,40 +50,46 @@ public class ClickerGameUIManager : MonoBehaviour
         //todo get safeMoney
     }
 
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (hpBar.slider.value == 0)
+        /*if (hpBar.slider.value == 0)
         {
             if (finalTime == 0)
             {
                 finalTime = Time.time - startTime;
-                winScreen.transform.GetChild(2).GetComponent<TextMeshProUGUI>().SetText("In " + finalTime.ToString().Substring(
-                    0,5) + " Seconds");
-                String participants = "The Crew: ";
-                foreach (var p in players)
-                {
-                    participants += "\n" + p;
-                }
+                winScreen.transform.GetChild(2).GetComponent<TextMeshProUGUI>().SetText("In " + finalTime.ToString()
+                    .Substring(
+                        0, 5) + " Seconds");
+                var participants = "The Crew: ";
+                foreach (var p in players) participants += "\n" + p;
                 winScreen.transform.GetChild(3).GetComponent<TextMeshProUGUI>().SetText(participants);
-                String reward = "Your Loot: $$$$$$$";
+                var reward = "Your Loot: $$$$$$$";
                 winScreen.transform.GetChild(4).GetComponent<TextMeshProUGUI>().SetText(reward);
             }
 
             winScreen.SetActive(true);
             //Todo: win screen
-        }
+        }*/
     }
 
     public void DamageSafe()
     {
-        if (currentSafeHealth != 0)
+        /*if (currentSafeHealth != 0)
         {
             currentSafeHealth -= 1 * _clickDamageMultiplier;
             animator.SetTrigger("ClickTrigger");
             hpBar.setHp(currentSafeHealth);
-        }
-        //todo Instantiate sprite for click or wobble safe (visual click feedback)
-        
+        }*/
+    }
+
+    private IEnumerator DoDamageToSafe()
+    {
+        using var www = new WWW(GameManager.Instance.client.BASE_URL + "damage_safe" + "/");
+        yield return www;
+        var dealtDamage = int.Parse(www.text);
+        currentSafeHealth -= dealtDamage;
+        hpBar.setHp(currentSafeHealth);
     }
 }
