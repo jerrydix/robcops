@@ -216,12 +216,24 @@ def getTimeUntilEnd(request):
 
 
 @login_required
+def checkLobby(request, safeId):
+    safe = Safe.objects.get(id=safeId)
+    if safe.breakinevent is not None:
+        return HttpResponse("0")
+    else:
+        return HttpResponse("1")
+
+
+@login_required
 def joinToEvent(request, safeId):
     safe = Safe.objects.get(id=safeId)
-    request.user.player.event = safe.breakinevent
-    request.user.player.save()
-    response = request.user.player.event.members.count()
-    return HttpResponse(response)
+    if not safe.breakinevent.isStarted or safe.breakinevent.members.count() < 5:
+        request.user.player.event = safe.breakinevent
+        request.user.player.save()
+        response = request.user.player.event.members.count()
+        return HttpResponse(response)
+    else:
+        return HttpResponse("0|You can't join the event")
 
 
 @login_required

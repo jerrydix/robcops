@@ -40,6 +40,7 @@ urlpatterns = [
     path('joinToEvent/<int:safeId>/', views.joinToEvent, name='joinToEvent'),
     path('checkIfStarted/', views.checkIfStarted, name='checkIfStarted'),
     path('startBreakIn/', views.startBreakIn, name='startBreakIn'),
+    path('checkLobby/<int:safeId>/', views.checkLobby, name='checkLobby'),
 
     # Get Lists
     path('get_all_safes/', views.get_all_safes, name='get_all_safes'),
