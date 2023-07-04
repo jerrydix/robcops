@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Connections;
 using TMPro;
@@ -146,11 +147,15 @@ public class ClickerGameUIManager : MonoBehaviour
             yield return www;
             currentTakenTime = www.text.Replace(",", ":");
             var currentDiff = www.text.Split(":");
-            print(currentDiff[1]);
-            print(currentDiff[2].Split(".")[0]);
-            Debug.Log(www.text);
-            timerText.text = "Time Left: " + (GameManager.Instance.currentMinutes - int.Parse(currentDiff[1])) + ":" +
-                             (GameManager.Instance.currentSeconds - int.Parse(currentDiff[2].Split(".")[0]));
+            //Debug.Log(www.text);
+            var maxDateTime = new DateTime(2000, 1, 1, 12,
+                GameManager.Instance.currentMinutes, GameManager.Instance.currentSeconds);
+            var diffDateTime = new DateTime(2000, 1, 1, 12,
+                int.Parse(currentDiff[1]), int.Parse(currentDiff[2].Split(".")[0]));
+            Debug.Log(maxDateTime);
+            Debug.Log(diffDateTime);
+            timerText.text = "Time Left: " + maxDateTime.Subtract(diffDateTime).ToString().Split(":")[1] + ":" +
+                             maxDateTime.Subtract(diffDateTime).ToString().Split(":")[2];
             if (int.Parse(currentDiff[1]) >= GameManager.Instance.currentMinutes &&
                 int.Parse(currentDiff[2].Split(".")[0]) >= GameManager.Instance.currentSeconds)
             {
