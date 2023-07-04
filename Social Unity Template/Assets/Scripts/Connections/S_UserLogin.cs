@@ -14,6 +14,7 @@ public class S_UserLogin : MonoBehaviour
 
     [SerializeField] private LoginScreenUIManager manager;
     [SerializeField] private GameObject roleSwitchScreen;
+    [SerializeField] private GameObject logo;
     private int amountOfClicks;
     private float clickPower;
     private Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
@@ -80,6 +81,7 @@ public class S_UserLogin : MonoBehaviour
         if (success == "1")
         {
             manager.registerScreen.SetActive(false);
+            logo.SetActive(false);
             roleSwitchScreen.SetActive(true);
         }
     }
@@ -98,7 +100,7 @@ public class S_UserLogin : MonoBehaviour
     {
         using var www = new WWW(BASE_URL + "switch_role" + "/");
         yield return www;
-        Debug.Log("Robber? " + www.text);
+        Debug.Log("Cop? " + www.text);
         login(username, password);
     }
 
