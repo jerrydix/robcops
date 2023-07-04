@@ -447,17 +447,19 @@ def check_if_arrested(request):
 
 @login_required
 def end_robbery_success(request):
+    reward = request.user.player.event.reward
     request.user.player.money += request.user.player.event.reward
     request.user.player.event.safe.delete()
-    request.user.player.event.delete()
+    #request.user.player.event.delete()
     request.user.player.save()
-    return HttpResponse(request.user.player.money)
+    return HttpResponse(f'{request.user.player.money}|{reward}')
 
 
 @login_required
 def end_robbery_unsuccess(request):
+    old_money = request.user.player.money
     request.user.player.money /= 2
     request.user.player.event.safe.delete()
-    request.user.player.event.delete()
+    #request.user.player.event.delete()
     request.user.player.save()
-    return HttpResponse(request.user.player.money)
+    return HttpResponse(f'{request.user.player.money}|{old_money}')
