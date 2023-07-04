@@ -113,12 +113,12 @@ public class S_UserLogin : MonoBehaviour
 
     public void SetData(List<string> list)
     {
-        username = list[1];
-        money = int.Parse(list[2]);
-        amountOfClicks = int.Parse(list[3]);
-        clickPower = float.Parse(list[4]);
-        location = new Vector2(float.Parse(list[5]), float.Parse(list[6]));
-        role = bool.Parse(list[7]);
+        GameManager.Instance.username = list[1];
+        GameManager.Instance.money = int.Parse(list[2]);
+        GameManager.Instance.amountOfClicks = int.Parse(list[3]);
+        GameManager.Instance.clickPower = float.Parse(list[4]);
+        GameManager.Instance.location = new Vector2(float.Parse(list[5]), float.Parse(list[6]));
+        GameManager.Instance.role = bool.Parse(list[7]);
         //guild = int.Parse(list[7]);
     }
 }

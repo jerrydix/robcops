@@ -21,10 +21,9 @@ public class GameManager : MonoBehaviour
     public Vector2 location;
     public int money;
     public bool role;
+    public string username;
 
     private SpawnOnMap spawnOnMap;
-    private string username;
-
     public static GameManager Instance { set; get; }
 
     private void Start()

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -14,18 +15,25 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject settingsUI;
     [SerializeField] private Button switchRoleButton;
     [SerializeField] private GameObject placeSafeButton;
+    [SerializeField] private TextMeshProUGUI moneyText;
 
     private int currentXP; //verbinden mit gamemanager
     private bool switchButtonActivated;
-    private int XPthreshold;
 
+    private int XPthreshold;
     // verbinden mit game manager
     //get current role gamemanager
 
     private void Start()
     {
         switchRoleButton.interactable = switchButtonActivated;
+        Debug.Log(GameManager.Instance.role);
         ChangePlaceSafeButton(GameManager.Instance.role);
+    }
+
+    private void Update()
+    {
+        moneyText.text = GameManager.Instance.money.ToString();
     }
 
     public void ActivateDialogue(int level, double locationX, double locationY, bool createLobby, int id)
