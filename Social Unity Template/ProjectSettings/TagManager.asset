@@ -11,6 +11,7 @@ TagManager:
   - Spawner
   - Building
   - GM
+  - Rob_C
   layers:
   - Default
   - TransparentFX

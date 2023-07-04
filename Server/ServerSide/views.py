@@ -1,4 +1,5 @@
 import datetime
+import math
 import random
 import time
 
@@ -277,17 +278,23 @@ def buy_powerup(request, item):
         if union.guildMoney < 1000:
             return HttpResponse("0|Not enough money")
         else:
+            union.guildMoney -= 1000
             for a in members:
                 a.c4 += 1
                 a.save()
+            union.save()
+            return HttpResponse(union.guildMoney)
     elif item == 1:
         if union.guildMoney < 5000:
             return HttpResponse("0|Not enough money")
         else:
+            union.guildMoney -= 5000
             for a in members:
                 a.alarmDisabler += 1
                 a.save()
-    return HttpResponse("1|Success")
+            union.save()
+            return HttpResponse(union.guildMoney)
+    return HttpResponse(union.guildMoney)
 
 
 @login_required
@@ -316,7 +323,7 @@ def join_police_station(request, policeId):
 
 @login_required
 def donate_to_guild(request):
-    money = request.user.player.money / 2
+    money = int(math.floor(request.user.player.money / 2))
     if request.user.player.role == 0:
         request.user.player.robUnion.guildMoney += money
         request.user.player.money -= money
@@ -434,6 +441,7 @@ def start_robbery(request):
     breakInCurrent.safe.status = 2
     breakInCurrent.safe.save()
     breakInCurrent.timeForRobbery += breakInCurrent.alarms * 0.16
+    breakInCurrent.timeForRobbery = 1.0
     breakInCurrent.reward = breakInCurrent.safe.level * random.randint(10000, 30000)
     breakInCurrent.save()
     response = f'{breakInCurrent.timeForRobbery}|{breakInCurrent.safe.hp}|{breakInCurrent.safe.level}'
@@ -449,9 +457,9 @@ def check_if_arrested(request):
 def end_robbery_success(request):
     reward = request.user.player.event.reward
     request.user.player.money += request.user.player.event.reward
-    request.user.player.event.safe.delete()
-    #request.user.player.event.delete()
     request.user.player.save()
+    request.user.player.event.safe.delete()
+    request.user.player.event.delete()
     return HttpResponse(f'{request.user.player.money}|{reward}')
 
 
@@ -459,7 +467,22 @@ def end_robbery_success(request):
 def end_robbery_unsuccess(request):
     old_money = request.user.player.money
     request.user.player.money /= 2
-    request.user.player.event.safe.delete()
-    #request.user.player.event.delete()
     request.user.player.save()
+    request.user.player.event.safe.delete()
+    request.user.player.event.delete()
     return HttpResponse(f'{request.user.player.money}|{old_money}')
+
+
+@login_required
+def buy_new_machine(request):
+    if request.method != 'POST':
+        return HttpResponse("0|False method")
+    else:
+        if request.user.player.robUnion.machines >= 6:
+            return HttpResponse(request.user.player.robUnion.machines)
+        cost = request.POST["cost"]
+        request.user.player.robUnion.guildMoney -= int(cost)
+        request.user.player.robUnion.save()
+        request.user.player.robUnion.machines += 1
+        request.user.player.robUnion.save()
+    return HttpResponse(request.user.player.robUnion.machines)

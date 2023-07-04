@@ -67,6 +67,7 @@ urlpatterns = [
     path('get_machines/', views.get_machines, name='get_machines'),
     path('get_police_stats/', views.get_police_stats, name='get_police_stats'),
     path('get_guild_money/', views.get_guild_money, name='get_guild_money'),
+    path('buy_new_machine/', views.buy_new_machine, name='buy_new_machine'),
 
     # Amount of clicks
     path('get_amount_of_clicks/', views.get_amount_of_clicks, name='get_amount_of_clicks'),

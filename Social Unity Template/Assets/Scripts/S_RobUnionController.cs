@@ -12,6 +12,9 @@ public class S_RobUnionController : MonoBehaviour
     private int money = 0;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI playerMoney;
+    public GameObject shop;
+    public GameObject machinesUi;
+    private GameObject startPlus;
 
     
     // Start is called before the first frame update
@@ -32,20 +35,30 @@ public class S_RobUnionController : MonoBehaviour
         int amount = int.Parse(www.text);
         if (amount > 0)
         {
+            startPlus.Destroy();
             SpawnMachines(int.Parse(www.text));
         }
         else
         {
-            Instantiate(plusPrefab, new Vector3(transform.position.x, transform.position.y - 3, transform.position.z), Quaternion.identity);
+            startPlus = Instantiate(plusPrefab, new Vector3(transform.position.x, transform.position.y - 3, transform.position.z), Quaternion.identity);
         }
+    }
+
+    public void BuyNewMachine(int cost)
+    {
+        StartCoroutine(buyNew(cost));
     }
 
     public IEnumerator buyNew(int cost)
     {
-        using var www = new WWW(GameManager.Instance.BASE_URL + "buy_new_machine/" + cost + "/");
+        WWWForm form = new WWWForm();
+        form.AddField("cost", cost);
+        using var www = new WWW(GameManager.Instance.BASE_URL + "buy_new_machine/", form);
         yield return www;
         Debug.Log(www.text);
         StartCoroutine(CreateUnion());
+        StartCoroutine(GetPlayerMoney());
+        StartCoroutine(GetMoney());
     }
 
     public IEnumerator GetMoney()
@@ -146,6 +159,22 @@ public class S_RobUnionController : MonoBehaviour
     {
         StartCoroutine(Donate());
     }
+
+    public void close()
+    {
+        shop.SetActive(false);
+        machinesUi.SetActive(false);
+    }
+
+    public void openShop()
+    {
+        shop.SetActive(true);
+    }
+    
+    public void openMachines()
+    {
+        machinesUi.SetActive(true);
+    }
     
     public IEnumerator Donate()
     {
@@ -153,6 +182,19 @@ public class S_RobUnionController : MonoBehaviour
         yield return www;
         Debug.Log(www.text);
         DisplayMoney(int.Parse(www.text));
-        
+        StartCoroutine(GetPlayerMoney());
+    }
+
+    public void buyPowerUps(int item)
+    {
+        StartCoroutine(buyPowerUp(item));
+    }
+    
+    public IEnumerator buyPowerUp(int item)
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "buy_powerup/" + item + "/");
+        yield return www;
+        Debug.Log(www.text);
+        DisplayMoney(int.Parse(www.text));
     }
 }
