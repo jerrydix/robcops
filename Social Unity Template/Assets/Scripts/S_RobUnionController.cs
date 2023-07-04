@@ -11,12 +11,15 @@ public class S_RobUnionController : MonoBehaviour
     private List<GameObject> machines = new List<GameObject>();
     private int money = 0;
     public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI playerMoney;
+
     
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(CreateUnion());
         StartCoroutine(GetMoney());
+        StartCoroutine(GetPlayerMoney());
         //StartCoroutine(getInfo());
     }
 
@@ -37,12 +40,28 @@ public class S_RobUnionController : MonoBehaviour
         }
     }
 
+    public IEnumerator buyNew(int cost)
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "buy_new_machine/" + cost + "/");
+        yield return www;
+        Debug.Log(www.text);
+        StartCoroutine(CreateUnion());
+    }
+
     public IEnumerator GetMoney()
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_guild_money/");
         yield return www;
         Debug.Log(www.text);
-        moneyText.text = www.text;
+        DisplayMoney(int.Parse(www.text));
+    }
+    
+    public IEnumerator GetPlayerMoney()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "get_money/");
+        yield return www;
+        Debug.Log(www.text);
+        DisplayPlayerMoney(int.Parse(www.text));
     }
 
     public void SpawnMachines(int amount)
@@ -68,7 +87,7 @@ public class S_RobUnionController : MonoBehaviour
         }
     }
 
-    public void DisplayMoney()
+    public void DisplayMoney(int money)
     {
         if (money >= 1000000)
         {
@@ -87,6 +106,26 @@ public class S_RobUnionController : MonoBehaviour
             moneyText.text = "" + money; 
         }
     }
+    
+    public void DisplayPlayerMoney(int money)
+    {
+        if (money >= 1000000)
+        {
+            float amount_H  = money / 1000000f;
+            float show = (float) Mathf.Round(amount_H * 10f) / 10f;
+            playerMoney.text = show + "M";
+        }
+        else if (money >= 1000)
+        {
+            float amount_H  = money / 1000f;
+            float show = (float) Mathf.Round(amount_H * 10f) / 10f;
+            playerMoney.text = show + "K";
+        }
+        else
+        {
+            playerMoney.text = "" + money; 
+        }
+    }
 
     public IEnumerator getInfo()
     {
@@ -101,5 +140,19 @@ public class S_RobUnionController : MonoBehaviour
             Destroy(machine);
         }
         machines.Clear();
+    }
+
+    public void donateToGuild()
+    {
+        StartCoroutine(Donate());
+    }
+    
+    public IEnumerator Donate()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "donate_to_guild/");
+        yield return www;
+        Debug.Log(www.text);
+        DisplayMoney(int.Parse(www.text));
+        
     }
 }
