@@ -13,15 +13,20 @@ public class S_UserLogin : MonoBehaviour
     [HideInInspector] public string socialTab = "members/";
 
     [SerializeField] private LoginScreenUIManager manager;
+    [SerializeField] private GameObject roleSwitchScreen;
     private int amountOfClicks;
     private float clickPower;
     private Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
     private Vector2 location;
     private int money;
+    private string password;
     private bool role;
+
+    private string success;
     private string username;
     private WebSocket ws;
 
+    //
     // Start is called before the first frame update
     private void Start()
     {
@@ -60,7 +65,9 @@ public class S_UserLogin : MonoBehaviour
 
     public IEnumerator Signup(string username, string password, string passwordRepeat)
     {
-        Debug.Log(username + password + passwordRepeat);
+        this.username = username;
+        this.password = password;
+
         var form = new WWWForm();
         form.AddField("username", username);
         form.AddField("password1", password);
@@ -68,10 +75,31 @@ public class S_UserLogin : MonoBehaviour
         using var www = new WWW(BASE_URL + socialTab + "register_user", form);
         yield return www;
         Debug.Log(www.text.TrimStart());
-        var success = S_Parser.ParseResponse(www.text)[0];
-        Debug.Log(success);
+        success = S_Parser.ParseResponse(www.text)[0];
+
         if (success == "1")
-            login(username, password);
+        {
+            manager.registerScreen.SetActive(false);
+            roleSwitchScreen.SetActive(true);
+        }
+    }
+
+    public void RobberButton()
+    {
+        login(username, password);
+    }
+
+    public void CopButton()
+    {
+        StartCoroutine(SwitchRole());
+    }
+
+    private IEnumerator SwitchRole()
+    {
+        using var www = new WWW(BASE_URL + "switch_role" + "/");
+        yield return www;
+        Debug.Log("Robber? " + www.text);
+        login(username, password);
     }
 
     public IEnumerator Logout()

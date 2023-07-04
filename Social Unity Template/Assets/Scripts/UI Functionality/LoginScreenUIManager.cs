@@ -1,13 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LoginScreenUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject loginScreen;
-    [SerializeField] private GameObject registerScreen;
+    [SerializeField] public GameObject registerScreen;
 
     private void Awake()
     {
@@ -26,6 +22,4 @@ public class LoginScreenUIManager : MonoBehaviour
         loginScreen.SetActive(false);
         registerScreen.SetActive(true);
     }
-    
-    
 }
