@@ -12,6 +12,7 @@ TagManager:
   - Building
   - GM
   - Rob_C
+  - List_Panel
   layers:
   - Default
   - TransparentFX

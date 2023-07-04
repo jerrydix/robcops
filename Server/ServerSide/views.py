@@ -43,6 +43,15 @@ def logout_user(request):
     return HttpResponse('Logout Success')
 
 
+@login_required
+def get_player_info(request):
+    return HttpResponse(
+        f'1|{request.user.username}|{request.user.player.money}|{request.user.player.amountOfClicks}|'
+        f'{request.user.player.clickPower}|{request.user.player.locationX}|{request.user.player.locationY}|'
+        f'{request.user.player.role}|{request.user.player.robUnion_id}|'
+        f'{request.user.player.policeStation_id}|{request.user.player.friends}')
+
+
 def register_user(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)

@@ -14,6 +14,7 @@ public class S_RobUnionController : MonoBehaviour
     public TextMeshProUGUI playerMoney;
     public GameObject shop;
     public GameObject machinesUi;
+    public GameObject membersUi;
     private GameObject startPlus;
 
     
@@ -164,6 +165,7 @@ public class S_RobUnionController : MonoBehaviour
     {
         shop.SetActive(false);
         machinesUi.SetActive(false);
+        membersUi.SetActive(false);
     }
 
     public void openShop()
@@ -174,6 +176,11 @@ public class S_RobUnionController : MonoBehaviour
     public void openMachines()
     {
         machinesUi.SetActive(true);
+    }
+    
+    public void openMembers()
+    {
+        membersUi.SetActive(true);
     }
     
     public IEnumerator Donate()
