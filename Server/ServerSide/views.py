@@ -488,13 +488,10 @@ def buy_new_machine(request):
     return HttpResponse(request.user.player.robUnion.machines)
 
 
-def switch_to_robber(request):
-    request.user.player.role = False
-    request.user.player.save()
-    return HttpResponse(request.user.player.role)
-
-
-def switch_to_cop(request):
-    request.user.player.role = True
+def switch_role(request):
+    if request.user.player.role is True:
+        request.user.player.role = False
+    else:
+        request.user.player.role = True
     request.user.player.save()
     return HttpResponse(request.user.player.role)

@@ -29,8 +29,7 @@ urlpatterns = [
 
     path('edit_money/', views.edit_money, name='edit_money'),
     path('get_money/', views.get_money, name='get_money'),
-    path('switch_to_robber/', views.switch_to_robber, name='switch_to_robber'),
-    path('switch_to_cop/', views.switch_to_cop, name='switch_to_cop'),
+    path('switch_role/', views.switch_role, name='switch_role'),
 
     # Lobby Settings
     path('create_personal_safe/', views.create_personal_safe, name='create_personal_safe'),
