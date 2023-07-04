@@ -30,6 +30,7 @@ urlpatterns = [
     path('edit_money/', views.edit_money, name='edit_money'),
     path('get_money/', views.get_money, name='get_money'),
     path('switch_role/', views.switch_role, name='switch_role'),
+    path('pay_money/', views.pay_money, name='pay_money'),
 
     # Lobby Settings
     path('create_personal_safe/', views.create_personal_safe, name='create_personal_safe'),
@@ -54,8 +55,9 @@ urlpatterns = [
     # Get Lists
     path('get_all_safes/', views.get_all_safes, name='get_all_safes'),
     path('get_all_robunions/', views.get_all_robunions, name='get_all_robunions'),
-    path('get_robunion_members/<int:robId>', views.get_robunion_members, name='get_robunion_members'),
+    path('get_robunion_members/', views.get_robunion_members, name='get_robunion_members'),
     path('get_all_locations/', views.get_all_locations, name='get_all_locations'),
+    path('get_player_info/', views.get_player_info, name='get_player_info'),
 
     # Guild
     path('create_test_robunion/', views.create_test_robunion, name='create_test_robunion'),
@@ -69,6 +71,7 @@ urlpatterns = [
     path('get_police_stats/', views.get_police_stats, name='get_police_stats'),
     path('get_guild_money/', views.get_guild_money, name='get_guild_money'),
     path('buy_new_machine/', views.buy_new_machine, name='buy_new_machine'),
+    path('get_robunion_info/', views.get_robunion_info, name='get_robunion_info'),
 
     # Amount of clicks
     path('get_amount_of_clicks/', views.get_amount_of_clicks, name='get_amount_of_clicks'),

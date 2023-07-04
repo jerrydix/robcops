@@ -16,6 +16,16 @@ public class S_ListElement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+    }
+
+    public void SetParameters(string num, string nennung, int id, bool isList, bool isCop)
+    {
+        number.text = num;
+        name.text = nennung;
+        guildId = id;
+        list = isList;
+        cop = isCop;
         if (list)
         {
             joinButton.gameObject.SetActive(false);
@@ -31,13 +41,6 @@ public class S_ListElement : MonoBehaviour
                 joinButton.onClick.AddListener(set_rob);
             }
         }
-    }
-
-    public void SetParameters(string num, string nennung, int id)
-    {
-        number.text = num;
-        name.text = nennung;
-        guildId = id;
     }
 
     public void set_rob()

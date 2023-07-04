@@ -146,6 +146,17 @@ def create_safe(request):
 
 
 @login_required
+def pay_money(request):
+    if request.method != 'POST':
+        return HttpResponse('Incorrect request method')
+    else:
+        cost = request.POST["cost"]
+        request.user.player.money -= cost
+        request.user.player.save()
+        return HttpResponse(request.user.player.money)
+
+
+@login_required
 def create_test_robunion(request):
     if not request.user.player.role:
         robunion = RobUnion(name=request.POST['name'])
@@ -198,8 +209,15 @@ def get_all_robunions(request):
     return HttpResponse(response)
 
 
-def get_robunion_members(request, robId):
-    response = RobUnion.objects.get(id=robId).robUnion.all()
+def get_robunion_members(request):
+    response = "|".join(str(e) for e in list(RobUnion.objects.get(
+        id=request.user.player.robUnion.id).robUnion.all()))
+    return HttpResponse(response)
+
+
+@login_required
+def get_robunion_info(request):
+    response = f"{request.user.player.robUnion.id}|{request.user.player.robUnion.name}"
     return HttpResponse(response)
 
 

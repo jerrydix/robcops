@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class S_RobUnionController : MonoBehaviour
 {
-    public int[,] machinesAmount = new int[2,3];
+    public int[,] machinesAmount = new int[2, 3];
     public GameObject machinePrefab;
+    public GameObject ListPrefab;
     public GameObject plusPrefab;
     private List<GameObject> machines = new List<GameObject>();
     private int money = 0;
@@ -16,15 +17,45 @@ public class S_RobUnionController : MonoBehaviour
     public GameObject machinesUi;
     public GameObject membersUi;
     private GameObject startPlus;
+    public GameObject panel;
+    private int id;
+    private string name;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(CreateUnion());
         StartCoroutine(GetMoney());
         StartCoroutine(GetPlayerMoney());
-        //StartCoroutine(getInfo());
+        StartCoroutine(getInfo());
+        membersUi.SetActive(true);
+        panel = GameObject.FindWithTag("List_Panel");
+        deleteChildren();
+        membersUi.SetActive(false);
+        
+        Debug.Log(panel);
+    }
+
+    public void deleteChildren()
+    {
+        foreach (Transform child in panel.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public IEnumerator get_members()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "get_robunion_members/");
+        yield return www;
+        string[] members = www.text.Split("|");
+        for (int i = 0; i < members.Length; i++)
+        {
+            GameObject element = Instantiate(ListPrefab, panel.transform);
+            S_ListElement script = element.GetComponent<S_ListElement>();
+            script.SetParameters(i+1 + ".", members[i], id, true, false);
+        }
     }
 
     public IEnumerator CreateUnion()
@@ -143,8 +174,11 @@ public class S_RobUnionController : MonoBehaviour
 
     public IEnumerator getInfo()
     {
-        yield return new WaitForSeconds(2);
-        clearList();
+        using var www = new WWW(GameManager.Instance.BASE_URL + "get_robunion_info/");
+        yield return www;
+        string[] info = www.text.Split("|");
+        id = int.Parse(info[0]);
+        name = info[1];
     }
 
     public void clearList()
@@ -166,6 +200,7 @@ public class S_RobUnionController : MonoBehaviour
         shop.SetActive(false);
         machinesUi.SetActive(false);
         membersUi.SetActive(false);
+        deleteChildren();
     }
 
     public void openShop()
@@ -181,6 +216,7 @@ public class S_RobUnionController : MonoBehaviour
     public void openMembers()
     {
         membersUi.SetActive(true);
+        StartCoroutine(get_members());
     }
     
     public IEnumerator Donate()
@@ -204,4 +240,6 @@ public class S_RobUnionController : MonoBehaviour
         Debug.Log(www.text);
         DisplayMoney(int.Parse(www.text));
     }
+    
+    
 }
