@@ -419,6 +419,8 @@ MonoBehaviour:
   BASE_URL: http://127.0.0.1:8000/
   socialTab: members/
   manager: {fileID: 0}
+  roleSwitchScreen: {fileID: 0}
+  logo: {fileID: 0}
 --- !u!4 &244468944
 Transform:
   m_ObjectHideFlags: 0

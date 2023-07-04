@@ -152,8 +152,6 @@ public class ClickerGameUIManager : MonoBehaviour
                 GameManager.Instance.currentMinutes, GameManager.Instance.currentSeconds);
             var diffDateTime = new DateTime(2000, 1, 1, 12,
                 int.Parse(currentDiff[1]), int.Parse(currentDiff[2].Split(".")[0]));
-            Debug.Log(maxDateTime);
-            Debug.Log(diffDateTime);
             timerText.text = "Time Left: " + maxDateTime.Subtract(diffDateTime).ToString().Split(":")[1] + ":" +
                              maxDateTime.Subtract(diffDateTime).ToString().Split(":")[2];
             if (int.Parse(currentDiff[1]) >= GameManager.Instance.currentMinutes &&
@@ -177,7 +175,7 @@ public class ClickerGameUIManager : MonoBehaviour
 
         timerTextWinScreen.text = "Time Taken: " + currentTakenTime;
         moneyGain.text = "Money Gained: " + response[1];
-        totalMoneyWinScreen.text = "New Balance: " + response[0];
+        totalMoneyWinScreen.text = "New Balance: " + int.Parse(response[0]);
         winScreen.SetActive(true);
     }
 
@@ -189,7 +187,7 @@ public class ClickerGameUIManager : MonoBehaviour
 
         remainingSafeHP.text = "Remaining Safe Health: " + _currentSafeHealth;
         moneyLose.text = "Money Lost: " + int.Parse(response[1]) / 2;
-        totalMoneyLostScreen.text = "New Balance: " + response[0];
+        totalMoneyLostScreen.text = "New Balance: " + int.Parse(response[0]);
         lostScreen.SetActive(true);
     }
 
