@@ -605,6 +605,16 @@ def send_location(request):
         return HttpResponse("1")
 
 
+@login_required
+def get_robberxp(request):
+    return HttpResponse(request.user.player.robberXP)
+
+
+@login_required
+def get_policexp(request):
+    return HttpResponse(request.user.player.policeXP)
+
+
 def start_machine_farm(request):
     t = threading.Thread(target=update_money, args=[request])
     t.setDaemon(True)
