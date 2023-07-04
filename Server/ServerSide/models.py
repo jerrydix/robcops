@@ -16,6 +16,7 @@ class Safe(models.Model):
     # 2 = lobby is there
     # 3 = inactive
     status = models.IntegerField(default=1)
+    timePlaced = models.DateTimeField(default=datetime.datetime.now(), auto_now=False, auto_now_add=False)
 
 
 class BreakInEvent(models.Model):
@@ -77,6 +78,7 @@ class Player(models.Model):
     robberXP = models.IntegerField(default=0)
     c4 = models.IntegerField(default=0)
     alarmDisabler = models.IntegerField(default=0)
+    safesActive = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username

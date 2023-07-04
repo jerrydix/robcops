@@ -1,6 +1,7 @@
 import datetime
 import math
 import random
+import threading
 import time
 
 from django.contrib.auth.decorators import login_required
@@ -209,10 +210,66 @@ def get_all_robunions(request):
     return HttpResponse(response)
 
 
+def get_all_stations(request):
+    response = "|".join(str(e).replace("(", "").replace(")", "") for e in list(PoliceStation.objects.values_list('id',
+                                                                                                                 'name')))
+    return HttpResponse(response)
+
+
+def get_station_members(request):
+    response = "|".join(str(e) for e in list(PoliceStation.objects.get(
+        id=request.user.player.policeStation.id).police_station.all()))
+    return HttpResponse(response)
+
+
+@login_required
+def get_station_info(request):
+    response = f"{request.user.player.policeStation.id}|{request.user.player.policeStation.name}|" \
+               f"{request.user.player.policeStation.weaponLvl}|{request.user.player.policeStation.armorLvl}|" \
+               f"{request.user.player.policeStation.hints}"
+    return HttpResponse(response)
+
+
 def get_robunion_members(request):
     response = "|".join(str(e) for e in list(RobUnion.objects.get(
         id=request.user.player.robUnion.id).robUnion.all()))
     return HttpResponse(response)
+
+
+@login_required
+def upgrade_weapons(request):
+    if request.method != 'POST':
+        return HttpResponse('Incorrect request method')
+    else:
+        cost = request.POST["cost"]
+        if request.user.player.policeStation.guildMoney < cost:
+            return HttpResponse("0|Not Enough Money")
+        else:
+            request.user.player.policeStation.guildMoney -= cost
+            request.user.player.policeStation.weaponLvl += 1
+            request.user.player.policeStation.save()
+    return HttpResponse(request.user.player.policeStation.guildMoney)
+
+
+@login_required
+def upgrade_armor(request):
+    if request.method != 'POST':
+        return HttpResponse('Incorrect request method')
+    else:
+        cost = request.POST["cost"]
+        if request.user.player.policeStation.guildMoney < cost:
+            return HttpResponse("0|Not Enough Money")
+        else:
+            request.user.player.policeStation.guildMoney -= cost
+            request.user.player.policeStation.armorLvl += 1
+            request.user.player.policeStation.save()
+    return HttpResponse(request.user.player.policeStation.guildMoney)
+
+
+@login_required
+def update_hints(request):
+    request.user.player.policeStation.hints += 1
+    return HttpResponse(request.user.player.policeStation.hints)
 
 
 @login_required
@@ -521,8 +578,16 @@ def buy_new_machine(request):
 def switch_role(request):
     if request.user.player.role is True:
         request.user.player.role = False
+        request.user.player.policeStation = None
+        request.user.player.robberXP = 0
+        request.user.player.safesActive = 0
     else:
         request.user.player.role = True
+        request.user.player.robUnion = None
+        request.user.player.event = None
+        request.user.player.c4 = 0
+        request.user.player.alarmDisabler = 0
+        request.user.player.policeXP = 0
     request.user.player.save()
     return HttpResponse(request.user.player.role)
 
@@ -538,3 +603,34 @@ def send_location(request):
         request.user.player.locationY = y
         request.user.player.save()
         return HttpResponse("1")
+
+
+def start_machine_farm(request):
+    t = threading.Thread(target=update_money, args=[request])
+    t.setDaemon(True)
+    t.start()
+    return HttpResponse("started")
+
+
+def start_safe_farm(request):
+    t = threading.Thread(target=update_policeman_money, args=[request])
+    t.setDaemon(True)
+    t.start()
+    return HttpResponse("started")
+
+
+def update_money(request):
+    if request.user.player.robUnion is not None:
+        ru = request.user.player.robUnion
+        while True:
+            time.sleep(3600)
+            ru.guildMoney += ru.machines * 100000
+            ru.save()
+
+
+def update_policeman_money(request):
+    policeman = request.user.player
+    while True:
+        time.sleep(3600)
+        policeman.money += policeman.safesActive * 1000
+        policeman.save()

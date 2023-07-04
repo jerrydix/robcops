@@ -31,6 +31,7 @@ urlpatterns = [
     path('get_money/', views.get_money, name='get_money'),
     path('switch_role/', views.switch_role, name='switch_role'),
     path('pay_money/', views.pay_money, name='pay_money'),
+    path('start_safe_farm/', views.start_safe_farm, name='start_safe_farm'),
 
     # Lobby Settings
     path('create_personal_safe/', views.create_personal_safe, name='create_personal_safe'),
@@ -55,7 +56,11 @@ urlpatterns = [
     # Get Lists
     path('get_all_safes/', views.get_all_safes, name='get_all_safes'),
     path('get_all_robunions/', views.get_all_robunions, name='get_all_robunions'),
+    path('get_all_stations/', views.get_all_stations, name='get_all_stations'),
     path('get_robunion_members/', views.get_robunion_members, name='get_robunion_members'),
+    path('get_station_members/', views.get_station_members, name='get_station_members'),
+    path('get_robunion_info/', views.get_robunion_info, name='get_robunion_info'),
+    path('get_station_info/', views.get_station_info, name='get_station_info'),
     path('get_all_locations/', views.get_all_locations, name='get_all_locations'),
     path('get_player_info/', views.get_player_info, name='get_player_info'),
 
@@ -72,11 +77,15 @@ urlpatterns = [
     path('get_guild_money/', views.get_guild_money, name='get_guild_money'),
     path('buy_new_machine/', views.buy_new_machine, name='buy_new_machine'),
     path('get_robunion_info/', views.get_robunion_info, name='get_robunion_info'),
+    path('start_machine_farm/', views.start_machine_farm, name='start_machine_farm'),
 
     # Amount of clicks
     path('get_amount_of_clicks/', views.get_amount_of_clicks, name='get_amount_of_clicks'),
     path('upgrade_click_power/', views.upgrade_click_power, name="upgrade_click_power"),
     path('upgrade_amount_of_clicks/', views.upgrade_amount_of_clicks, name="upgrade_amount_of_clicks"),
+    path('upgrade_armor/', views.upgrade_armor, name="upgrade_armor"),
+    path('upgrade_weapons/', views.upgrade_weapons, name="upgrade_weapons"),
+    path('update_hints/', views.update_hints, name="update_hints"),
 
     # path('members/', include('django.contrib.auth.urls'))
     path('members/login_user', views.login_user, name='login_user'),
