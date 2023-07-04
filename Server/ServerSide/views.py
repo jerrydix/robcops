@@ -481,10 +481,13 @@ def buy_new_machine(request):
         if request.user.player.robUnion.machines >= 6:
             return HttpResponse(request.user.player.robUnion.machines)
         cost = request.POST["cost"]
-        request.user.player.robUnion.guildMoney -= int(cost)
-        request.user.player.robUnion.save()
-        request.user.player.robUnion.machines += 1
-        request.user.player.robUnion.save()
+        if request.user.player.robUnion.guildMoney < int(cost):
+            return HttpResponse(0)
+        else:
+            request.user.player.robUnion.guildMoney -= int(cost)
+            request.user.player.robUnion.save()
+            request.user.player.robUnion.machines += 1
+            request.user.player.robUnion.save()
     return HttpResponse(request.user.player.robUnion.machines)
 
 
@@ -495,3 +498,16 @@ def switch_role(request):
         request.user.player.role = True
     request.user.player.save()
     return HttpResponse(request.user.player.role)
+
+
+@login_required
+def send_location(request):
+    if request.method != "POST":
+        return HttpResponse("False response")
+    else:
+        x = request.POST["locationX"]
+        y = request.POST["locationY"]
+        request.user.player.locationX = x
+        request.user.player.locationY = y
+        request.user.player.save()
+        return HttpResponse("1")
