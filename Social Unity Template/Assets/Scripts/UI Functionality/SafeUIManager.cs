@@ -178,8 +178,8 @@ public class SafeUIManager : MonoBehaviour
         Debug.Log("hp: " + response[1]);
 
         GameManager.Instance.currentHP = int.Parse(response[1]);
-        GameManager.Instance.currentMinutes = int.Parse(response[1].Split(".")[0]);
-        GameManager.Instance.currentSeconds = int.Parse(response[1].Split(".")[1]);
+        GameManager.Instance.currentMinutes = int.Parse(response[0].Split(".")[0]);
+        GameManager.Instance.currentSeconds = int.Parse(response[0].Split(".")[1]);
 
         SceneManager.LoadScene(2); //todo change to minigame index
     }
