@@ -64,9 +64,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GetSafeInfo());
     }
 
-    public void InitializeSafe()
+    public void InitializeSafe(int level, int cost)
     {
-        StartCoroutine(getMoneyAndSetLevel());
+        StartCoroutine(getMoneyAndSetLevel(level, cost));
     }
 
     public IEnumerator SendSafeToServer()
@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
         using var www = new WWW(client.BASE_URL + "create_safe/", form);
         yield return www;
         Debug.Log(www.text);
+        //StartCoroutine(GetSafeInfo()); //todo fix so that only one safe is added, and not all safes are fetched again
     }
 
     public IEnumerator GetSafeInfo()
@@ -121,22 +122,31 @@ public class GameManager : MonoBehaviour
         spawnOnMap.waitForCubeLocationThenSpawnSafe();
     }
 
-    public IEnumerator getMoneyAndSetLevel()
+    public IEnumerator getMoneyAndSetLevel(int level, int cost)
     {
-        using var www = new WWW(BASE_URL + "get_money/");
+        var form = new WWWForm();
+        form.AddField("cost", cost);
+        using var www = new WWW(BASE_URL + "pay_money/", form);
         yield return www;
-        var temp = www.text;
-        Debug.Log(temp);
-        money = int.Parse(temp);
-        if ((money < 2000) & (money > 100))
-            level = 1;
-        else if (money < 5000 && money > 2000)
-            level = 2;
-        else if (money < 10000 && money > 5000)
-            level = 3;
-        else if (money < 20000 && money > 10000) level = 4;
+        Debug.Log(www.text);
+        money = int.Parse(www.text);
+        this.level = level;
+        switch (level)
+        {
+            case 1:
+                hp = 50000;
+                break;
+            case 2:
+                hp = 100000;
+                break;
+            case 3:
+                hp = 250000;
+                break;
+            case 4:
+                hp = 500000;
+                break;
+        }
 
-        hp = 1000 * level;
         StartCoroutine(SendSafeToServer());
     }
 }

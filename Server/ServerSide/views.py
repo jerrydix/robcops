@@ -152,7 +152,7 @@ def pay_money(request):
         return HttpResponse('Incorrect request method')
     else:
         cost = request.POST["cost"]
-        request.user.player.money -= cost
+        request.user.player.money -= int(cost)
         request.user.player.save()
         return HttpResponse(request.user.player.money)
 
@@ -242,10 +242,10 @@ def upgrade_weapons(request):
         return HttpResponse('Incorrect request method')
     else:
         cost = request.POST["cost"]
-        if request.user.player.policeStation.guildMoney < cost:
+        if request.user.player.policeStation.guildMoney < int(cost):
             return HttpResponse("0|Not Enough Money")
         else:
-            request.user.player.policeStation.guildMoney -= cost
+            request.user.player.policeStation.guildMoney -= int(cost)
             request.user.player.policeStation.weaponLvl += 1
             request.user.player.policeStation.save()
     return HttpResponse(request.user.player.policeStation.guildMoney)
@@ -257,10 +257,10 @@ def upgrade_armor(request):
         return HttpResponse('Incorrect request method')
     else:
         cost = request.POST["cost"]
-        if request.user.player.policeStation.guildMoney < cost:
+        if request.user.player.policeStation.guildMoney < int(cost):
             return HttpResponse("0|Not Enough Money")
         else:
-            request.user.player.policeStation.guildMoney -= cost
+            request.user.player.policeStation.guildMoney -= int(cost)
             request.user.player.policeStation.armorLvl += 1
             request.user.player.policeStation.save()
     return HttpResponse(request.user.player.policeStation.guildMoney)

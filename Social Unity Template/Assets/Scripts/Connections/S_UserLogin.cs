@@ -109,6 +109,7 @@ public class S_UserLogin : MonoBehaviour
         using var www = new WWW(BASE_URL + socialTab + "logout_user");
         yield return www;
         Debug.Log(www.text.TrimStart());
+        SceneManager.LoadScene(0);
     }
 
     public void SetData(List<string> list)

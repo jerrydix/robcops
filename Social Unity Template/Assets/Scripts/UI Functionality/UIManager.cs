@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button switchRoleButton;
     [SerializeField] private GameObject placeSafeButton;
     [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private GameObject safePlacingDialogue;
 
     private int currentXP; //verbinden mit gamemanager
     private bool switchButtonActivated;
@@ -34,6 +35,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         moneyText.text = GameManager.Instance.money.ToString();
+        //todo same for xp
     }
 
     public void ActivateDialogue(int level, double locationX, double locationY, bool createLobby, int id)
@@ -44,7 +46,9 @@ public class UIManager : MonoBehaviour
 
     public void GuildButton()
     {
-        SceneManager.LoadScene("Scenes/Robunion");
+        if (GameManager.Instance.role)
+            SceneManager.LoadScene("Scenes/PoliceStation");
+        else SceneManager.LoadScene("Scenes/Robunion");
     }
 
     public void ShopButton()
@@ -84,7 +88,52 @@ public class UIManager : MonoBehaviour
 
     public void PlaceSafeButton()
     {
-        GameManager.Instance.InitializeSafe();
+        placeSafeButton.SetActive(false);
+        safePlacingDialogue.SetActive(true);
+        //GameManager.Instance.InitializeSafe();
+    }
+
+    public void SafePlaceCancelButton()
+    {
+        placeSafeButton.SetActive(true);
+        safePlacingDialogue.SetActive(false);
+    }
+
+    public void PlaceLevel1SafeButton()
+    {
+        var cost = 10000;
+        if (GameManager.Instance.money < cost) return;
+        GameManager.Instance.InitializeSafe(1, cost);
+        safePlacingDialogue.SetActive(false);
+        placeSafeButton.SetActive(true);
+    }
+
+    public void PlaceLevel2SafeButton()
+    {
+        var cost = 100000;
+        if (GameManager.Instance.money < cost) return;
+        GameManager.Instance.InitializeSafe(2, cost);
+        safePlacingDialogue.SetActive(false);
+        placeSafeButton.SetActive(false);
+    }
+
+    public void PlaceLevel3SafeButton()
+    {
+        var cost = 250000;
+        if (GameManager.Instance.money < cost) return;
+        GameManager.Instance.InitializeSafe(3, cost);
+        safePlacingDialogue.SetActive(false);
+        placeSafeButton.SetActive(true);
+    }
+
+
+    public void PlaceLevel4SafeButton()
+    {
+        var cost = 1000000;
+        if (GameManager.Instance.money < cost) return;
+        GameManager.Instance.InitializeSafe(4, 1000000);
+        safePlacingDialogue.SetActive(false);
+        placeSafeButton.SetActive(true);
     }
 
     public void GetInfoButton()

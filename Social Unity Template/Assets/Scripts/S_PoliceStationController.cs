@@ -1,34 +1,33 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class S_PoliceStationController : MonoBehaviour
 {
     public GameObject ListPrefab;
-    private int money = 0;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI playerMoney;
     public GameObject shop;
     public GameObject membersUi;
     public GameObject panel;
-    private int id;
-    private string name;
-    private int weaponlvl;
-    private int armorlvl;
-    private int hints;
-    private string locationX;
-    private string locationY;
     public TextMeshProUGUI weaponlvlText;
     public TextMeshProUGUI armorlvlText;
     public TextMeshProUGUI hintsText;
     public TextMeshProUGUI locationXText;
     public TextMeshProUGUI locationYText;
-
+    private int armorlvl;
+    private int hints;
+    private int id;
+    private string locationX;
+    private string locationY;
+    private int money = 0;
+    private string name;
+    private int weaponlvl;
 
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         StartCoroutine(GetMoney());
         StartCoroutine(GetPlayerMoney());
@@ -37,28 +36,25 @@ public class S_PoliceStationController : MonoBehaviour
         panel = GameObject.FindWithTag("List_Panel");
         deleteChildren();
         membersUi.SetActive(false);
-        
+
         Debug.Log(panel);
     }
 
     public void deleteChildren()
     {
-        foreach (Transform child in panel.transform)
-        {
-            Destroy(child.gameObject);
-        }
+        foreach (Transform child in panel.transform) Destroy(child.gameObject);
     }
 
     public IEnumerator get_members()
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_station_members/");
         yield return www;
-        string[] members = www.text.Split("|");
-        for (int i = 0; i < members.Length; i++)
+        var members = www.text.Split("|");
+        for (var i = 0; i < members.Length; i++)
         {
-            GameObject element = Instantiate(ListPrefab, panel.transform);
-            S_ListElement script = element.GetComponent<S_ListElement>();
-            script.SetParameters(i+1 + ".", members[i], id, true, true);
+            var element = Instantiate(ListPrefab, panel.transform);
+            var script = element.GetComponent<S_ListElement>();
+            script.SetParameters(i + 1 + ".", members[i], id, true, true);
         }
     }
 
@@ -69,7 +65,7 @@ public class S_PoliceStationController : MonoBehaviour
         Debug.Log(www.text);
         DisplayMoney(int.Parse(www.text));
     }
-    
+
     public IEnumerator GetPlayerMoney()
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_money/");
@@ -82,39 +78,39 @@ public class S_PoliceStationController : MonoBehaviour
     {
         if (money >= 1000000)
         {
-            float amount_H  = money / 1000000f;
-            float show = (float) Mathf.Round(amount_H * 10f) / 10f;
+            var amount_H = money / 1000000f;
+            var show = Mathf.Round(amount_H * 10f) / 10f;
             moneyText.text = show + "M";
         }
         else if (money >= 1000)
         {
-            float amount_H  = money / 1000f;
-            float show = (float) Mathf.Round(amount_H * 10f) / 10f;
+            var amount_H = money / 1000f;
+            var show = Mathf.Round(amount_H * 10f) / 10f;
             moneyText.text = show + "K";
         }
         else
         {
-            moneyText.text = "" + money; 
+            moneyText.text = "" + money;
         }
     }
-    
+
     public void DisplayPlayerMoney(int money)
     {
         if (money >= 1000000)
         {
-            float amount_H  = money / 1000000f;
-            float show = (float) Mathf.Round(amount_H * 10f) / 10f;
+            var amount_H = money / 1000000f;
+            var show = Mathf.Round(amount_H * 10f) / 10f;
             playerMoney.text = show + "M";
         }
         else if (money >= 1000)
         {
-            float amount_H  = money / 1000f;
-            float show = (float) Mathf.Round(amount_H * 10f) / 10f;
+            var amount_H = money / 1000f;
+            var show = Mathf.Round(amount_H * 10f) / 10f;
             playerMoney.text = show + "K";
         }
         else
         {
-            playerMoney.text = "" + money; 
+            playerMoney.text = "" + money;
         }
     }
 
@@ -122,12 +118,13 @@ public class S_PoliceStationController : MonoBehaviour
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_station_info/");
         yield return www;
-        string[] info = www.text.Split("|");
+        var info = www.text.Split("|");
         id = int.Parse(info[0]);
         name = info[1];
         weaponlvl = int.Parse(info[2]);
         armorlvl = int.Parse(info[3]);
         hints = int.Parse(info[4]);
+        updateText();
     }
 
     public void donateToGuild()
@@ -152,7 +149,7 @@ public class S_PoliceStationController : MonoBehaviour
         membersUi.SetActive(true);
         StartCoroutine(get_members());
     }
-    
+
     public IEnumerator Donate()
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "donate_to_guild/");
@@ -161,52 +158,52 @@ public class S_PoliceStationController : MonoBehaviour
         DisplayMoney(int.Parse(www.text));
         StartCoroutine(GetPlayerMoney());
     }
-    
+
     public IEnumerator UpgradeWeapons()
     {
-        WWWForm form = new WWWForm();
+        var form = new WWWForm();
         form.AddField("cost", 50000);
         using var www = new WWW(GameManager.Instance.BASE_URL + "upgrade_weapons/", form);
         yield return www;
         Debug.Log(www.text);
         DisplayMoney(int.Parse(www.text));
-        updateText();
+        StartCoroutine(getInfo());
     }
-    
+
     public IEnumerator UpgradeArmor()
     {
-        WWWForm form = new WWWForm();
+        var form = new WWWForm();
         form.AddField("cost", 50000);
         using var www = new WWW(GameManager.Instance.BASE_URL + "upgrade_armor/", form);
         yield return www;
         Debug.Log(www.text);
         DisplayMoney(int.Parse(www.text));
-        updateText();
+        StartCoroutine(getInfo());
     }
-    
+
     public IEnumerator UpgradeHints()
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "update_hints/");
         yield return www;
         Debug.Log(www.text);
-        updateText();
+        StartCoroutine(getInfo());
     }
 
     public void upgradeWeapon()
     {
         StartCoroutine(UpgradeWeapons());
     }
-    
+
     public void upgradeArmor()
     {
         StartCoroutine(UpgradeArmor());
     }
-    
+
     public void updateHints()
     {
         StartCoroutine(UpgradeHints());
     }
-    
+
     public void updateText()
     {
         weaponlvlText.text = "Weapons Lvl: " + weaponlvl;
@@ -214,5 +211,10 @@ public class S_PoliceStationController : MonoBehaviour
         hintsText.text = "Hints: " + hints;
         locationXText.text = "X: " + locationX;
         locationYText.text = "Y: " + locationY;
+    }
+
+    public void ClosePoliceStationScreen()
+    {
+        SceneManager.LoadScene(1);
     }
 }
