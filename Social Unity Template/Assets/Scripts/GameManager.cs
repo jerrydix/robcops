@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mapbox.Examples;
@@ -10,7 +9,9 @@ public class GameManager : MonoBehaviour
     public string BASE_URL = "http://chernogop.pythonanywhere.com/";
     [HideInInspector] public string socialTab = "members/";
     public int amountOfClicks;
+
     public float clickPower;
+
     //public S_UserLogin client;
     public Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
     public int currentHP;
@@ -27,6 +28,11 @@ public class GameManager : MonoBehaviour
     private SpawnOnMap spawnOnMap;
     public static GameManager Instance { set; get; }
 
+    private void Awake()
+    {
+        BASE_URL = "http://87.143.147.178:8000/";
+    }
+
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -41,7 +47,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
 
     private void OnDisable()
     {
@@ -59,13 +65,6 @@ public class GameManager : MonoBehaviour
             Instance.GetAllSafes();
         }
     }
-
-    private void Awake()
-    {
-        BASE_URL = "http://chernogop.pythonanywhere.com/";
-    }
-    
-    
 
 
     public void GetAllSafes()
@@ -94,7 +93,7 @@ public class GameManager : MonoBehaviour
         form.AddField("hp", hp);
         form.AddField("locationX", locationX);
         form.AddField("locationY", locationY);
-        
+
         using var www = new WWW(BASE_URL + "create_safe/", form);
         yield return www;
         Debug.Log(www.text);
@@ -121,7 +120,7 @@ public class GameManager : MonoBehaviour
             Debug.Log(tupel[3] + "," + tupel[4]);
             Debug.Log(int.Parse(tupel[0]));
         }
-        
+
         spawnOnMap.ids = ids;
         spawnOnMap.levels = levels;
         spawnOnMap.hps = hps;
