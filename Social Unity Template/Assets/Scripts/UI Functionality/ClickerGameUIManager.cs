@@ -187,7 +187,7 @@ public class ClickerGameUIManager : MonoBehaviour
 
         remainingSafeHP.text = "Remaining Safe Health: " + _currentSafeHealth;
         moneyLose.text = "Money Lost: " + int.Parse(response[1]) / 2;
-        totalMoneyLostScreen.text = "New Balance: " + int.Parse(response[0]);
+        totalMoneyLostScreen.text = "New Balance: " + response[0].Split(".")[0];
         lostScreen.SetActive(true);
     }
 
