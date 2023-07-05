@@ -544,8 +544,10 @@ def end_robbery_success(request):
     reward = request.user.player.event.reward
     request.user.player.money += request.user.player.event.reward
     request.user.player.save()
-    request.user.player.event.safe.delete()
-    request.user.player.event.delete()
+    if request.user.player.event is not None:
+        if request.user.player.event.safe is not None:
+            request.user.player.event.safe.delete()
+            request.user.player.event.delete()
     return HttpResponse(f'{request.user.player.money}|{reward}')
 
 
@@ -554,8 +556,10 @@ def end_robbery_unsuccess(request):
     old_money = request.user.player.money
     request.user.player.money /= 2
     request.user.player.save()
-    request.user.player.event.safe.delete()
-    request.user.player.event.delete()
+    if request.user.player.event is not None:
+        if request.user.player.event.safe is not None:
+            request.user.player.event.safe.delete()
+            request.user.player.event.delete()
     return HttpResponse(f'{request.user.player.money}|{old_money}')
 
 

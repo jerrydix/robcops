@@ -114,15 +114,14 @@ public class GameManager : MonoBehaviour
         for (var i = 1; i < safesTupels.Length; i++)
         {
             var tupel = safesTupels[i].Split(",");
-            Debug.Log(tupel.Length);
-            Debug.Log(safesTupels.Length);
             ids.Add(int.Parse(tupel[0]));
             levels.Add(int.Parse(tupel[1]));
             hps.Add(int.Parse(tupel[2]));
             locations.Add(tupel[3] + "," + tupel[4]);
             Debug.Log(tupel[3] + "," + tupel[4]);
+            Debug.Log(int.Parse(tupel[0]));
         }
-
+        
         spawnOnMap.ids = ids;
         spawnOnMap.levels = levels;
         spawnOnMap.hps = hps;
