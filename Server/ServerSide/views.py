@@ -12,6 +12,7 @@ from django.http import HttpResponse, StreamingHttpResponse
 
 from ServerSide.models import FriendRequest
 from ServerSide.models import *
+from django.db import transaction
 
 from django.shortcuts import render
 
@@ -284,10 +285,11 @@ def get_lobby_members(request):
     return HttpResponse(response)
 
 
+@transaction.atomic()
 @login_required
 def damage_safe(request):
     damage = int(request.user.player.amountOfClicks * request.user.player.clickPower)
-    safe = Safe.objects.get(id=request.user.player.event.safe.id)
+    safe = Safe.objects.select_for_update().get(id=request.user.player.event.safe.id)
     safe.hp -= damage
     safe.save()
     return HttpResponse(safe.hp)
