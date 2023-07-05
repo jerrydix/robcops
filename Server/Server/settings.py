@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-%73gdt^%m&0)7qpi=q7$b@%hs74sq!oq5kofvqt&%)a34zn647
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    # "87.143.147.178",
-    "chernogop.pythonanywhere.com"
+    "87.143.147.178",
+    "chernogop.pythonanywhere.com",
+    "127.0.0.1"
 ]
 
 # Application definition

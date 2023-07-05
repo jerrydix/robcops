@@ -38,8 +38,9 @@ public class SafeManager : MonoBehaviour
 
     private IEnumerator checkBreakInStatus()
     {
-        using var www = new WWW(GameManager.Instance.client.BASE_URL + "checkLobby/" + id + "/");
+        using var www = new WWW(GameManager.Instance.BASE_URL + "checkLobby/" + id + "/");
         yield return www;
+        Debug.Log(GameManager.Instance.BASE_URL + "checkLobby/" + id + "/");
         createLobby = Convert.ToBoolean(int.Parse(www.text));
         _uiManager.ActivateDialogue(level, locationX, locationY, createLobby, id);
     }

@@ -86,7 +86,7 @@ public class SafeUIManager : MonoBehaviour
 
     private IEnumerator CreateBreakIn()
     {
-        using var www = new WWW(GameManager.Instance.client.BASE_URL + "create_lobby/" + _id + "/");
+        using var www = new WWW(GameManager.Instance.BASE_URL + "create_lobby/" + _id + "/");
         yield return www;
         _lobbyPlayerCount = 1;
         Debug.Log(_lobbyPlayerCount);
@@ -102,7 +102,7 @@ public class SafeUIManager : MonoBehaviour
 
     private IEnumerator JoinBreakIn()
     {
-        using var www = new WWW(GameManager.Instance.client.BASE_URL + "joinToEvent/" + _id + "/");
+        using var www = new WWW(GameManager.Instance.BASE_URL + "joinToEvent/" + _id + "/");
         yield return www;
         _lobbyNames = new List<string>();
         var response = S_Parser.ParseResponse(www.text);
@@ -128,7 +128,7 @@ public class SafeUIManager : MonoBehaviour
 
     private IEnumerator DisbandLobby()
     {
-        using var www = new WWW(GameManager.Instance.client.BASE_URL + "destroy_event" + "/");
+        using var www = new WWW(GameManager.Instance.BASE_URL + "destroy_event" + "/");
         yield return www;
         safeDialogue.SetActive(true);
         heistPrepScreen.SetActive(false);
@@ -137,7 +137,7 @@ public class SafeUIManager : MonoBehaviour
 
     private IEnumerator LeaveLobby()
     {
-        using var www = new WWW(GameManager.Instance.client.BASE_URL + "leave_lobby" + "/");
+        using var www = new WWW(GameManager.Instance.BASE_URL + "leave_lobby" + "/");
         yield return www;
         safeDialogue.SetActive(true);
         heistPrepScreen.SetActive(false);
@@ -148,7 +148,7 @@ public class SafeUIManager : MonoBehaviour
     {
         while (true)
         {
-            using var www = new WWW(GameManager.Instance.client.BASE_URL + "check_lobby_info" + "/");
+            using var www = new WWW(GameManager.Instance.BASE_URL + "check_lobby_info" + "/");
             yield return www;
             var response = S_Parser.ParseResponse(www.text);
             Debug.Log(www.text);
@@ -171,7 +171,7 @@ public class SafeUIManager : MonoBehaviour
 
     private IEnumerator StartRobbery()
     {
-        using var www = new WWW(GameManager.Instance.client.BASE_URL + "start_robbery" + "/");
+        using var www = new WWW(GameManager.Instance.BASE_URL + "start_robbery" + "/");
         yield return www;
         var response = S_Parser.ParseResponse(www.text);
         Debug.Log("time: " + response[0]);

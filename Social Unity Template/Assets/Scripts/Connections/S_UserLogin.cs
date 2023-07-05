@@ -9,7 +9,7 @@ public class S_UserLogin : MonoBehaviour
 {
     // For now only local address
 
-    [HideInInspector] public string BASE_URL = "http://127.0.0.1:8000/";
+    public string BASE_URL = "http://chernogop.pythonanywhere.com/";
     [HideInInspector] public string socialTab = "members/";
 
     [SerializeField] private LoginScreenUIManager manager;
@@ -54,6 +54,7 @@ public class S_UserLogin : MonoBehaviour
         form.AddField("username", username);
         form.AddField("password", password);
         using var www = new WWW(BASE_URL + socialTab + "login_user", form);
+        Debug.Log(BASE_URL + socialTab + "login_user");
         yield return www;
         Debug.Log(www.text.TrimStart());
         var success = S_Parser.ParseResponse(www.text)[0];

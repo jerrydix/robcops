@@ -111,7 +111,7 @@ public class ClickerGameUIManager : MonoBehaviour
     {
         if (!timeOver)
         {
-            using var www = new WWW(GameManager.Instance.client.BASE_URL + "damage_safe" + "/");
+            using var www = new WWW(GameManager.Instance.BASE_URL + "damage_safe" + "/");
             yield return www;
             var remainingHealth = int.Parse(www.text);
             _currentSafeHealth = remainingHealth;
@@ -123,7 +123,7 @@ public class ClickerGameUIManager : MonoBehaviour
     {
         while (!gameComplete)
         {
-            using var www = new WWW(GameManager.Instance.client.BASE_URL + "get_safe_hp" + "/");
+            using var www = new WWW(GameManager.Instance.BASE_URL + "get_safe_hp" + "/");
             yield return www;
             _currentSafeHealth = int.Parse(www.text);
             hpBar.setHp(_currentSafeHealth);
@@ -143,7 +143,7 @@ public class ClickerGameUIManager : MonoBehaviour
     {
         while (!gameComplete)
         {
-            using var www = new WWW(GameManager.Instance.client.BASE_URL + "getTimeUntilEnd" + "/");
+            using var www = new WWW(GameManager.Instance.BASE_URL + "getTimeUntilEnd" + "/");
             yield return www;
             currentTakenTime = www.text.Replace(",", ":");
             var currentDiff = www.text.Split(":");
@@ -169,7 +169,7 @@ public class ClickerGameUIManager : MonoBehaviour
 
     private IEnumerator SuccessfulRobbery()
     {
-        using var www = new WWW(GameManager.Instance.client.BASE_URL + "end_robbery_success" + "/");
+        using var www = new WWW(GameManager.Instance.BASE_URL + "end_robbery_success" + "/");
         yield return www;
         var response = S_Parser.ParseResponse(www.text);
 
@@ -181,7 +181,7 @@ public class ClickerGameUIManager : MonoBehaviour
 
     private IEnumerator FailedRobbery()
     {
-        using var www = new WWW(GameManager.Instance.client.BASE_URL + "end_robbery_unsuccess" + "/");
+        using var www = new WWW(GameManager.Instance.BASE_URL + "end_robbery_unsuccess" + "/");
         yield return www;
         var response = S_Parser.ParseResponse(www.text);
 

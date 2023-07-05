@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mapbox.Examples;
@@ -6,11 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [HideInInspector] public string BASE_URL = "http://127.0.0.1:8000/";
+    public string BASE_URL = "http://chernogop.pythonanywhere.com/";
     [HideInInspector] public string socialTab = "members/";
     public int amountOfClicks;
     public float clickPower;
-    public S_UserLogin client;
+    //public S_UserLogin client;
     public Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
     public int currentHP;
     public int hp;
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
 
     private void OnDisable()
     {
@@ -52,11 +54,18 @@ public class GameManager : MonoBehaviour
         {
             ImmediatePositionWithLocationProvider =
                 GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
-            client = GameObject.FindWithTag("Server").GetComponent<S_UserLogin>();
+            //client = GameObject.FindWithTag("Server").GetComponent<S_UserLogin>();
             spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
             Instance.GetAllSafes();
         }
     }
+
+    private void Awake()
+    {
+        BASE_URL = "http://chernogop.pythonanywhere.com/";
+    }
+    
+    
 
 
     public void GetAllSafes()
@@ -85,8 +94,8 @@ public class GameManager : MonoBehaviour
         form.AddField("hp", hp);
         form.AddField("locationX", locationX);
         form.AddField("locationY", locationY);
-        Debug.Log(client);
-        using var www = new WWW(client.BASE_URL + "create_safe/", form);
+        
+        using var www = new WWW(BASE_URL + "create_safe/", form);
         yield return www;
         Debug.Log(www.text);
         //StartCoroutine(GetSafeInfo()); //todo fix so that only one safe is added, and not all safes are fetched again
