@@ -206,14 +206,16 @@ def get_all_safes(request):
 
 
 def get_all_robunions(request):
-    response = "|".join(str(e).replace("(", "").replace(")", "") for e in list(RobUnion.objects.values_list('id',
-                                                                                                            'name')))
+    response = "|".join(str(e).replace("(", "").replace(")", "").replace("\'", "") for e in list(
+        RobUnion.objects.values_list('id',
+                                     'name')))
     return HttpResponse(response)
 
 
 def get_all_stations(request):
-    response = "|".join(str(e).replace("(", "").replace(")", "") for e in list(PoliceStation.objects.values_list('id',
-                                                                                                                 'name')))
+    response = "|".join(
+        str(e).replace("(", "").replace(")", "").replace("\'", "") for e in list(PoliceStation.objects.values_list('id',
+                                                                                                                   'name')))
     return HttpResponse(response)
 
 
