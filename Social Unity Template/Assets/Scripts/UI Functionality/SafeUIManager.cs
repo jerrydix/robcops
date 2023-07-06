@@ -15,8 +15,8 @@ public class SafeUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI safeLevelTextScreen;
     [SerializeField] private TextMeshProUGUI membersText;
     [SerializeField] private TextMeshProUGUI lobbyCountText;
-    [SerializeField] private int wireCutterCountText;
-    [SerializeField] private int c4CountText;
+    [SerializeField] private TextMeshProUGUI wireCutterCountText;
+    [SerializeField] private TextMeshProUGUI c4CountText;
 
 
     [SerializeField] private GameObject heistPrepScreen;
@@ -27,13 +27,11 @@ public class SafeUIManager : MonoBehaviour
     [HideInInspector] public string[] members; //todo get members from game manager / server
 
     public int minigameIndex = 2; //todo get minigame index from server
-    private int _c4Count;
 
     private bool _createLobby;
     private int _id;
     private List<string> _lobbyNames;
     private int _lobbyPlayerCount;
-    private int _wireCutterCount;
 
     //todo animation with dots changing for waiting for players
 
@@ -76,12 +74,32 @@ public class SafeUIManager : MonoBehaviour
 
     public void WireCutterButton()
     {
-        _wireCutterCount++;
+        StartCoroutine(AddWireCutter());
+    }
+
+    private IEnumerator AddWireCutter()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "add_upgrades_to_lobby/" + 1 + "/");
+        yield return www;
+        Debug.Log(www.text);
+        if (S_Parser.ParseResponse(www.text)[0] == "0")
+            yield break;
+        wireCutterCountText.text = www.text;
     }
 
     public void C4Button()
     {
-        _c4Count++;
+        StartCoroutine(AddC4());
+    }
+
+    private IEnumerator AddC4()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "add_upgrades_to_lobby/" + 0 + "/");
+        yield return www;
+        Debug.Log(www.text);
+        if (S_Parser.ParseResponse(www.text)[0] == "0")
+            yield break;
+        c4CountText.text = www.text;
     }
 
     private IEnumerator CreateBreakIn()
@@ -159,12 +177,13 @@ public class SafeUIManager : MonoBehaviour
             }
 
             lobbyCountText.text = response[0] + "/5";
-            c4CountText = int.Parse(response[2]);
-            wireCutterCountText = int.Parse(response[3]);
+            c4CountText.text = response[2];
+            wireCutterCountText.text = response[3];
             var currentMembersText = "";
             for (var i = 4; i < response.Count - 1; i++) currentMembersText += response[i] + "\n";
             membersText.text = currentMembersText;
-            Debug.Log(lobbyCountText.text + " " + c4CountText + " " + wireCutterCountText + " " + membersText.text);
+            Debug.Log(lobbyCountText.text + " " + c4CountText.text + " " + wireCutterCountText.text + " " +
+                      membersText.text);
             yield return new WaitForSeconds(0.5f);
         }
     }
