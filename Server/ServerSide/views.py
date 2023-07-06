@@ -681,6 +681,28 @@ def get_policexp(request):
     return HttpResponse(request.user.player.policeXP)
 
 
+@login_required
+def edit_policexp(request):
+    if request.method != "POST":
+        return HttpResponse("False response")
+    else:
+        xp = request.POST["xp"]
+        request.user.player.policeXP += int(xp)
+        request.user.player.save()
+        return HttpResponse(request.user.player.policeXP)
+
+
+@login_required
+def edit_robberxp(request):
+    if request.method != "POST":
+        return HttpResponse("False response")
+    else:
+        xp = request.POST["xp"]
+        request.user.player.robberXP += int(xp)
+        request.user.player.save()
+        return HttpResponse(request.user.player.robberXP)
+
+
 def start_machine_farm(request):
     t = threading.Thread(target=update_money, args=[request])
     t.setDaemon(True)

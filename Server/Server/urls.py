@@ -36,6 +36,10 @@ urlpatterns = [
     path('get_policexp/', views.get_policexp, name='get_policexp'),
     path('get_safe_status/', views.get_safe_status, name='get_safe_status'),
     path('leave_guild/', views.leave_guild, name='leave_guild'),
+    path('get_robberxp/', views.get_robberxp, name='get_robberxp'),
+    path('get_policexp/', views.get_policexp, name='get_policexp'),
+    path('edit_policexp/', views.edit_policexp, name='edit_policexp'),
+    path('edit_robberxp/', views.edit_robberxp, name='edit_robberxp'),
 
     # Lobby Settings
     path('create_personal_safe/', views.create_personal_safe, name='create_personal_safe'),
