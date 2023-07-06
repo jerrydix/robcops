@@ -159,7 +159,7 @@ def pay_money(request):
 
 
 @login_required
-def create_test_robunion(request):
+def create_robunion(request):
     if not request.user.player.role:
         robunion = RobUnion(name=request.POST['name'])
         robunion.save()
@@ -201,7 +201,8 @@ def get_all_safes(request):
             'level',
             'hp',
             'locationX',
-            'locationY')))
+            'locationY',
+            'status')))
     return HttpResponse(response)
 
 
@@ -356,6 +357,54 @@ def check_lobby_info(request):
     for member in request.user.player.event.members.all():
         response += member.user.username + "|"
     return HttpResponse(response)
+
+
+@login_required
+def arrest_lobby(request):
+    if request.method != 'POST':
+        return HttpResponse('Incorrect request method')
+    else:
+        safeId = request.POST["safeId"]
+        penalty = request.POST["penalty"]
+        if bool(penalty):
+            if Safe.objects.get(id=safeId).status == 3:
+                event = Safe.objects.get(id=safeId).breakinevent
+                event.arrested = True
+                event.penalty = 1
+                event.save()
+                return HttpResponse(f"{event.arrested}|{event.penalty}")
+            else:
+                return HttpResponse(False)
+        else:
+            if Safe.objects.get(id=safeId).status == 3:
+                event = Safe.objects.get(id=safeId).breakinevent
+                event.arrested = True
+                event.penalty = 0
+                event.save()
+                return HttpResponse(f"{event.arrested}|{event.penalty}")
+            else:
+                return HttpResponse(False)
+
+
+@login_required
+def get_safe_status(request):
+    if request.method != 'POST':
+        return HttpResponse('Incorrect request method')
+    else:
+        safeId = request.POST["safeId"]
+        return HttpResponse(Safe.objects.get(id=safeId).status)
+
+
+@login_required
+def get_arrest_status(request):
+    return HttpResponse(request.user.player.event.arrested)
+
+
+@login_required
+def leave_guild(request):
+    request.user.player.robUnion = None
+    request.user.player.policeStation = None
+    return HttpResponse("Leave Guild success")
 
 
 @login_required
@@ -563,6 +612,15 @@ def end_robbery_unsuccess(request):
             request.user.player.event.safe.delete()
             request.user.player.event.delete()
     return HttpResponse(f'{request.user.player.money}|{old_money}')
+
+
+@login_required
+def end_robbery_unsuccess_without_penalty(request):
+    if request.user.player.event is not None:
+        if request.user.player.event.safe is not None:
+            request.user.player.event.safe.delete()
+            request.user.player.event.delete()
+    return HttpResponse(f'{request.user.player.money}')
 
 
 @login_required

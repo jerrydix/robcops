@@ -34,6 +34,8 @@ urlpatterns = [
     path('start_safe_farm/', views.start_safe_farm, name='start_safe_farm'),
     path('get_robberxp/', views.get_robberxp, name='get_robberxp'),
     path('get_policexp/', views.get_policexp, name='get_policexp'),
+    path('get_safe_status/', views.get_safe_status, name='get_safe_status'),
+    path('leave_guild/', views.leave_guild, name='leave_guild'),
 
     # Lobby Settings
     path('create_personal_safe/', views.create_personal_safe, name='create_personal_safe'),
@@ -54,6 +56,10 @@ urlpatterns = [
     path('check_if_arrested/', views.check_if_arrested, name='check_if_arrested'),
     path('end_robbery_success/', views.end_robbery_success, name='end_robbery_success'),
     path('end_robbery_unsuccess/', views.end_robbery_unsuccess, name='end_robbery_unsuccess'),
+    path('end_robbery_unsuccess_without_penalty/', views.end_robbery_unsuccess_without_penalty,
+         name='end_robbery_unsuccess_without_penalty'),
+    path('arrest_lobby/', views.arrest_lobby, name='arrest_lobby'),
+    path('get_arrest_status/', views.get_arrest_status, name='get_arrest_status'),
 
     # Get Lists
     path('get_all_safes/', views.get_all_safes, name='get_all_safes'),
@@ -67,7 +73,7 @@ urlpatterns = [
     path('get_player_info/', views.get_player_info, name='get_player_info'),
 
     # Guild
-    path('create_test_robunion/', views.create_test_robunion, name='create_test_robunion'),
+    path('create_robunion/', views.create_robunion, name='create_robunion'),
     path('create_police_station/', views.create_police_station, name='create_police_station'),
     path('join_rob_union/<int:robId>/', views.join_rob_union, name='join_rob_union'),
     path('join_police_station/<int:policeId>/', views.join_police_station, name='join_police_station'),

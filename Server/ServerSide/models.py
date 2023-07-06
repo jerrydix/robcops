@@ -28,6 +28,7 @@ class BreakInEvent(models.Model):
     timeForRobbery = models.FloatField(default=10.0)
     reward = models.IntegerField(default=0)
     arrested = models.BooleanField(default=False)
+    penalty = models.IntegerField(default=1)
 
 
 class Guild(models.Model):
