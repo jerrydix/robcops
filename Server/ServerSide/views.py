@@ -66,6 +66,7 @@ def register_user(request):
             login(request, user)
             player = Player(user=user)
             player.save()
+            start_safe_farm(request)
             return HttpResponse('1|Signup Successful')
         else:
             return HttpResponse(f'0|Register Form is not valid:{error_message}')
@@ -148,6 +149,23 @@ def create_safe(request):
 
 
 @login_required
+def place_safe(request):
+    if request.method != 'POST':
+        return HttpResponse('Incorrect request method')
+    else:
+        lvl = request.POST["level"]
+        hp = request.POST["hp"]
+        x = request.POST["locationX"]
+        y = request.POST["locationY"]
+        safe = Safe(level=lvl, hp=hp, locationX=float(x), locationY=float(y))
+        safe.save()
+        request.user.player.safesActive += 1
+        request.user.player.save()
+        response = f"Safe {safe.id} level {lvl} with {hp} hp placed at the following location: {x}, {y}"
+        return HttpResponse(response)
+
+
+@login_required
 def pay_money(request):
     if request.method != 'POST':
         return HttpResponse('Incorrect request method')
@@ -160,9 +178,10 @@ def pay_money(request):
 
 @login_required
 def create_robunion(request):
-    if not request.user.player.role:
+    if request.user.player.role == 0:
         robunion = RobUnion(name=request.POST['name'])
         robunion.save()
+        start_machine_farm(request=request)
         request.user.player.robUnion = robunion
         request.user.player.policeStation = None
         request.user.player.save()
@@ -173,7 +192,7 @@ def create_robunion(request):
 
 @login_required
 def create_police_station(request):
-    if not request.user.player.role:
+    if request.user.player.role == 1:
         police_station = PoliceStation(name=request.POST['name'])
         police_station.save()
         request.user.player.policeStation = police_station
@@ -597,6 +616,7 @@ def end_robbery_success(request):
     request.user.player.save()
     if request.user.player.event is not None:
         if request.user.player.event.safe is not None:
+            request.user.player.event.safe.author.player.safesActive -= 1
             request.user.player.event.safe.delete()
             request.user.player.event.delete()
     return HttpResponse(f'{request.user.player.money}|{reward}')
@@ -609,6 +629,7 @@ def end_robbery_unsuccess(request):
     request.user.player.save()
     if request.user.player.event is not None:
         if request.user.player.event.safe is not None:
+            request.user.player.event.safe.author.player.safesActive -= 1
             request.user.player.event.safe.delete()
             request.user.player.event.delete()
     return HttpResponse(f'{request.user.player.money}|{old_money}')
@@ -618,6 +639,7 @@ def end_robbery_unsuccess(request):
 def end_robbery_unsuccess_without_penalty(request):
     if request.user.player.event is not None:
         if request.user.player.event.safe is not None:
+            request.user.player.event.safe.author.player.safesActive -= 1
             request.user.player.event.safe.delete()
             request.user.player.event.delete()
     return HttpResponse(f'{request.user.player.money}')
@@ -651,6 +673,7 @@ def switch_role(request):
         request.user.player.role = True
         request.user.player.robUnion = None
         request.user.player.event = None
+        request.user.player.safesActive = 0
         request.user.player.c4 = 0
         request.user.player.alarmDisabler = 0
         request.user.player.policeXP = 0
@@ -719,7 +742,8 @@ def start_safe_farm(request):
 
 def update_money(request):
     if request.user.player.robUnion is not None:
-        ru = request.user.player.robUnion
+        id = request.user.player.robUnion.id
+        ru = RobUnion.objects.get(id=id)
         while True:
             time.sleep(3600)
             ru.guildMoney += ru.machines * 100000
