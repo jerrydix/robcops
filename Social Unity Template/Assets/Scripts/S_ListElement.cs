@@ -1,8 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class S_ListElement : MonoBehaviour
 {
@@ -10,13 +10,12 @@ public class S_ListElement : MonoBehaviour
     public TextMeshProUGUI name;
     public Button joinButton;
     public bool list;
-    public int guildId = 0;
+    public int guildId;
     public bool cop;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
     }
 
     public void SetParameters(string num, string nennung, int id, bool isList, bool isCop)
@@ -33,13 +32,9 @@ public class S_ListElement : MonoBehaviour
         else
         {
             if (cop)
-            {
                 joinButton.onClick.AddListener(set_cop);
-            }
             else
-            {
                 joinButton.onClick.AddListener(set_rob);
-            }
         }
     }
 
@@ -47,23 +42,27 @@ public class S_ListElement : MonoBehaviour
     {
         StartCoroutine(join_rob());
     }
-    
+
     public void set_cop()
     {
         StartCoroutine(join_cop());
     }
-    
+
     public IEnumerator join_rob()
     {
-        using var www = new WWW(GameManager.Instance.BASE_URL + "join_rob_union/" + guildId.ToString() + "/");
+        using var www = new WWW(GameManager.Instance.BASE_URL + "join_rob_union/" + guildId + "/");
         yield return www;
         Debug.Log(www.text);
+        GameManager.Instance.guild = guildId;
+        SceneManager.LoadScene("Scenes/Robunion");
     }
-    
+
     public IEnumerator join_cop()
     {
-        using var www = new WWW(GameManager.Instance.BASE_URL + "join_police_station/" + guildId.ToString() + "/");
+        using var www = new WWW(GameManager.Instance.BASE_URL + "join_police_station/" + guildId + "/");
         yield return www;
         Debug.Log(www.text);
+        GameManager.Instance.guild = guildId;
+        SceneManager.LoadScene("Scenes/PoliceStation");
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,20 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject placeSafeButton;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private GameObject safePlacingDialogue;
+    [SerializeField] private GameObject robUnionListScreen;
+    [SerializeField] private GameObject policeStationListScreen;
+    [SerializeField] private GameObject guildUI;
+    [SerializeField] private GameObject robPanel;
+    [SerializeField] private GameObject copPanel;
+    [SerializeField] private GameObject listElementPrefab;
+    [SerializeField] private TextMeshProUGUI safeLvl1Text;
+    [SerializeField] private TextMeshProUGUI safeLvl2Text;
+    [SerializeField] private TextMeshProUGUI safeLvl3Text;
+    [SerializeField] private TextMeshProUGUI safeLvl4Text;
+    private readonly int _cost1 = 10000;
+    private readonly int _cost2 = 100000;
+    private readonly int _cost3 = 250000;
+    private readonly int _cost4 = 1000000;
 
     private int currentXP; //verbinden mit gamemanager
     private bool switchButtonActivated;
@@ -46,9 +61,68 @@ public class UIManager : MonoBehaviour
 
     public void GuildButton()
     {
-        if (GameManager.Instance.role)
-            SceneManager.LoadScene("Scenes/PoliceStation");
-        else SceneManager.LoadScene("Scenes/Robunion");
+        if (GameManager.Instance.guild != -1)
+        {
+            if (GameManager.Instance.role)
+                SceneManager.LoadScene("Scenes/PoliceStation");
+            else SceneManager.LoadScene("Scenes/Robunion");
+        }
+        else
+        {
+            guildUI.SetActive(true);
+            if (GameManager.Instance.role)
+            {
+                policeStationListScreen.SetActive(true);
+                deleteChildrenPanelCop();
+                StartCoroutine(getPoliceStations());
+            }
+            else
+            {
+                robUnionListScreen.SetActive(true);
+                deleteChildrenPanelRob();
+                StartCoroutine(getRobUnions());
+            }
+        }
+    }
+
+    public void deleteChildrenPanelRob()
+    {
+        foreach (Transform child in robPanel.transform) Destroy(child.gameObject);
+    }
+
+    public void deleteChildrenPanelCop()
+    {
+        foreach (Transform child in copPanel.transform) Destroy(child.gameObject);
+    }
+
+    public IEnumerator getRobUnions()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "get_all_robunions/");
+        yield return www;
+        var robunions = www.text.Split("|");
+        for (var i = 0; i < robunions.Length; i++)
+        {
+            var element = Instantiate(listElementPrefab, robPanel.transform);
+            var script = element.GetComponent<S_ListElement>();
+            var id = int.Parse(robunions[i].Split(", ")[0]);
+            var nennung = robunions[i].Split(", ")[1];
+            script.SetParameters(i + 1 + ".", nennung, id, false, false);
+        }
+    }
+
+    public IEnumerator getPoliceStations()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "get_all_stations/");
+        yield return www;
+        var stations = www.text.Split("|");
+        for (var i = 0; i < stations.Length; i++)
+        {
+            var element = Instantiate(listElementPrefab, copPanel.transform);
+            var script = element.GetComponent<S_ListElement>();
+            var id = int.Parse(stations[i].Split(", ")[0]);
+            var nennung = stations[i].Split(", ")[1];
+            script.SetParameters(i + 1 + ".", nennung, id, false, false);
+        }
     }
 
     public void ShopButton()
@@ -65,8 +139,11 @@ public class UIManager : MonoBehaviour
 
     public void BackToMapButton()
     {
+        deleteChildrenPanelRob();
+        deleteChildrenPanelCop();
         settingsUI.SetActive(false);
         shopUI.SetActive(false);
+        guildUI.SetActive(false);
         mapScreenUI.SetActive(true);
     }
 
@@ -90,7 +167,34 @@ public class UIManager : MonoBehaviour
     {
         placeSafeButton.SetActive(false);
         safePlacingDialogue.SetActive(true);
+        safeLvl1Text.text = DisplayMoney(_cost1);
+        safeLvl2Text.text = DisplayMoney(_cost2);
+        safeLvl3Text.text = DisplayMoney(_cost3);
+        safeLvl4Text.text = DisplayMoney(_cost4);
         //GameManager.Instance.InitializeSafe();
+    }
+
+    public string DisplayMoney(int money)
+    {
+        var result = "";
+        if (money >= 1000000)
+        {
+            var amount_H = money / 1000000f;
+            var show = Mathf.Round(amount_H * 10f) / 10f;
+            result = show + "M";
+        }
+        else if (money >= 1000)
+        {
+            var amount_H = money / 1000f;
+            var show = Mathf.Round(amount_H * 10f) / 10f;
+            result = show + "K";
+        }
+        else
+        {
+            result = "" + money;
+        }
+
+        return result;
     }
 
     public void SafePlaceCancelButton()
@@ -101,27 +205,24 @@ public class UIManager : MonoBehaviour
 
     public void PlaceLevel1SafeButton()
     {
-        var cost = 10000;
-        if (GameManager.Instance.money < cost) return;
-        GameManager.Instance.InitializeSafe(1, cost);
+        if (GameManager.Instance.money < _cost1) return;
+        GameManager.Instance.InitializeSafe(1, _cost1);
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
     }
 
     public void PlaceLevel2SafeButton()
     {
-        var cost = 100000;
-        if (GameManager.Instance.money < cost) return;
-        GameManager.Instance.InitializeSafe(2, cost);
+        if (GameManager.Instance.money < _cost2) return;
+        GameManager.Instance.InitializeSafe(2, _cost2);
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(false);
     }
 
     public void PlaceLevel3SafeButton()
     {
-        var cost = 250000;
-        if (GameManager.Instance.money < cost) return;
-        GameManager.Instance.InitializeSafe(3, cost);
+        if (GameManager.Instance.money < _cost3) return;
+        GameManager.Instance.InitializeSafe(3, _cost3);
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
     }
@@ -129,9 +230,8 @@ public class UIManager : MonoBehaviour
 
     public void PlaceLevel4SafeButton()
     {
-        var cost = 1000000;
-        if (GameManager.Instance.money < cost) return;
-        GameManager.Instance.InitializeSafe(4, 1000000);
+        if (GameManager.Instance.money < _cost4) return;
+        GameManager.Instance.InitializeSafe(4, _cost4);
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
     }

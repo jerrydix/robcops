@@ -121,6 +121,11 @@ public class S_UserLogin : MonoBehaviour
         GameManager.Instance.clickPower = float.Parse(list[4]);
         GameManager.Instance.location = new Vector2(float.Parse(list[5]), float.Parse(list[6]));
         GameManager.Instance.role = bool.Parse(list[7]);
-        //guild = int.Parse(list[7]);
+        int guildID;
+        var hasGuild = int.TryParse(list[8], out guildID);
+        if (hasGuild)
+            GameManager.Instance.guild = guildID;
+        else
+            GameManager.Instance.guild = -1;
     }
 }

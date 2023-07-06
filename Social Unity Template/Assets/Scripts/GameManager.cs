@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public float clickPower;
 
     //public S_UserLogin client;
-    public Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
+    public int guild;
     public int currentHP;
     public int hp;
     public int currentMinutes;
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         form.AddField("locationX", locationX);
         form.AddField("locationY", locationY);
 
-        using var www = new WWW(BASE_URL + "create_safe/", form);
+        using var www = new WWW(BASE_URL + "place_safe/", form);
         yield return www;
         Debug.Log(www.text);
         //StartCoroutine(GetSafeInfo()); //todo fix so that only one safe is added, and not all safes are fetched again
