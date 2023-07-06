@@ -104,8 +104,8 @@ GameObject:
   - component: {fileID: 8966197344919256692}
   - component: {fileID: 8966197344919256703}
   - component: {fileID: 8966197344919256688}
-  - component: {fileID: 8966197344919256690}
   - component: {fileID: 8966197344919256691}
+  - component: {fileID: 8966197344919256690}
   - component: {fileID: 8966197344919256702}
   - component: {fileID: 8089920801446490556}
   m_Layer: 0
@@ -181,6 +181,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8966197344919256691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8966197344919256693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7760043eea2cd452ba7117f2c97e0038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8966197344919256690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,18 +211,6 @@ MonoBehaviour:
   _rotateZ: 0
   _useNegativeAngle: 0
   _useTransformLocationProvider: 0
---- !u!114 &8966197344919256691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8966197344919256693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7760043eea2cd452ba7117f2c97e0038, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &8966197344919256702
 CapsuleCollider:
   m_ObjectHideFlags: 0

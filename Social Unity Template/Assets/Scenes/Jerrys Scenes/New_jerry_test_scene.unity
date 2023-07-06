@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1702,7 +1702,7 @@ PrefabInstance:
     - target: {fileID: 114467468983267246, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       propertyPath: _editorLocationProvider
       value: 
-      objectReference: {fileID: 1279200954}
+      objectReference: {fileID: 843921208}
     - target: {fileID: 114472907270853152, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       propertyPath: _editorDebuggingOnly._locationLogFile
       value: 
@@ -1725,6 +1725,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+--- !u!114 &843921208 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114658503893516242, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+  m_PrefabInstance: {fileID: 843921207}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5c815d91f9d4c3690891f3ed4c3162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!21 &1021724345
 Material:
   serializedVersion: 8
@@ -2027,17 +2038,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &1279200954 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114658503893516242, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
-  m_PrefabInstance: {fileID: 843921207}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b5c815d91f9d4c3690891f3ed4c3162, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!21 &1349072590
 Material:
   serializedVersion: 8
