@@ -104,7 +104,7 @@ Material:
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 0.0062708855, g: 0, b: 1, a: 1}
+    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!28 &-3059144483651870475
 Texture2D:
@@ -163,11 +163,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: RifficFree-Bold SDF
+  m_Name: RifficFree-Bold SDF 2
   m_EditorClassIdentifier: 
-  hashCode: 227115292
+  hashCode: -1779549170
   material: {fileID: -5405882748149710917}
-  materialHashCode: 355117628
+  materialHashCode: 1371837166
   m_Version: 1.1.0
   m_SourceFontFileGUID: 27ab697af38b696449fa2432feec8f82
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 27ab697af38b696449fa2432feec8f82, type: 3}
