@@ -13,7 +13,8 @@ public class DebugOrientation : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 current = gameObject.transform.rotation.eulerAngles;
-        debug.text = Input.gyro.attitude.eulerAngles.ToString() + "\n" + Input.gyro.rotationRateUnbiased + "\n" + current.ToString();
+        debug.text = Input.gyro.attitude.eulerAngles.ToString() + "\n" + Input.gyro.rotationRateUnbiased + "\n" + current.ToString()
+                    + "\n" + Input.gyro.attitude.ToString();
     }
 
 }

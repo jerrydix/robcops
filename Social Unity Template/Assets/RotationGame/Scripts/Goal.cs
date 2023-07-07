@@ -11,7 +11,7 @@ public class Goal : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ball"))
         {
-            manager.hp -= manager.damage;
+            manager.DecrementHealth();
             manager.ResetBall();
         }
     }
