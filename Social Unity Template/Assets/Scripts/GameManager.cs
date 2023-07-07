@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Mapbox.Examples;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -79,14 +80,10 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator SendSafeToServer()
     {
-        var locationX =
-            48.264518.ToString()
-                .Replace(",",
-                    "."); //ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(CultureInfo.InvariantCulture);
-        var locationY =
-            11.6713515.ToString()
-                .Replace(",",
-                    "."); //ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(CultureInfo.InvariantCulture);
+        var locationX = ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(CultureInfo.InvariantCulture);
+        // 48.264518.ToString().Replace(",",".");
+        var locationY = ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(CultureInfo.InvariantCulture);
+        //11.6713515.ToString().Replace(",", ".");
 
         var form = new WWWForm();
         form.AddField("level", level);
