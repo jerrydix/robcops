@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -34,8 +35,7 @@ public class UIManager : MonoBehaviour
     private readonly int _cost4 = 1000000;
 
     private int currentXP; //verbinden mit gamemanager
-
-    private Coroutine safeUpdateRoutine;
+    
     private bool switchButtonActivated;
 
     private int XPthreshold;
@@ -55,16 +55,6 @@ public class UIManager : MonoBehaviour
         moneyText.text = GameManager.Instance.money.ToString();
         //todo same for xp
     }
-
-    private void OnDestroy()
-    {
-        StopCoroutine(safeUpdateRoutine);
-    }
-
-    /*public void SafeUpdate()
-    {
-        safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
-    }*/
 
     public void ActivateDialogue(int level, double locationX, double locationY, bool createLobby, int id)
     {
@@ -101,6 +91,11 @@ public class UIManager : MonoBehaviour
     public void deleteChildrenPanelRob()
     {
         foreach (Transform child in robPanel.transform) Destroy(child.gameObject);
+    }
+
+    public void OnDestroy()
+    {
+        StopCoroutine(GameManager.Instance.updateSafesCoroutine);
     }
 
     public void deleteChildrenPanelCop()

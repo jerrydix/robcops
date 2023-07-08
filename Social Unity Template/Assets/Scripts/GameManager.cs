@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     private SpawnOnMap spawnOnMap;
 
-    private Coroutine updateSafesCoroutine;
+    public Coroutine updateSafesCoroutine;
     public static GameManager Instance { set; get; }
 
     private void Awake()
@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("getAllSafesText: " + www.text);
             if (www.text == "")
             {
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(10f);
                 continue;
             }
             var safesTupels = www.text.Split("|");
