@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Mapbox.Unity.Location;
 using Mapbox.Unity.Map;
@@ -27,10 +26,10 @@ namespace Mapbox.Examples
         public List<int> ids = new();
         public List<int> levels = new();
         public List<int> hps = new();
-        private Vector2d[] _cubeLocations;
+        public Vector2d[] _cubeLocations;
+        public Vector2d[] _locations;
         private ImmediatePositionWithLocationProvider _immediatePositionWithLocationProvider;
         private LocationArrayEditorLocationProvider _locationArrayEditorLocationProvider;
-        private Vector2d[] _locations;
 
         private GameManager gm;
 
@@ -44,7 +43,7 @@ namespace Mapbox.Examples
                 .GetComponent<LocationArrayEditorLocationProvider>();
             _immediatePositionWithLocationProvider = GameObject.FindWithTag("Player")
                 .GetComponent<ImmediatePositionWithLocationProvider>();
-            StartCoroutine(UpdateCubeLocation());
+            //StartCoroutine(UpdateCubeLocation());
         }
 
         /*private void Update()
@@ -57,12 +56,7 @@ namespace Mapbox.Examples
             StartCoroutine(UpdateCubeLocation());
         }*/
 
-        public void waitForCubeLocationThenSpawnSafe()
-        {
-            StartCoroutine(WaitForCubeLocationThenSpawnSafe());
-        }
-
-        private void UpdateSafeLocation()
+        /*private void UpdateSafeLocation()
         {
             var count = _spawnedObjects.Count;
             for (var i = 0; i < count; i++)
@@ -75,11 +69,10 @@ namespace Mapbox.Examples
                 spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
                 //Debug.Log("SpawnedSafe");
             }
-        }
+        }*/
 
-        public IEnumerator WaitForCubeLocationThenSpawnSafe()
+        public void WaitForCubeLocationThenSpawnSafe()
         {
-            yield return new WaitForSeconds(1);
             _locations = new Vector2d[_locationStrings.Count];
             _spawnedObjects = new List<GameObject>();
             for (var i = 0; i < _locationStrings.Count; i++)
@@ -102,11 +95,13 @@ namespace Mapbox.Examples
                 instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
                 _spawnedObjects.Add(instance);
             }
+
+            //yield return null;
         }
 
-        private IEnumerator UpdateCubeLocation()
+        /*public IEnumerator UpdateCubeLocation()
         {
-            yield return new WaitForSeconds(1); //TODO CHECK IF THIS BREAKS ANYTHING
+            //yield return new WaitForSeconds(0); //TODO CHECK IF THIS BREAKS ANYTHING
             var count = cubes.Count;
             for (var i = 0; i < count; i++)
             {
@@ -126,7 +121,8 @@ namespace Mapbox.Examples
 
             activateUpdate = true;
             UpdateSafeLocation();
-        }
+            yield return null;
+        }*/
 
         public void SpawnCubes()
         {
@@ -239,7 +235,7 @@ namespace Mapbox.Examples
             }
         }
 
-        public bool CheckIsFreePos(Vector3 position)
+        /*public bool CheckIsFreePos(Vector3 position)
         {
             RaycastHit hit;
             if (Physics.Raycast(position, Vector3.down, out hit, Mathf.Infinity))
@@ -256,6 +252,6 @@ namespace Mapbox.Examples
             var v = testo.gameObject.transform.position;
             v.y += 4;
             CheckIsFreePos(v);
-        }
+        }*/
     }
 }

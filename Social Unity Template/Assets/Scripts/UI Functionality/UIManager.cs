@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
         switchRoleButton.interactable = switchButtonActivated;
         Debug.Log(GameManager.Instance.role);
         ChangePlaceSafeButton(GameManager.Instance.role);
-        safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
+        //safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
     }
 
     private void Update()
@@ -61,10 +61,10 @@ public class UIManager : MonoBehaviour
         StopCoroutine(safeUpdateRoutine);
     }
 
-    public void SafeUpdate()
+    /*public void SafeUpdate()
     {
         safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
-    }
+    }*/
 
     public void ActivateDialogue(int level, double locationX, double locationY, bool createLobby, int id)
     {
@@ -251,7 +251,7 @@ public class UIManager : MonoBehaviour
 
     public void GetInfoButton()
     {
-        GameManager.Instance.GetAllSafes();
+        //GameManager.Instance.GetAllSafes();
     }
 
     //when police visible, when robber invisible
