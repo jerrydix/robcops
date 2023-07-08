@@ -106,7 +106,7 @@ namespace Mapbox.Examples
 
         private IEnumerator UpdateCubeLocation()
         {
-            yield return new WaitForSeconds(0); //TODO CHECK IF THIS BREAKS ANYTHING
+            yield return new WaitForSeconds(1); //TODO CHECK IF THIS BREAKS ANYTHING
             var count = cubes.Count;
             for (var i = 0; i < count; i++)
             {

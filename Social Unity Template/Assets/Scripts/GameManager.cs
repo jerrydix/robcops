@@ -137,11 +137,13 @@ public class GameManager : MonoBehaviour
         {
             //Innefficient shit code, but works. 
             spawnOnMap._locationStrings = new List<string>();
-            for (var i = 0; i < spawnOnMap._spawnedObjects.Count; i++)
-            {
-                spawnOnMap._spawnedObjects[i].Destroy();
-                spawnOnMap.cubes[i].Destroy();
-            }
+            for (var i = 0; i < spawnOnMap._spawnedObjects.Count; i++) spawnOnMap._spawnedObjects[i].Destroy();
+
+            for (var i = 0; i < spawnOnMap.cubes.Count; i++) spawnOnMap.cubes[i].Destroy();
+
+            spawnOnMap._spawnedObjects = new List<GameObject>();
+            spawnOnMap.cubes = new List<GameObject>();
+
 
             using var www = new WWW(BASE_URL + "get_all_safes/");
             yield return www;
