@@ -82,16 +82,17 @@ namespace Mapbox.Examples
                 _locations[i] = Conversions.StringToLatLon(locationString);
                 var instance = Instantiate(_markerPrefab);
 
-                var currentSafeManager = _markerPrefab.GetComponent<SafeManager>();
+                var currentSafeManager =  instance.GetComponent<SafeManager>();
+                Debug.Log("CURRENTSAFAMANAGER: " + currentSafeManager);
                 currentSafeManager.id = ids[i];
+                Debug.Log("CURRENTSAFEMANAGERID: " + currentSafeManager.id);
                 currentSafeManager.hp = hps[i];
                 currentSafeManager.level = levels[i];
                 currentSafeManager.locationX = _locations[i].x; //locationString.Split(",")[0];
                 currentSafeManager.locationY = _locations[i].y;
 
                 instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i]);
-
-
+                
                 instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
                 _spawnedObjects.Add(instance);
             }

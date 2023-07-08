@@ -33,6 +33,7 @@ public class SafeManager : MonoBehaviour
     {
         Debug.Log("safe clicked");
         //todo add checkSafe method
+        Debug.Log("SAFE ID: " + id);
         StartCoroutine(checkBreakInStatus());
     }
 
