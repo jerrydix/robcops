@@ -20,8 +20,7 @@ public class RotateGameManager : MonoBehaviour
     [SerializeField]
     private Text hpField;
 
-    [SerializeField]
-    private Scene[] scenes;
+    [SerializeField] private Maze[] scenes;
 
     private GameObject gameBall;
     private GameObject startPos;
@@ -126,7 +125,7 @@ public class RotateGameManager : MonoBehaviour
     private void PickRandomScene()
     {
         int rand = UnityEngine.Random.Range(0, scenes.Length);
-        Scene s = scenes[rand];
+        Maze s = scenes[rand];
         scene = s.scene;
         startPos = s.ballStart;
         gameBall = s.ball;
