@@ -629,7 +629,8 @@ def end_robbery_unsuccess(request):
     request.user.player.save()
     if request.user.player.event is not None:
         if request.user.player.event.safe is not None:
-            request.user.player.event.safe.author.player.safesActive -= 1
+            if request.user.player.event.safe.author is not None:
+                request.user.player.event.safe.author.player.safesActive -= 1
             request.user.player.event.safe.delete()
             request.user.player.event.delete()
     return HttpResponse(f'{request.user.player.money}|{old_money}')
@@ -639,7 +640,8 @@ def end_robbery_unsuccess(request):
 def end_robbery_unsuccess_without_penalty(request):
     if request.user.player.event is not None:
         if request.user.player.event.safe is not None:
-            request.user.player.event.safe.author.player.safesActive -= 1
+            if request.user.player.event.safe.author is not None:
+                request.user.player.event.safe.author.player.safesActive -= 1
             request.user.player.event.safe.delete()
             request.user.player.event.delete()
     return HttpResponse(f'{request.user.player.money}')

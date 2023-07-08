@@ -175,7 +175,8 @@ public class ClickerGameUIManager : MonoBehaviour
 
         timerTextWinScreen.text = "Time Taken: " + currentTakenTime;
         moneyGain.text = "Money Gained: " + response[1];
-        totalMoneyWinScreen.text = "New Balance: " + int.Parse(response[0]);
+        totalMoneyWinScreen.text = "New Balance: " + response[0].Split(".")[0];
+        GameManager.Instance.money = int.Parse(response[0].Split(".")[0]);
         winScreen.SetActive(true);
     }
 
@@ -183,11 +184,13 @@ public class ClickerGameUIManager : MonoBehaviour
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "end_robbery_unsuccess" + "/");
         yield return www;
+        Debug.Log(www.text);
         var response = S_Parser.ParseResponse(www.text);
 
         remainingSafeHP.text = "Remaining Safe Health: " + _currentSafeHealth;
         moneyLose.text = "Money Lost: " + int.Parse(response[1]) / 2;
         totalMoneyLostScreen.text = "New Balance: " + response[0].Split(".")[0];
+        GameManager.Instance.money = int.Parse(response[0].Split(".")[0]);
         lostScreen.SetActive(true);
     }
 
