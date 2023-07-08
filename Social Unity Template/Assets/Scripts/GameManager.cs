@@ -80,9 +80,13 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator SendSafeToServer()
     {
-        var locationX = ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(CultureInfo.InvariantCulture);
+        var locationX =
+            ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(
+                CultureInfo.InvariantCulture);
         // 48.264518.ToString().Replace(",",".");
-        var locationY = ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(CultureInfo.InvariantCulture);
+        var locationY =
+            ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(
+                CultureInfo.InvariantCulture);
         //11.6713515.ToString().Replace(",", ".");
 
         var form = new WWWForm();
@@ -94,6 +98,7 @@ public class GameManager : MonoBehaviour
         using var www = new WWW(BASE_URL + "place_safe/", form);
         yield return www;
         Debug.Log(www.text);
+
         //StartCoroutine(GetSafeInfo()); //todo fix so that only one safe is added, and not all safes are fetched again
     }
 
@@ -124,6 +129,50 @@ public class GameManager : MonoBehaviour
         spawnOnMap._locationStrings = locations;
         spawnOnMap.SpawnCubes();
         spawnOnMap.waitForCubeLocationThenSpawnSafe();
+    }
+
+    public IEnumerator UpdateSafes()
+    {
+        while (true)
+        {
+            //Innefficient shit code, but works. 
+            spawnOnMap._locationStrings = new List<string>();
+            for (var i = 0; i < spawnOnMap._spawnedObjects.Count; i++)
+            {
+                spawnOnMap._spawnedObjects[i].Destroy();
+                spawnOnMap.cubes[i].Destroy();
+            }
+
+            using var www = new WWW(BASE_URL + "get_all_safes/");
+            yield return www;
+            Debug.Log(www.text);
+            var safesTupels = www.text.Split("|");
+            var ids = new List<int>();
+            var levels = new List<int>();
+            var hps = new List<int>();
+            var locations = new List<string>();
+            for (var i = 1; i < safesTupels.Length; i++)
+            {
+                var tupel = safesTupels[i].Split(",");
+                ids.Add(int.Parse(tupel[0]));
+                levels.Add(int.Parse(tupel[1]));
+                hps.Add(int.Parse(tupel[2]));
+                locations.Add(tupel[3] + "," + tupel[4]);
+                Debug.Log(tupel[3] + "," + tupel[4]);
+                Debug.Log(int.Parse(tupel[0]));
+            }
+
+            spawnOnMap.ids = ids;
+            var idString = "";
+            foreach (var id in spawnOnMap.ids) idString += id + ",";
+            Debug.Log(idString);
+            spawnOnMap.levels = levels;
+            spawnOnMap.hps = hps;
+            spawnOnMap._locationStrings = locations;
+            spawnOnMap.SpawnCubes();
+            spawnOnMap.waitForCubeLocationThenSpawnSafe();
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     public IEnumerator getMoneyAndSetLevel(int level, int cost)

@@ -670,6 +670,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safeUI: {fileID: 513406214746416649}
+  level: 0
+  id: 0
+  hp: 0
+  locationX: 0
+  locationY: 0
+  createLobby: 0
+  lobbyPlayerCount: 0
+  lobbyNames: []
 --- !u!1 &6169024371590543621
 GameObject:
   m_ObjectHideFlags: 0

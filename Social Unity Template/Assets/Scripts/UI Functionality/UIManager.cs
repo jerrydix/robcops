@@ -34,6 +34,8 @@ public class UIManager : MonoBehaviour
     private readonly int _cost4 = 1000000;
 
     private int currentXP; //verbinden mit gamemanager
+
+    private Coroutine safeUpdateRoutine;
     private bool switchButtonActivated;
 
     private int XPthreshold;
@@ -45,12 +47,23 @@ public class UIManager : MonoBehaviour
         switchRoleButton.interactable = switchButtonActivated;
         Debug.Log(GameManager.Instance.role);
         ChangePlaceSafeButton(GameManager.Instance.role);
+        safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
     }
 
     private void Update()
     {
         moneyText.text = GameManager.Instance.money.ToString();
         //todo same for xp
+    }
+
+    private void OnDestroy()
+    {
+        StopCoroutine(safeUpdateRoutine);
+    }
+
+    public void SafeUpdate()
+    {
+        safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
     }
 
     public void ActivateDialogue(int level, double locationX, double locationY, bool createLobby, int id)
