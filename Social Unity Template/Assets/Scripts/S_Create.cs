@@ -41,4 +41,14 @@ public class S_Create : MonoBehaviour
         using var www = new WWW(GameManager.Instance.BASE_URL + "create_police_station/", form);
         yield return www;
     }
+
+    public void activateUI()
+    {
+        createUI.SetActive(true);
+    }
+    
+    public void deactivateUI()
+    {
+        createUI.SetActive(false);
+    }
 }

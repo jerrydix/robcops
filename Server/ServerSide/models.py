@@ -27,7 +27,7 @@ class BreakInEvent(models.Model):
     isStarted = models.BooleanField(default=False)
     c4s = models.IntegerField(default=0)
     alarms = models.IntegerField(default=0)
-    timeForRobbery = models.FloatField(default=10.0)
+    timeForRobbery = models.FloatField(default=3.0)
     reward = models.IntegerField(default=0)
     arrested = models.BooleanField(default=False)
     penalty = models.IntegerField(default=1)

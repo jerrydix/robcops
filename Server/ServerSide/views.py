@@ -627,7 +627,6 @@ def start_robbery(request):
     breakInCurrent.safe.status = 3
     breakInCurrent.safe.save()
     breakInCurrent.timeForRobbery += breakInCurrent.alarms * 0.16
-    breakInCurrent.timeForRobbery = 1.0
     breakInCurrent.reward = breakInCurrent.safe.level * random.randint(10000, 30000)
     breakInCurrent.save()
     response = f'{breakInCurrent.timeForRobbery}|{breakInCurrent.safe.hp}|{breakInCurrent.safe.level}'
