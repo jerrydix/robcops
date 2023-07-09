@@ -14,4 +14,10 @@ public class Sound
     public bool loop;
     
     [HideInInspector] public AudioSource source;
+
+
+    public void setVolume(float n)
+    {
+        volume = n;
+    }
 }
