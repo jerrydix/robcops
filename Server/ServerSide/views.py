@@ -317,6 +317,26 @@ def damage_safe(request):
     return HttpResponse(safe.hp)
 
 
+@transaction.atomic()
+@login_required
+def damage_safe_memory(request):
+    damage = int(request.user.player.amountOfClicks * request.user.player.clickPower)
+    safe = Safe.objects.select_for_update().get(id=request.user.player.event.safe.id)
+    safe.hp -= damage * 100
+    safe.save()
+    return HttpResponse(safe.hp)
+
+
+@transaction.atomic()
+@login_required
+def damage_safe_maze(request):
+    damage = request.POST["damage"]
+    safe = Safe.objects.select_for_update().get(id=request.user.player.event.safe.id)
+    safe.hp -= damage * 100
+    safe.save()
+    return HttpResponse(safe.hp)
+
+
 @login_required
 def getTimeUntilEnd(request):
     now = datetime.datetime.now()

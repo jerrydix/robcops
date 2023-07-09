@@ -65,6 +65,8 @@ urlpatterns = [
          name='end_robbery_unsuccess_without_penalty'),
     path('arrest_lobby/', views.arrest_lobby, name='arrest_lobby'),
     path('get_arrest_status/', views.get_arrest_status, name='get_arrest_status'),
+    path('damage_safe_memory/', views.damage_safe_memory, name='damage_safe_memory'),
+    path('damage_safe_maze/', views.damage_safe_maze, name='damage_safe_maze'),
 
     # Get Lists
     path('get_all_safes/', views.get_all_safes, name='get_all_safes'),
