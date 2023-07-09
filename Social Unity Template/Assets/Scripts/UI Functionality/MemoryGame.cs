@@ -85,6 +85,7 @@ public class MemoryGame : MonoBehaviour
 
                     if (finished)
                     {
+                        gameObject.Destroy();
                         GameObject.Find("MemoryGameUI").GetComponent<MemoryGameUIManager>().DamageSafe();
                     }
                 }

@@ -202,7 +202,7 @@ public class SafeUIManager : MonoBehaviour
         GameManager.Instance.currentSeconds = int.Parse(response[0].Split(".")[1]);
 
         Random rnd = new Random();
-        int index = rnd.Next(1, 2);
+        int index = rnd.Next(2, 3);
         switch (index)
         {
             case 1:
