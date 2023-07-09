@@ -145,7 +145,8 @@ public class MemoryGameUIManager : MonoBehaviour
         moneyGain.text = "Money Gained: " + response[1];
         totalMoneyWinScreen.text = "New Balance: " + response[0].Split(".")[0];
         GameManager.Instance.money = int.Parse(response[0].Split(".")[0]);
-        currentMemoryGame.SetActive(false);
+        if (currentMemoryGame != null)
+            currentMemoryGame.SetActive(false);
         winScreen.SetActive(true);
     }
 
