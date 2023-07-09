@@ -208,6 +208,8 @@ def create_lobby(request, safeID):
     safe = Safe.objects.get(id=safeID)
     breakIn = BreakInEvent(safe=safe)
     breakIn.save()
+    safe.status = 2
+    safe.save()
     request.user.player.event = breakIn
     request.user.player.save()
     return HttpResponse(request.user.username)
@@ -315,6 +317,14 @@ def damage_safe(request):
     safe.hp -= damage
     safe.save()
     return HttpResponse(safe.hp)
+
+
+@login_required
+def safe_is_robunion(request, safeId):
+    safe = Safe.objects.get(id=safeId)
+    safe.isRobUnion = True
+    safe.save()
+    return HttpResponse(safe.isRobUnion)
 
 
 @transaction.atomic()
@@ -614,7 +624,7 @@ def start_robbery(request):
     breakInCurrent.isStarted = True
     breakInCurrent.startTime = datetime.datetime.now()
     breakInCurrent.safe.hp -= breakInCurrent.c4s * 500
-    breakInCurrent.safe.status = 2
+    breakInCurrent.safe.status = 3
     breakInCurrent.safe.save()
     breakInCurrent.timeForRobbery += breakInCurrent.alarms * 0.16
     breakInCurrent.timeForRobbery = 1.0

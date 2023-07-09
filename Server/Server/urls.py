@@ -53,6 +53,7 @@ urlpatterns = [
     path('checkIfStarted/', views.checkIfStarted, name='checkIfStarted'),
     path('startBreakIn/', views.startBreakIn, name='startBreakIn'),
     path('checkLobby/<int:safeId>/', views.checkLobby, name='checkLobby'),
+    path('safe_is_robunion/<int:safeId>/', views.safe_is_robunion, name='safe_is_robunion'),
     path('check_lobby_info/', views.check_lobby_info, name='check_lobby_info'),
     path('destroy_event/', views.destroy_event, name='destroy_event'),
     path('leave_lobby/', views.leave_lobby, name='leave_lobby'),
