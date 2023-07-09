@@ -5,19 +5,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = System.Random;
 
-public class ClickerGameUIManager : MonoBehaviour
+public class MemoryGameUIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private Button safe;
     [SerializeField] private TextMeshProUGUI clickDamageMultiplierText;
-
-    [HideInInspector] public int safeLevel = 1;
-
-    [SerializeField] public Sprite[] safeSprites;
-    [SerializeField] private Image currentImage;
-
-    [SerializeField] private Animator animator;
 
     [SerializeField] public HealthBar hpBar;
 
@@ -30,6 +23,7 @@ public class ClickerGameUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moneyLose;
     [SerializeField] private TextMeshProUGUI totalMoneyWinScreen;
     [SerializeField] private TextMeshProUGUI totalMoneyLostScreen;
+    [SerializeField] private GameObject memoryGame;
 
 
     private float _clickDamageMultiplier;
@@ -55,7 +49,6 @@ public class ClickerGameUIManager : MonoBehaviour
         gameComplete = false;
         _clickDamageMultiplier = 1; //get from GameManager
         _currentSafeHealth = GameManager.Instance.currentHP; //get from gameManager according to level
-        currentImage.sprite = safeSprites[safeLevel + 1];
 
         timerText.text = GameManager.Instance.currentMinutes + ":" + GameManager.Instance.currentSeconds;
 
@@ -65,6 +58,7 @@ public class ClickerGameUIManager : MonoBehaviour
 
         //Win Screen Setup
         winScreen.SetActive(false);
+        Instantiate(memoryGame, gameObject.transform);
 
         StartCoroutine(GetSafeHealth());
         StartCoroutine(GetDiff());
@@ -74,7 +68,7 @@ public class ClickerGameUIManager : MonoBehaviour
     {
         if (_currentSafeHealth > 0)
         {
-            animator.SetTrigger("ClickTrigger");
+            memoryGame.Destroy();
             StartCoroutine(DoDamageToSafe());
         }
     }
@@ -83,12 +77,12 @@ public class ClickerGameUIManager : MonoBehaviour
     {
         if (!timeOver)
         {
-            using var www = new WWW(GameManager.Instance.BASE_URL + "damage_safe" + "/");
+            using var www = new WWW(GameManager.Instance.BASE_URL + "damage_safe_memory" + "/");
             yield return www;
-            Debug.Log(www.text);
             var remainingHealth = int.Parse(www.text);
             _currentSafeHealth = remainingHealth;
             hpBar.setHp(_currentSafeHealth);
+            Instantiate(memoryGame, gameObject.transform);
         }
     }
 
@@ -169,9 +163,8 @@ public class ClickerGameUIManager : MonoBehaviour
 
     public void CloseButton()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1); //todo add 
     }
-
-    //todo check if arrested
+    
     //todo add damage multiplier x2 effect
 }

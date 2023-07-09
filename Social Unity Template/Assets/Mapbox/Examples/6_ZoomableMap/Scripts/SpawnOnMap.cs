@@ -83,7 +83,7 @@ namespace Mapbox.Examples
                 var instance = Instantiate(_markerPrefab);
 
                 var currentSafeManager =  instance.GetComponent<SafeManager>();
-                Debug.Log("CURRENTSAFAMANAGER: " + currentSafeManager);
+                Debug.Log("CURRENTSAFEMANAGER: " + currentSafeManager);
                 currentSafeManager.id = ids[i];
                 Debug.Log("CURRENTSAFEMANAGERID: " + currentSafeManager.id);
                 currentSafeManager.hp = hps[i];

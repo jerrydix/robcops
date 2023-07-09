@@ -85,7 +85,7 @@ public class MemoryGame : MonoBehaviour
 
                     if (finished)
                     {
-                        //gameObject.GetComponentInParent<WindowForeground>().finished = true;
+                        GameObject.Find("MemoryGameUI").GetComponent<MemoryGameUIManager>().DamageSafe();
                     }
                 }
                 else

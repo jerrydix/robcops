@@ -6,6 +6,7 @@ using Connections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = System.Random;
 
 public class SafeUIManager : MonoBehaviour
 {
@@ -200,7 +201,17 @@ public class SafeUIManager : MonoBehaviour
         GameManager.Instance.currentMinutes = int.Parse(response[0].Split(".")[0]);
         GameManager.Instance.currentSeconds = int.Parse(response[0].Split(".")[1]);
 
-        SceneManager.LoadScene(2); //todo change to minigame index
+        Random rnd = new Random();
+        int index = rnd.Next(1, 2);
+        switch (index)
+        {
+            case 1:
+                SceneManager.LoadScene("Scenes/ClickerGame");
+                break;
+            case 2:
+                SceneManager.LoadScene("Scenes/MemoryGame"); //todo add maze game index
+                break;
+        }
     }
 
     //TODO Powerup shop + guild powerup UI add, remove
