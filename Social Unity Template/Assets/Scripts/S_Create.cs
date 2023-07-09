@@ -9,11 +9,6 @@ public class S_Create : MonoBehaviour
     public GameObject createUI;
     public TMP_InputField name;
 
-    private void Start()
-    {
-        throw new NotImplementedException();
-    }
-
     public void create()
     {
         if (GameManager.Instance.role == false)

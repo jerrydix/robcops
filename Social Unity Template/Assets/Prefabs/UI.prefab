@@ -14045,7 +14045,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3041784850013830817}
         m_TargetAssemblyTypeName: S_Create, Assembly-CSharp
-        m_MethodName: activateUI
+        m_MethodName: create
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
