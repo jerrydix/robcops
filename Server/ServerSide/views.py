@@ -330,7 +330,7 @@ def damage_safe_memory(request):
 @transaction.atomic()
 @login_required
 def damage_safe_maze(request):
-    damage = request.POST["damage"]
+    damage = int(request.user.player.amountOfClicks * request.user.player.clickPower)
     safe = Safe.objects.select_for_update().get(id=request.user.player.event.safe.id)
     safe.hp -= damage * 100
     safe.save()
