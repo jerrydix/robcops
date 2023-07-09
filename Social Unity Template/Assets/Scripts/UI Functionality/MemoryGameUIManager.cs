@@ -41,6 +41,8 @@ public class MemoryGameUIManager : MonoBehaviour
     private float startTime;
 
     private bool timeOver;
+    
+    private GameObject currentMemoryGame;
 
     // Start is called before the first frame update
     private void Start()
@@ -68,7 +70,6 @@ public class MemoryGameUIManager : MonoBehaviour
     {
         if (_currentSafeHealth > 0)
         {
-            memoryGame.Destroy();
             StartCoroutine(DoDamageToSafe());
         }
     }
@@ -82,7 +83,7 @@ public class MemoryGameUIManager : MonoBehaviour
             var remainingHealth = int.Parse(www.text);
             _currentSafeHealth = remainingHealth;
             hpBar.setHp(_currentSafeHealth);
-            Instantiate(memoryGame, gameObject.transform);
+            currentMemoryGame = Instantiate(memoryGame, gameObject.transform);
         }
     }
 
@@ -144,6 +145,7 @@ public class MemoryGameUIManager : MonoBehaviour
         moneyGain.text = "Money Gained: " + response[1];
         totalMoneyWinScreen.text = "New Balance: " + response[0].Split(".")[0];
         GameManager.Instance.money = int.Parse(response[0].Split(".")[0]);
+        currentMemoryGame.SetActive(false);
         winScreen.SetActive(true);
     }
 
@@ -158,6 +160,7 @@ public class MemoryGameUIManager : MonoBehaviour
         moneyLose.text = "Money Lost: " + int.Parse(response[1]) / 2;
         totalMoneyLostScreen.text = "New Balance: " + response[0].Split(".")[0];
         GameManager.Instance.money = int.Parse(response[0].Split(".")[0]);
+        currentMemoryGame.SetActive(false);
         lostScreen.SetActive(true);
     }
 
