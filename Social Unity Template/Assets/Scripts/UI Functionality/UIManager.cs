@@ -47,6 +47,7 @@ public class UIManager : MonoBehaviour
         switchRoleButton.interactable = switchButtonActivated;
         Debug.Log(GameManager.Instance.role);
         ChangePlaceSafeButton(GameManager.Instance.role);
+        
         //safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
     }
 

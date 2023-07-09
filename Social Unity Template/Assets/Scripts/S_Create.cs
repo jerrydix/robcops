@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class S_Create : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class S_Create : MonoBehaviour
         form.AddField("name", name.text);
         using var www = new WWW(GameManager.Instance.BASE_URL + "create_robunion/", form);
         yield return www;
+        GameManager.Instance.guild = int.Parse(www.text);
+        SceneManager.LoadScene("Scenes/Robunion");
     }
     
     public IEnumerator createPolice()
@@ -35,6 +38,8 @@ public class S_Create : MonoBehaviour
         form.AddField("name", name.text);
         using var www = new WWW(GameManager.Instance.BASE_URL + "create_police_station/", form);
         yield return www;
+        GameManager.Instance.guild = int.Parse(www.text);
+        SceneManager.LoadScene("Scenes/PoliceStation");
     }
 
     public void activateUI()
