@@ -157,7 +157,7 @@ def place_safe(request):
         hp = request.POST["hp"]
         x = request.POST["locationX"]
         y = request.POST["locationY"]
-        safe = Safe(level=lvl, hp=hp, locationX=float(x), locationY=float(y))
+        safe = Safe(level=lvl, hp=hp, locationX=float(x), locationY=float(y), author=request.user)
         safe.save()
         request.user.player.safesActive += 1
         request.user.player.save()
