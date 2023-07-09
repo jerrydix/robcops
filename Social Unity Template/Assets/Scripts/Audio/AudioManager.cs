@@ -60,9 +60,14 @@ public class AudioManager : MonoBehaviour
     {
         if (SettingsUI.activeInHierarchy)
         {
-            Array.Find(sounds, sound => sound.name == "ButtonPressed").volume = soundVolumeSlider.GetComponent<Slider>().value;
+            Array.Find(sounds, sound => sound.name == "ButtonPressed").setVolume(soundVolumeSlider.GetComponent<Slider>().value) ;
             Array.Find(sounds, sound => sound.name == "Theme").volume = musicVolumeSlider.GetComponent<Slider>().value;
-            
+            foreach (var s in sounds)
+            {
+                s.source.volume = s.volume;
+                //s.source.pitch = s.pitch;
+                //s.source.loop = s.loop;
+            }
         }
     }
 
@@ -75,6 +80,7 @@ public class AudioManager : MonoBehaviour
         }
 
         s.source.Play();
+        
     }
 
     public void ButtonPressedSound()
