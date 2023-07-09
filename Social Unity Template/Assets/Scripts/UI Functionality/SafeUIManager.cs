@@ -193,6 +193,7 @@ public class SafeUIManager : MonoBehaviour
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "start_robbery" + "/");
         yield return www;
+        Debug.Log(www.text);
         var response = S_Parser.ParseResponse(www.text);
         Debug.Log("time: " + response[0]);
         Debug.Log("hp: " + response[1]);
@@ -202,7 +203,7 @@ public class SafeUIManager : MonoBehaviour
         GameManager.Instance.currentSeconds = int.Parse(response[0].Split(".")[1]);
 
         Random rnd = new Random();
-        int index = rnd.Next(2, 3);
+        int index = rnd.Next(1, 3);
         switch (index)
         {
             case 1:
