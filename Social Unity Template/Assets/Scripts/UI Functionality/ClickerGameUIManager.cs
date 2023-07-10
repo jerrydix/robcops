@@ -12,8 +12,6 @@ public class ClickerGameUIManager : MonoBehaviour
     [SerializeField] private Button safe;
     [SerializeField] private TextMeshProUGUI clickDamageMultiplierText;
 
-    [HideInInspector] public int safeLevel = 1;
-
     [SerializeField] public Sprite[] safeSprites;
     [SerializeField] private Image currentImage;
 
@@ -55,7 +53,7 @@ public class ClickerGameUIManager : MonoBehaviour
         gameComplete = false;
         _clickDamageMultiplier = 1; //get from GameManager
         _currentSafeHealth = GameManager.Instance.currentHP; //get from gameManager according to level
-        currentImage.sprite = safeSprites[safeLevel + 1];
+        currentImage.sprite = safeSprites[GameManager.Instance.currentSafeLevel - 1];
 
         timerText.text = GameManager.Instance.currentMinutes + ":" + GameManager.Instance.currentSeconds;
 
