@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     public Coroutine updateSafesCoroutine;
     public static GameManager Instance { set; get; }
 
+    private Coroutine moneyRoutine;
+
     private void Awake()
     {
         BASE_URL = "http://87.143.147.178:8000/";
@@ -42,7 +44,6 @@ public class GameManager : MonoBehaviour
 
         if (Instance == null)
         {
-            StartCoroutine(GetPlayerMoney());
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -62,10 +63,16 @@ public class GameManager : MonoBehaviour
     {
         if (scene.buildIndex == 1)
         {
+            moneyRoutine = StartCoroutine(GetPlayerMoney());
             ImmediatePositionWithLocationProvider =
                 GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
             spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
             updateSafesCoroutine = StartCoroutine(UpdateSafes());
+        }
+        else
+        {
+            if (moneyRoutine != null)
+                StopCoroutine(moneyRoutine);
         }
     }
     
