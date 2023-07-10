@@ -2,9 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Mapbox.Examples;
+using Mathd = Mapbox.Utils.Mathd;
+using Vector2d = Mapbox.Utils.Vector2d;
+
 using Mapbox.Utils;
+
+using Mapbox.Unity.Utilities;
+using Mapbox.Utils;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,13 +36,18 @@ public class GameManager : MonoBehaviour
     public bool role;
     public string username;
     private bool firstLoad;
+    private List<string> locations = new List<string>();
 
     private Coroutine moneyRoutine;
 
     private SpawnOnMap spawnOnMap;
 
     public Coroutine updateSafesCoroutine;
+
     public Coroutine updateOtherPlayersCoroutine;
+
+    private bool cannotPlaceAnyMoreSafes = false;
+
     public static GameManager Instance { set; get; }
 
     private void Awake()
@@ -203,6 +216,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("getAllSafesText: " + www.text);
             if (www.text == "")
             {
+                if (!cannotPlaceAnyMoreSafes)
+                {
+                    CreateSafeIfNone();   
+                }
                 yield return new WaitForSeconds(10f);
                 continue;
             }
@@ -211,7 +228,6 @@ public class GameManager : MonoBehaviour
             var ids = new List<int>();
             var levels = new List<int>();
             var hps = new List<int>();
-            var locations = new List<string>();
             for (var i = 0; i < safesTupels.Length; i++)
             {
                 var tupel = safesTupels[i].Split(",");
@@ -314,5 +330,170 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(SendSafeToServer());
+    }
+
+    private void CreateSafeIfNone()
+    {
+        //Check if there any safes are in Range
+        for (int i = 0; i < locations.Count; i++)
+        {
+            var LocationFromList = Conversions.StringToLatLon(locations[i]);
+            if (CalculateDistanceToNorm(LocationFromList) || CalculateDistanceInEditor(LocationFromList))
+            {
+                return;
+            }
+        }
+
+        //Randomly Generate Safe and Location
+        var position = ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude;
+        var num = Random.Range(1.0f,4.0f);
+        Debug.Log(num);
+        
+
+        for (var i = 0; i < num; i++)
+        {
+            var deviations = Random.Range(0.1f,0.6f);
+            var deviations1 = Random.Range(0.1f,0.6f);
+            var NewPosition = new Vector2d(position.x + deviations, position.y + deviations1);
+            var LonLat = position.x + "," + position.y;
+            var Level = GetRandomLevel();
+            var Health = GetCorrespondingNumber(Level);
+            StartCoroutine(SendNewSafesToServer(NewPosition.x.ToString(), NewPosition.y.ToString(), Health, Level));
+        }
+    }
+
+    private int GetCorrespondingNumber(int level)
+    {
+        switch (level)
+        {
+            case 1:
+            {
+                return 50000;
+            }
+            case 2:
+            {
+                return 100000;
+            }
+            case 3:
+            {
+                return 250000;
+            }
+            case 4:
+            {
+                return 500000;
+            }
+            default: return 1;
+        }
+    }
+
+    private int GetRandomLevel()
+    {
+        var random = new Unity.Mathematics.Random();
+        var num = Random.Range(0f, 4f);
+
+        switch (num)
+        {
+            case 1:
+            {
+                return 1;
+            }
+            case 2:
+            {
+                return 2;
+            }
+            case 3:
+            {
+                return 3;
+            }
+            case 4:
+            {
+                return 4;
+            }
+            default: return 1;
+        }
+    }
+
+    private IEnumerator SendNewSafesToServer(string locationX, string locationY, int Health, int Level)
+    {
+        var form = new WWWForm();
+        form.AddField("level", Level);
+        form.AddField("hp", Health);
+        form.AddField("locationX", locationX);
+        form.AddField("locationY", locationY);
+        using var www = new WWW(BASE_URL + "place_safe/", form);
+        yield return www;
+        Debug.Log(www.text);
+
+        yield return UpdateSafes();
+        yield return new WaitForSeconds(60f);
+    }
+
+
+    private bool CalculateDistanceToNorm(Vector2d location)
+    {
+        for (var i = 0; i < locations.Count; i++)
+        {
+            if (locations[i] == null) continue;
+            //Get Locations of Safe and Player
+
+            //var currentString = _locationStrings[i];
+            var instance = location;
+            var x = Conversions.StringToLatLon(ImmediatePositionWithLocationProvider.LocationProvider
+                .CurrentLocation.LatitudeLongitude.ToString());
+            var playerLocation = x.x;
+            var playerLocationy = x.y;
+
+            //Calculate the Distance
+
+            var deltaLat = (instance.x - playerLocation) * Mathd.PI / 180;
+            var deltaLon = (instance.y - playerLocationy) * Mathd.PI / 180;
+
+            var calc = Mathd.Pow(Mathd.Sin(deltaLat / 2), 2) + Mathd.Cos(playerLocation * Mathd.PI / 180)
+                * Mathd.Cos(instance.x * Mathd.PI / 180) * Mathd.Pow(Mathd.Sin(deltaLon / 2), 2);
+            var temp = 2 * Mathd.Atan2(Mathd.Sqrt(calc), Mathd.Sqrt(1 - calc));
+            var result = 6371 * temp;
+            result *= 1000;
+            var finalResult = Mathd.Abs(result);
+
+            //Filter Safes that are more than 1km away
+
+            if (finalResult <= 350) return true;
+        }
+
+        return false;
+    }
+
+
+    private bool CalculateDistanceInEditor(Vector2d location)
+    {
+        for (var i = 0; i < locations.Count; i++)
+        {
+            if (locations[i] == null) continue;
+            //Get Locations of Safe and Player
+
+            //var currentString = _locationStrings[i];
+            var instance = location;
+            var x = new Vector2d(48.264518, 11.6713515);
+            var playerLocation = x.x;
+            var playerLocationy = x.y;
+
+            //Calculate the Distance
+
+            var deltaLat = (instance.x - playerLocation) * Mathd.PI / 180;
+            var deltaLon = (instance.y - playerLocationy) * Mathd.PI / 180;
+
+            var calc = Mathd.Pow(Mathd.Sin(deltaLat / 2), 2) + Mathd.Cos(playerLocation * Mathd.PI / 180)
+                * Mathd.Cos(instance.x * Mathd.PI / 180) * Mathd.Pow(Mathd.Sin(deltaLon / 2), 2);
+            var temp = 2 * Mathd.Atan2(Mathd.Sqrt(calc), Mathd.Sqrt(1 - calc));
+            var result = 6371 * temp;
+            result *= 1000;
+            var finalResult = Mathd.Abs(result);
+
+            //Filter Safes that are more than 1km away
+
+            if (finalResult <= 350) return true;
+        }
+
+        return false;
     }
 }
