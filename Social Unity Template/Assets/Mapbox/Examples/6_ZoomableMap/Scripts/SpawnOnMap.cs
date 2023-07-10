@@ -30,8 +30,9 @@ namespace Mapbox.Examples
         public Vector2d[] _locations;
         private ImmediatePositionWithLocationProvider _immediatePositionWithLocationProvider;
         private LocationArrayEditorLocationProvider _locationArrayEditorLocationProvider;
-
-        public List<OtherPlayer> otherPlayers; 
+        
+        public List<C_OtherPlayerInfo> otherPlayers;
+        public List<GameObject> playersObjects;
 
         private SafeSpinScript SafeSpinScript;
         
@@ -45,7 +46,8 @@ namespace Mapbox.Examples
                 .GetComponent<LocationArrayEditorLocationProvider>();
             _immediatePositionWithLocationProvider = GameObject.FindWithTag("Player")
                 .GetComponent<ImmediatePositionWithLocationProvider>();
-            otherPlayers = new List<OtherPlayer>();
+            otherPlayers = new List<C_OtherPlayerInfo>();
+            playersObjects = new List<GameObject>();
         }
 
         public void SpawnOtherPlayers()
@@ -63,6 +65,11 @@ namespace Mapbox.Examples
                 }
                 instance.transform.localPosition = _map.GeoToWorldPosition(otherPlayer.location);
                 instance.transform.localRotation = otherPlayer.rotation;
+                instance.GetComponent<OtherPlayer>().role = otherPlayer.role;
+                instance.GetComponent<OtherPlayer>().id = otherPlayer.id;
+                instance.GetComponent<OtherPlayer>().location = otherPlayer.location;
+                instance.GetComponent<OtherPlayer>().rotation = otherPlayer.rotation;
+                playersObjects.Add(instance);
             }    
         } 
 

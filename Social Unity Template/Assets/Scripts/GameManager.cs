@@ -123,10 +123,10 @@ public class GameManager : MonoBehaviour
         {
             //Innefficient shit code, but works. 
             
-            for (var i = spawnOnMap.otherPlayers.Count - 1; i >= 0; i--) spawnOnMap.otherPlayers[i].Destroy();
+            for (var i = spawnOnMap.playersObjects.Count - 1; i >= 0; i--) spawnOnMap.playersObjects[i].Destroy();
 
-            spawnOnMap.otherPlayers = new List<OtherPlayer>();
-            
+            spawnOnMap.otherPlayers = new List<C_OtherPlayerInfo>();
+
             using var www = new WWW(BASE_URL + "get_all_locations/");
             yield return www;
             Debug.Log("getAllLocations: " + www.text);
@@ -140,15 +140,16 @@ public class GameManager : MonoBehaviour
             
             for (var i = 0; i < allPlayerStrings.Length; i++)
             {
-                Debug.Log(allPlayerStrings[i]);
+                Debug.Log("Strings: " + allPlayerStrings[i]);
                 string[] playerTupel = allPlayerStrings[i].Split(";");
-                spawnOnMap.otherPlayers[i].id = int.Parse(playerTupel[0]);
-                spawnOnMap.otherPlayers[i].role = bool.Parse(playerTupel[1]);
-                spawnOnMap.otherPlayers[i].location = new Vector2d(double.Parse(playerTupel[2]), double.Parse(playerTupel[3]));
+                for (int j = 0; j < playerTupel.Length; j++)
+                {
+                    Debug.Log("TupelInfo: " + playerTupel[j]);
+                }
                 string[] rotationFloats = playerTupel[4].Split(",");
-
-                spawnOnMap.otherPlayers[i].rotation = new Quaternion(float.Parse(rotationFloats[0]),
-                    float.Parse(rotationFloats[1]), float.Parse(rotationFloats[2]), float.Parse(rotationFloats[3]));
+                spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]), bool.Parse(playerTupel[1]), new Vector2d(double.Parse(playerTupel[2]), double.Parse(playerTupel[3])), new Quaternion(float.Parse(rotationFloats[0]),
+                    float.Parse(rotationFloats[1]), float.Parse(rotationFloats[2]), float.Parse(rotationFloats[3]))));
+                
                 
             }
             
