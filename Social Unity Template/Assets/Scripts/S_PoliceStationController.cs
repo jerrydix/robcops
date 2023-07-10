@@ -71,7 +71,9 @@ public class S_PoliceStationController : MonoBehaviour
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_money/");
         yield return www;
         Debug.Log(www.text);
-        DisplayPlayerMoney(int.Parse(www.text));
+        int money = int.Parse(www.text);
+        DisplayPlayerMoney(money);
+        GameManager.Instance.money = money;
     }
 
     public void DisplayMoney(int money)
