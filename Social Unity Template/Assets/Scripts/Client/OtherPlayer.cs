@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mapbox.Utils;
@@ -9,6 +10,7 @@ public class OtherPlayer : MonoBehaviour
     public bool role;
     public Vector2d location;
     public Quaternion rotation;
+    private Canvas clickablePoliceman;
 
     public OtherPlayer(int id, bool role, Vector2d location, Quaternion rotation)
     {
@@ -16,5 +18,10 @@ public class OtherPlayer : MonoBehaviour
         this.role = role;
         this.location = location;
         this.rotation = rotation;
+    }
+
+    private void Awake()
+    {
+        clickablePoliceman.worldCamera = Camera.main;
     }
 } 
