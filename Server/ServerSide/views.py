@@ -122,8 +122,7 @@ def get_amount_of_clicks(request):
         return HttpResponse('Not signed in')
     if request.method != 'GET':
         return HttpResponse('Incorrect request method')
-    response = f'amount player: {request.user.player.amountOfClicks}'
-    return HttpResponse(response)
+    return HttpResponse(request.user.player.amountOfClicks)
 
 
 @login_required
@@ -317,6 +316,11 @@ def damage_safe(request):
     safe.hp -= damage
     safe.save()
     return HttpResponse(safe.hp)
+
+
+@login_required
+def get_click_power(request):
+    return HttpResponse(int(request.user.player.clickPower))
 
 
 @login_required
@@ -538,7 +542,7 @@ def upgrade_amount_of_clicks(request):
             request.user.player.money -= cost
             request.user.player.amountOfClicks += 1
             request.user.player.save()
-            response = f"{request.user.player.amountOfClicks}"
+            response = f"1|{request.user.player.amountOfClicks}"
             return HttpResponse(response)
 
 
@@ -554,7 +558,7 @@ def upgrade_click_power(request):
             request.user.player.money -= cost
             request.user.player.clickPower += 1
             request.user.player.save()
-            response = f"{request.user.player.clickPower}"
+            response = f"1|{request.user.player.clickPower}"
             return HttpResponse(response)
 
 

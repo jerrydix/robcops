@@ -97,6 +97,8 @@ urlpatterns = [
 
     # Amount of clicks
     path('get_amount_of_clicks/', views.get_amount_of_clicks, name='get_amount_of_clicks'),
+    path('get_click_power/', views.get_click_power, name='get_click_power'),
+
     path('upgrade_click_power/', views.upgrade_click_power, name="upgrade_click_power"),
     path('upgrade_amount_of_clicks/', views.upgrade_amount_of_clicks, name="upgrade_amount_of_clicks"),
     path('upgrade_armor/', views.upgrade_armor, name="upgrade_armor"),
