@@ -69,7 +69,7 @@ public class S_PersonalUpgrades : MonoBehaviour
         }
         else
         {
-            powerLevel.text = "Lvl: " + subs[1];
+            powerLevel.text = "Lvl: " + int.Parse(subs[1]);
         }
     }
 }
