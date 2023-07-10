@@ -82,6 +82,7 @@ class Player(models.Model):
     c4 = models.IntegerField(default=0)
     alarmDisabler = models.IntegerField(default=0)
     safesActive = models.IntegerField(default=0)
+    rotation = models.CharField(default="0.0", max_length=30)
 
     def __str__(self):
         return self.user.username

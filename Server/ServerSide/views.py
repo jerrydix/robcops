@@ -398,7 +398,8 @@ def startBreakIn(request):
 def get_all_locations(request):
     response = "|".join(str(e).replace("(", "").replace(")", "") for e in list(Player.objects.values_list('role',
                                                                                                           'locationX',
-                                                                                                          'locationY')))
+                                                                                                          'locationY',
+                                                                                                          'rotation')))
     return HttpResponse(response)
 
 
@@ -728,6 +729,8 @@ def send_location(request):
     else:
         x = request.POST["locationX"]
         y = request.POST["locationY"]
+        rot = request.POST["rotation"]
+        request.user.player.rotation = rot
         request.user.player.locationX = x
         request.user.player.locationY = y
         request.user.player.save()

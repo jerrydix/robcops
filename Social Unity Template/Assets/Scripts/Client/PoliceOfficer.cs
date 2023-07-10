@@ -2,18 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoliceOfficer : Faction
+public class PoliceOfficer : MonoBehaviour
 {
-    public List<Safe> safes;
-
-    public override bool isRobber()
-    {
-        return false;
-    }
-
-    public void PlaceSafe()
-    {
-        //TODO: Implement
-    }
-
+    public string locationX;
+    public string locationY;
+    public bool role;
+    
+    
 }
