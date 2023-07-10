@@ -25,13 +25,14 @@ public class GameManager : MonoBehaviour
     public int money;
     public bool role;
     public string username;
+    private bool firstLoad;
+
+    private Coroutine moneyRoutine;
 
     private SpawnOnMap spawnOnMap;
 
     public Coroutine updateSafesCoroutine;
     public static GameManager Instance { set; get; }
-
-    private Coroutine moneyRoutine;
 
     private void Awake()
     {
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
     {
         if (scene.buildIndex == 1)
         {
+            firstLoad = true;
             moneyRoutine = StartCoroutine(GetPlayerMoney());
             ImmediatePositionWithLocationProvider =
                 GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
@@ -75,7 +77,7 @@ public class GameManager : MonoBehaviour
                 StopCoroutine(moneyRoutine);
         }
     }
-    
+
     public IEnumerator GetPlayerMoney()
     {
         while (true)
@@ -83,12 +85,21 @@ public class GameManager : MonoBehaviour
             using var www = new WWW(Instance.BASE_URL + "get_money/");
             yield return www;
             Debug.Log(www.text);
-            int money = int.Parse(www.text);
+            var money = int.Parse(www.text);
             Instance.money = money;
             yield return new WaitForSeconds(60f);
         }
     }
-    
+
+    public IEnumerator GetPlayerMoneyOnce()
+    {
+        using var www = new WWW(Instance.BASE_URL + "get_money/");
+        yield return www;
+        Debug.Log(www.text);
+        var money = int.Parse(www.text);
+        Instance.money = money;
+    }
+
 
     public void InitializeSafe(int level, int cost)
     {
@@ -127,18 +138,10 @@ public class GameManager : MonoBehaviour
         {
             //Innefficient shit code, but works. 
             spawnOnMap._locationStrings = new List<string>();
-            for (var i = spawnOnMap._spawnedObjects.Count - 1; i >= 0; i--)
-            {
-                spawnOnMap._spawnedObjects[i].Destroy();
-               // spawnOnMap._spawnedObjects.RemoveAt(i);
-            }
-
-            for (var i = spawnOnMap.cubes.Count - 1; i >= 0; i--)
-            {
-                spawnOnMap.cubes[i].Destroy();
-                //spawnOnMap.cubes.RemoveAt(i);
-            }
-
+            for (var i = spawnOnMap._spawnedObjects.Count - 1; i >= 0; i--) spawnOnMap._spawnedObjects[i].Destroy();
+            // spawnOnMap._spawnedObjects.RemoveAt(i);
+            for (var i = spawnOnMap.cubes.Count - 1; i >= 0; i--) spawnOnMap.cubes[i].Destroy();
+            //spawnOnMap.cubes.RemoveAt(i);
             spawnOnMap._spawnedObjects = new List<GameObject>();
             spawnOnMap.cubes = new List<GameObject>();
 
@@ -151,6 +154,7 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(10f);
                 continue;
             }
+
             var safesTupels = www.text.Split("|");
             var ids = new List<int>();
             var levels = new List<int>();
@@ -169,37 +173,33 @@ public class GameManager : MonoBehaviour
 
             spawnOnMap.ids = ids;
             var idString = "";
-            foreach (var id in spawnOnMap.ids)
-            {
-                idString += id + ",";
-            }
+            foreach (var id in spawnOnMap.ids) idString += id + ",";
             Debug.Log("idstring: " + idString);
             spawnOnMap.levels = levels;
             spawnOnMap.hps = hps;
             spawnOnMap._locationStrings = locations;
             spawnOnMap.SpawnCubes();
             spawnOnMap.WaitForCubeLocationThenSpawnSafe();
-            yield return new WaitForSeconds(60f);
+            if (firstLoad)
+            {
+                yield return new WaitForSeconds(0.5f);
+                firstLoad = false;
+            }
+            else
+            {
+                yield return new WaitForSeconds(60f);
+            }
         }
     }
-    
+
     public IEnumerator UpdateSafesAfterPlacing()
     {
-        
         //Innefficient shit code, but works. 
         spawnOnMap._locationStrings = new List<string>();
-        for (var i = spawnOnMap._spawnedObjects.Count - 1; i >= 0; i--)
-        {
-            spawnOnMap._spawnedObjects[i].Destroy();
-           // spawnOnMap._spawnedObjects.RemoveAt(i);
-        }
-
-        for (var i = spawnOnMap.cubes.Count - 1; i >= 0; i--)
-        {
-            spawnOnMap.cubes[i].Destroy();
-            //spawnOnMap.cubes.RemoveAt(i);
-        }
-
+        for (var i = spawnOnMap._spawnedObjects.Count - 1; i >= 0; i--) spawnOnMap._spawnedObjects[i].Destroy();
+        // spawnOnMap._spawnedObjects.RemoveAt(i);
+        for (var i = spawnOnMap.cubes.Count - 1; i >= 0; i--) spawnOnMap.cubes[i].Destroy();
+        //spawnOnMap.cubes.RemoveAt(i);
         spawnOnMap._spawnedObjects = new List<GameObject>();
         spawnOnMap.cubes = new List<GameObject>();
 
@@ -207,10 +207,7 @@ public class GameManager : MonoBehaviour
         using var www = new WWW(BASE_URL + "get_all_safes/");
         yield return www;
         Debug.Log("getAllSafesText: " + www.text);
-        if (www.text == "")
-        {
-            yield return new WaitForSeconds(3f);
-        }
+        if (www.text == "") yield return new WaitForSeconds(3f);
         var safesTupels = www.text.Split("|");
         var ids = new List<int>();
         var levels = new List<int>();
@@ -229,10 +226,7 @@ public class GameManager : MonoBehaviour
 
         spawnOnMap.ids = ids;
         var idString = "";
-        foreach (var id in spawnOnMap.ids)
-        {
-            idString += id + ",";
-        }
+        foreach (var id in spawnOnMap.ids) idString += id + ",";
         Debug.Log("idstring: " + idString);
         spawnOnMap.levels = levels;
         spawnOnMap.hps = hps;
