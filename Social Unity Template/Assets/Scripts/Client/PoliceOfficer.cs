@@ -7,6 +7,6 @@ public class PoliceOfficer : MonoBehaviour
     public string locationX;
     public string locationY;
     public bool role;
-    
-    
+    public string rotaion;
+    public int id;
 }
