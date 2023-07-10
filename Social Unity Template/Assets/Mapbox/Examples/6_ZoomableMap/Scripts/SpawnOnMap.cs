@@ -65,7 +65,7 @@ namespace Mapbox.Examples
                 }
                 instance.transform.localPosition = _map.GeoToWorldPosition(otherPlayer.location);
                 instance.transform.localRotation = otherPlayer.rotation;
-                Debug.Log("INSTANCE"+ instance.GetComponent<OtherPlayer>());
+                //Debug.Log("INSTANCE"+ instance.GetComponent<OtherPlayer>());
                 instance.GetComponent<OtherPlayer>().role = otherPlayer.role;
                 instance.GetComponent<OtherPlayer>().id = otherPlayer.id;
                 instance.GetComponent<OtherPlayer>().location = otherPlayer.location;
@@ -81,14 +81,16 @@ namespace Mapbox.Examples
             for (var i = 0; i < _locationStrings.Count; i++)
             {
                 var locationString = _locationStrings[i];
-                Debug.Log(locationString);
+               // Debug.Log(locationString);
                 _locations[i] = Conversions.StringToLatLon(locationString);
+                Debug.Log("SHIIIIIIIIIIIIIIIIIIIIIIIIIIIIIT");
                 var instance = Instantiate(_markerPrefab);
+                Debug.Log("afterInstntiate");
 
                 var currentSafeManager =  instance.GetComponent<SafeManager>();
-                Debug.Log("CURRENTSAFEMANAGER: " + currentSafeManager);
+                //Debug.Log("CURRENTSAFEMANAGER: " + currentSafeManager);
                 currentSafeManager.id = ids[i];
-                Debug.Log("CURRENTSAFEMANAGERID: " + currentSafeManager.id);
+                //Debug.Log("CURRENTSAFEMANAGERID: " + currentSafeManager.id);
                 currentSafeManager.hp = hps[i];
                 currentSafeManager.level = levels[i];
                 currentSafeManager.locationX = _locations[i].x; //locationString.Split(",")[0];
