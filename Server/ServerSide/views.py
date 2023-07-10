@@ -558,7 +558,7 @@ def upgrade_click_power(request):
             request.user.player.money -= int(cost)
             request.user.player.clickPower += 1
             request.user.player.save()
-            response = f"1|{request.user.player.clickPower}"
+            response = f"1|{int(request.user.player.clickPower)}"
             return HttpResponse(response)
 
 
