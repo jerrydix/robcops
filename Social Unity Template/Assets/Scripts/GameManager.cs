@@ -36,8 +36,9 @@ public class GameManager : MonoBehaviour
     public bool role;
     public string username;
     public int userId;
-    private bool firstLoad;
-    private List<string> locations = new List<string>();
+    private bool firstLoadPlayers;
+    private bool firstLoadSafes;
+    //private List<string> locations = new List<string>();
 
     private Coroutine moneyRoutine;
 
@@ -81,7 +82,8 @@ public class GameManager : MonoBehaviour
     {
         if (scene.buildIndex == 1)
         {
-            firstLoad = true;
+            firstLoadSafes = true;
+            firstLoadPlayers = true;
             moneyRoutine = StartCoroutine(GetPlayerMoney());
             ImmediatePositionWithLocationProvider =
                 GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
@@ -91,7 +93,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            firstLoad = false;
             if (moneyRoutine != null)
                 StopCoroutine(moneyRoutine);
         }
@@ -163,10 +164,10 @@ public class GameManager : MonoBehaviour
             
             spawnOnMap.SpawnOtherPlayers();
             
-            if (firstLoad)
+            if (firstLoadPlayers)
             {
-                yield return new WaitForSeconds(0.5f); //TODO FIX THIS
-                firstLoad = false;
+                firstLoadPlayers = false;
+                yield return new WaitForSeconds(0.1f); //TODO FIX THIS
             }
             else
             {
@@ -237,6 +238,7 @@ public class GameManager : MonoBehaviour
             var safesTupels = www.text.Split("|");
             var ids = new List<int>();
             var levels = new List<int>();
+            var locations = new List<string>();
             var hps = new List<int>();
             for (var i = 0; i < safesTupels.Length; i++)
             {
@@ -258,15 +260,15 @@ public class GameManager : MonoBehaviour
             spawnOnMap._locationStrings = locations;
             spawnOnMap.SpawnCubes();
             spawnOnMap.WaitForCubeLocationThenSpawnSafe();
-            /*if (firstLoad)
+            if (firstLoadSafes)
             {
-                firstLoad = false;
-                yield return new WaitForSeconds(0.5f); //TODO FIX THIS
-            }*/
-            //else
-           // {
+                firstLoadSafes = false;
+                yield return new WaitForSeconds(0.1f); //TODO FIX THIS
+            }
+            else
+            {
                 yield return new WaitForSeconds(60f);
-            //}
+            }
         }
     }
 
@@ -455,12 +457,12 @@ public class GameManager : MonoBehaviour
 
     private bool CalculateDistanceToNorm(Vector2d location)
     {
-        for (var i = 0; i < locations.Count; i++)
+        for (var i = 0; i < spawnOnMap._locationStrings.Count; i++)
         {
-            if (locations[i] == null) continue;
+            if (spawnOnMap._locationStrings[i] == null) continue;
             //Get Locations of Safe and Player
 
-            //var currentString = _locationStrings[i];
+            //var currentString = spawnOnMap._locationStrings[i];
             var instance = location;
             var x = Conversions.StringToLatLon(ImmediatePositionWithLocationProvider.LocationProvider
                 .CurrentLocation.LatitudeLongitude.ToString());
@@ -490,12 +492,12 @@ public class GameManager : MonoBehaviour
 
     private bool CalculateDistanceInEditor(Vector2d location)
     {
-        for (var i = 0; i < locations.Count; i++)
+        for (var i = 0; i < spawnOnMap._locationStrings.Count; i++)
         {
-            if (locations[i] == null) continue;
+            if (spawnOnMap._locationStrings[i] == null) continue;
             //Get Locations of Safe and Player
 
-            //var currentString = _locationStrings[i];
+            //var currentString = spawnOnMap._locationStrings[i];
             var instance = location;
             var x = new Vector2d(48.264518, 11.6713515);
             var playerLocation = x.x;
