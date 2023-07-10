@@ -31,7 +31,12 @@ namespace Mapbox.Examples
         private ImmediatePositionWithLocationProvider _immediatePositionWithLocationProvider;
         private LocationArrayEditorLocationProvider _locationArrayEditorLocationProvider;
 
+        public List<OtherPlayer> otherPlayers; 
+
         private SafeSpinScript SafeSpinScript;
+        
+        [SerializeField] private GameObject robberPrefab;
+        [SerializeField] private GameObject copPrefab;
 
         private void Start()
         {
@@ -40,8 +45,26 @@ namespace Mapbox.Examples
                 .GetComponent<LocationArrayEditorLocationProvider>();
             _immediatePositionWithLocationProvider = GameObject.FindWithTag("Player")
                 .GetComponent<ImmediatePositionWithLocationProvider>();
-            
+            otherPlayers = new List<OtherPlayer>();
         }
+
+        public void SpawnOtherPlayers()
+        {
+            foreach (var otherPlayer in otherPlayers)
+            {
+                GameObject instance;
+                if (otherPlayer.role)
+                {
+                    instance = Instantiate(copPrefab);
+                }
+                else
+                {
+                    instance = Instantiate(robberPrefab);
+                }
+                instance.transform.localPosition = _map.GeoToWorldPosition(otherPlayer.location);
+                instance.transform.localRotation = otherPlayer.rotation;
+            }    
+        } 
 
         public void WaitForCubeLocationThenSpawnSafe()
         {
@@ -69,6 +92,7 @@ namespace Mapbox.Examples
                 _spawnedObjects.Add(instance);
             }
         }
+        
         public void SpawnCubes()
         {
             _cubeLocations = new Vector2d[_locationStrings.Count];
@@ -88,6 +112,18 @@ namespace Mapbox.Examples
         }
 
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         private bool CalculateDistanceToNorm(Vector2d location)
         {
             for (var i = 0; i < _locationStrings.Count; i++)

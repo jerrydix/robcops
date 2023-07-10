@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Mapbox.Examples;
+using Mapbox.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     private SpawnOnMap spawnOnMap;
 
     public Coroutine updateSafesCoroutine;
+    public Coroutine updateOtherPlayersCoroutine;
     public static GameManager Instance { set; get; }
 
     private void Awake()
@@ -71,6 +73,7 @@ public class GameManager : MonoBehaviour
                 GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
             spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
             updateSafesCoroutine = StartCoroutine(UpdateSafes());
+            updateOtherPlayersCoroutine = StartCoroutine(UpdateOtherPlayers());
         }
         else
         {
@@ -99,6 +102,54 @@ public class GameManager : MonoBehaviour
         Debug.Log(www.text);
         var money = int.Parse(www.text);
         Instance.money = money;
+    }
+    
+    public IEnumerator UpdateOtherPlayers()
+    {
+        while (true)
+        {
+            //Innefficient shit code, but works. 
+            
+            for (var i = spawnOnMap.otherPlayers.Count - 1; i >= 0; i--) spawnOnMap.otherPlayers[i].Destroy();
+
+            spawnOnMap.otherPlayers = new List<OtherPlayer>();
+            
+            using var www = new WWW(BASE_URL + "get_all_locations/");
+            yield return www;
+            Debug.Log("getAllLocations: " + www.text);
+            if (www.text == "")
+            {
+                yield return new WaitForSeconds(10f);
+                continue;
+            }
+
+            string[] allPlayerStrings = www.text.Split("|");
+            
+            for (var i = 0; i < allPlayerStrings.Length; i++)
+            {
+                string[] playerTupel = allPlayerStrings[i].Split(";");
+                spawnOnMap.otherPlayers[i].id = int.Parse(playerTupel[0]);
+                spawnOnMap.otherPlayers[i].role = bool.Parse(playerTupel[1]);
+                spawnOnMap.otherPlayers[i].location = new Vector2d(double.Parse(playerTupel[2]), double.Parse(playerTupel[3]));
+                string[] rotationFloats = playerTupel[4].Split(",");
+
+                spawnOnMap.otherPlayers[i].rotation = new Quaternion(float.Parse(rotationFloats[0]),
+                    float.Parse(rotationFloats[1]), float.Parse(rotationFloats[2]), float.Parse(rotationFloats[3]));
+                
+            }
+            
+            spawnOnMap.SpawnOtherPlayers();
+            
+            if (firstLoad)
+            {
+                yield return new WaitForSeconds(0.5f); //TODO FIX THIS
+                firstLoad = false;
+            }
+            else
+            {
+                yield return new WaitForSeconds(15f);
+            }
+        }
     }
 
 
@@ -183,7 +234,7 @@ public class GameManager : MonoBehaviour
             spawnOnMap.WaitForCubeLocationThenSpawnSafe();
             if (firstLoad)
             {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.5f); //TODO FIX THIS
                 firstLoad = false;
             }
             else
