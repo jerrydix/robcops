@@ -250,7 +250,8 @@ def get_station_members(request):
 def get_station_info(request):
     response = f"{request.user.player.policeStation.id}|{request.user.player.policeStation.name}|" \
                f"{request.user.player.policeStation.weaponLvl}|{request.user.player.policeStation.armorLvl}|" \
-               f"{request.user.player.policeStation.hints}"
+               f"{request.user.player.policeStation.hints}|{request.user.player.policeStation.robUnionX}|" \
+               f"{request.user.player.policeStation.robUnionY}"
     return HttpResponse(response)
 
 
