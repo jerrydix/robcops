@@ -399,11 +399,13 @@ def startBreakIn(request):
 
 
 def get_all_locations(request):
-    response = "|".join(str(e).replace("(", "").replace(")", "") for e in list(Player.objects.values_list('id',
+    response = "|".join(str(e).replace("(", "").replace(")", "") for e in list(Player.objects.values_list('user_id',
                                                                                                           'role',
                                                                                                           'locationX',
                                                                                                           'locationY',
                                                                                                           'rotation')))
+    response = str(response)
+    response = response.replace(",", ";").replace('\'', "").replace(' ', '')
     return HttpResponse(response)
 
 
