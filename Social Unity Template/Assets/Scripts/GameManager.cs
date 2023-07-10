@@ -16,7 +16,7 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    public string BASE_URL = "http://chernogop.pythonanywhere.com/";
+    public string BASE_URL = "http://87.143.147.178:8000/";
     [HideInInspector] public string socialTab = "members/";
     public int amountOfClicks;
 
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     public Coroutine updateOtherPlayersCoroutine;
 
-    private bool cannotPlaceAnyMoreSafes = false;
+    //private bool cannotPlaceAnyMoreSafes = false;
 
     public static GameManager Instance { set; get; }
 
@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            firstLoad = false;
             if (moneyRoutine != null)
                 StopCoroutine(moneyRoutine);
         }
@@ -130,7 +131,7 @@ public class GameManager : MonoBehaviour
 
             using var www = new WWW(BASE_URL + "get_all_locations/");
             yield return www;
-            Debug.Log("getAllLocations: " + www.text);
+            //Debug.Log("getAllLocations: " + www.text);
             if (www.text == "")
             {
                 yield return new WaitForSeconds(10f);
@@ -152,8 +153,8 @@ public class GameManager : MonoBehaviour
                 {
                     foreach (var rot in rotationFloats)
                     {
-                        Debug.Log("Length" + rotationFloats.Length);
-                        Debug.Log(rot);
+                        //Debug.Log("Length" + rotationFloats.Length);
+                        //Debug.Log(rot);
                     }
                     spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]), bool.Parse(playerTupel[1]), new Vector2d(double.Parse(playerTupel[2]), double.Parse(playerTupel[3])), new Quaternion(float.Parse(rotationFloats[0]),
                         float.Parse(rotationFloats[1]), float.Parse(rotationFloats[2]), float.Parse(rotationFloats[3])))); 
@@ -225,10 +226,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("getAllSafesText: " + www.text);
             if (www.text == "")
             {
-                if (!cannotPlaceAnyMoreSafes)
+                /*if (!cannotPlaceAnyMoreSafes)
                 {
-                    CreateSafeIfNone();   
-                }
+                    //CreateSafeIfNone();   
+                }*/
                 yield return new WaitForSeconds(10f);
                 continue;
             }
@@ -251,21 +252,21 @@ public class GameManager : MonoBehaviour
             spawnOnMap.ids = ids;
             var idString = "";
             foreach (var id in spawnOnMap.ids) idString += id + ",";
-            Debug.Log("idstring: " + idString);
+            //Debug.Log("idstring: " + idString);
             spawnOnMap.levels = levels;
             spawnOnMap.hps = hps;
             spawnOnMap._locationStrings = locations;
             spawnOnMap.SpawnCubes();
             spawnOnMap.WaitForCubeLocationThenSpawnSafe();
-            if (firstLoad)
+            /*if (firstLoad)
             {
-                yield return new WaitForSeconds(0.5f); //TODO FIX THIS
                 firstLoad = false;
-            }
-            else
-            {
+                yield return new WaitForSeconds(0.5f); //TODO FIX THIS
+            }*/
+            //else
+           // {
                 yield return new WaitForSeconds(60f);
-            }
+            //}
         }
     }
 
@@ -283,7 +284,7 @@ public class GameManager : MonoBehaviour
 
         using var www = new WWW(BASE_URL + "get_all_safes/");
         yield return www;
-        Debug.Log("getAllSafesText: " + www.text);
+       // Debug.Log("getAllSafesText: " + www.text);
         if (www.text == "") yield return new WaitForSeconds(3f);
         var safesTupels = www.text.Split("|");
         var ids = new List<int>();
@@ -304,7 +305,7 @@ public class GameManager : MonoBehaviour
         spawnOnMap.ids = ids;
         var idString = "";
         foreach (var id in spawnOnMap.ids) idString += id + ",";
-        Debug.Log("idstring: " + idString);
+        //Debug.Log("idstring: " + idString);
         spawnOnMap.levels = levels;
         spawnOnMap.hps = hps;
         spawnOnMap._locationStrings = locations;
@@ -319,7 +320,7 @@ public class GameManager : MonoBehaviour
         form.AddField("cost", cost);
         using var www = new WWW(BASE_URL + "pay_money/", form);
         yield return www;
-        Debug.Log(www.text);
+        //Debug.Log(www.text);
         money = int.Parse(www.text);
         this.level = level;
         switch (level)
@@ -341,7 +342,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SendSafeToServer());
     }
 
-    private void CreateSafeIfNone()
+    /*private void CreateSafeIfNone()
     {
         //Check if there any safes are in Range
         for (int i = 0; i < locations.Count; i++)
@@ -367,9 +368,9 @@ public class GameManager : MonoBehaviour
             var NewPosition = new Vector2d(position.x + deviations, position.y + deviations1);
             var Level = GetRandomLevel();
             var Health = GetCorrespondingNumber(Level);
-            StartCoroutine(CreateSafe(NewPosition.x.ToString(), NewPosition.y.ToString(), Health, Level));
+            //StartCoroutine(CreateSafe(NewPosition.x.ToString(), NewPosition.y.ToString(), Health, Level));
         }
-    }
+    }*/
 
     private int GetCorrespondingNumber(int level)
     {
@@ -420,7 +421,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator CreateSafe(string locationX, string locationY, int hp, int level)
+    /*private IEnumerator CreateSafe(string locationX, string locationY, int hp, int level)
     {
         var form = new WWWForm();
         form.AddField("level", level);
@@ -432,10 +433,10 @@ public class GameManager : MonoBehaviour
         yield return UpdateSafes();
         yield return new WaitForSeconds(60f);
         yield return UpdateSafesAfterPlacing();
-    }
+    }*/
 
     
-    private IEnumerator SendNewSafesToServer(string locationX, string locationY, int Health, int Level)
+    /*private IEnumerator SendNewSafesToServer(string locationX, string locationY, int Health, int Level)
     {
         var form = new WWWForm();
         form.AddField("level", Level);
@@ -449,7 +450,7 @@ public class GameManager : MonoBehaviour
         yield return UpdateSafesAfterPlacing();
         yield return new WaitForSeconds(60f);
         updateSafesCoroutine = StartCoroutine(UpdateSafes());
-    }
+    }*/
 
 
     private bool CalculateDistanceToNorm(Vector2d location)
