@@ -212,7 +212,7 @@ public class S_PoliceStationController : MonoBehaviour
     {
         weaponlvlText.text = "Weapons Lvl: " + weaponlvl;
         armorlvlText.text = "Armors Lvl: " + armorlvl;
-        hintsText.text = "Hints: " + hints;
+        hintsText.text = "Hints: " + hints + "/5";
         locationXText.text = "X: " + locationX;
         locationYText.text = "Y: " + locationY;
     }
