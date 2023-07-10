@@ -48,6 +48,8 @@ class PoliceStation(Guild):
     weaponLvl = models.IntegerField(default=1)
     armorLvl = models.IntegerField(default=1)
     hints = models.IntegerField(default=0)
+    robUnionX = models.CharField(default="", max_length=30)
+    robUnionY = models.CharField(default="", max_length=30)
 
 
 # Powerups RobUnion
