@@ -346,7 +346,8 @@ public class GameManager : MonoBehaviour
         }
 
         //Randomly Generate Safe and Location
-        var position = ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude;
+        var position = new Vector2d(48.264518, 11.6713515);
+        //var position = ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude;
         var num = Random.Range(1.0f,4.0f);
         Debug.Log(num);
         
@@ -356,10 +357,9 @@ public class GameManager : MonoBehaviour
             var deviations = Random.Range(0.1f,0.6f);
             var deviations1 = Random.Range(0.1f,0.6f);
             var NewPosition = new Vector2d(position.x + deviations, position.y + deviations1);
-            var LonLat = position.x + "," + position.y;
             var Level = GetRandomLevel();
             var Health = GetCorrespondingNumber(Level);
-            StartCoroutine(SendNewSafesToServer(NewPosition.x.ToString(), NewPosition.y.ToString(), Health, Level));
+            StartCoroutine(CreateSafe(NewPosition.x.ToString(), NewPosition.y.ToString(), Health, Level));
         }
     }
 
@@ -389,9 +389,7 @@ public class GameManager : MonoBehaviour
 
     private int GetRandomLevel()
     {
-        var random = new Unity.Mathematics.Random();
         var num = Random.Range(0f, 4f);
-
         switch (num)
         {
             case 1:
@@ -414,6 +412,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator CreateSafe(string locationX, string locationY, int hp, int level)
+    {
+        var form = new WWWForm();
+        form.AddField("level", level);
+        form.AddField("hp", hp);
+        form.AddField("locationX", locationX);
+        form.AddField("locationY", locationY);
+        using var www = new WWW(BASE_URL + "create_safe/", form);
+        yield return www;
+        yield return UpdateSafes();
+        yield return new WaitForSeconds(60f);
+        yield return UpdateSafesAfterPlacing();
+    }
+
+    
     private IEnumerator SendNewSafesToServer(string locationX, string locationY, int Health, int Level)
     {
         var form = new WWWForm();
@@ -425,8 +438,9 @@ public class GameManager : MonoBehaviour
         yield return www;
         Debug.Log(www.text);
 
-        yield return UpdateSafes();
+        yield return UpdateSafesAfterPlacing();
         yield return new WaitForSeconds(60f);
+        updateSafesCoroutine = StartCoroutine(UpdateSafes());
     }
 
 
