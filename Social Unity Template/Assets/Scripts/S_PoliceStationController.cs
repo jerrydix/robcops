@@ -126,6 +126,8 @@ public class S_PoliceStationController : MonoBehaviour
         weaponlvl = int.Parse(info[2]);
         armorlvl = int.Parse(info[3]);
         hints = int.Parse(info[4]);
+        locationX = info[5];
+        locationY = info[5];
         updateText();
     }
 
