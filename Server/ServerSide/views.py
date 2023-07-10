@@ -293,6 +293,9 @@ def upgrade_armor(request):
 @login_required
 def update_hints(request):
     request.user.player.policeStation.hints += 1
+    request.user.player.policeStation.save()
+    if request.user.player.policeStation.hints == 5:
+        generate_robunion(request)
     return HttpResponse(request.user.player.policeStation.hints)
 
 
@@ -800,3 +803,31 @@ def update_policeman_money(request):
         time.sleep(3600)
         policeman.money += policeman.safesActive * 1000
         policeman.save()
+
+
+def generate_robunion(request):
+    radius = 3000
+    radiusInDegrees = radius / 111300
+    r = radiusInDegrees
+    x0 = request.user.player.locationX
+    y0 = request.user.player.locationY
+
+    u = float(random.uniform(0.0, 1.0))
+    v = float(random.uniform(0.0, 1.0))
+
+    w = r * math.sqrt(u)
+    t = 2 * math.pi * v
+    x = w * math.cos(t)
+    y = w * math.sin(t)
+
+    xLat = x + x0
+    yLong = y + y0
+    request.user.player.policeStation.robUnionX = xLat
+    request.user.player.policeStation.robUnionY = yLong
+    request.user.player.policeStation.save()
+    return HttpResponse(f'{xLat}|{yLong}')
+
+
+@login_required
+def get_robunion_coordinates(request):
+    return HttpResponse(f'{request.user.player.policeStation.robUnionX}|{request.user.player.policeStation.robUnionY}')

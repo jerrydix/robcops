@@ -41,6 +41,7 @@ urlpatterns = [
     path('edit_policexp/', views.edit_policexp, name='edit_policexp'),
     path('edit_robberxp/', views.edit_robberxp, name='edit_robberxp'),
     path('place_safe/', views.place_safe, name='place_safe'),
+    path('generate_robunion/', views.generate_robunion, name='generate_robunion'),
 
     # Lobby Settings
     path('create_personal_safe/', views.create_personal_safe, name='create_personal_safe'),
@@ -94,6 +95,7 @@ urlpatterns = [
     path('buy_new_machine/', views.buy_new_machine, name='buy_new_machine'),
     path('get_robunion_info/', views.get_robunion_info, name='get_robunion_info'),
     path('start_machine_farm/', views.start_machine_farm, name='start_machine_farm'),
+    path('get_robunion_coordinates/', views.get_robunion_coordinates, name='get_robunion_coordinates'),
 
     # Amount of clicks
     path('get_amount_of_clicks/', views.get_amount_of_clicks, name='get_amount_of_clicks'),
