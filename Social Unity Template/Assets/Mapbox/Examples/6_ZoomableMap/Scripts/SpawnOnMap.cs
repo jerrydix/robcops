@@ -31,45 +31,17 @@ namespace Mapbox.Examples
         private ImmediatePositionWithLocationProvider _immediatePositionWithLocationProvider;
         private LocationArrayEditorLocationProvider _locationArrayEditorLocationProvider;
 
-        private GameManager gm;
-
         private SafeSpinScript SafeSpinScript;
 
         private void Start()
         {
             //CreateSafeIfNoneAreInRange();
-            gm = GameObject.FindWithTag("GM").GetComponent<GameManager>();
             _locationArrayEditorLocationProvider = GameObject.FindWithTag("EditorOnly")
                 .GetComponent<LocationArrayEditorLocationProvider>();
             _immediatePositionWithLocationProvider = GameObject.FindWithTag("Player")
                 .GetComponent<ImmediatePositionWithLocationProvider>();
-            //StartCoroutine(UpdateCubeLocation());
+            
         }
-
-        /*private void Update()
-        {
-            UpdateSafeLocation();
-        }
-
-        private void FixedUpdate()
-        {
-            StartCoroutine(UpdateCubeLocation());
-        }*/
-
-        /*private void UpdateSafeLocation()
-        {
-            var count = _spawnedObjects.Count;
-            for (var i = 0; i < count; i++)
-            {
-                if (_spawnedObjects[i] == null) continue;
-
-                var spawnedObject = _spawnedObjects[i];
-                var location = _locations[i];
-                spawnedObject.transform.localPosition = _map.GeoToWorldPosition(location);
-                spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-                //Debug.Log("SpawnedSafe");
-            }
-        }*/
 
         public void WaitForCubeLocationThenSpawnSafe()
         {
@@ -96,35 +68,7 @@ namespace Mapbox.Examples
                 instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
                 _spawnedObjects.Add(instance);
             }
-
-            //yield return null;
         }
-
-        /*public IEnumerator UpdateCubeLocation()
-        {
-            //yield return new WaitForSeconds(0); //TODO CHECK IF THIS BREAKS ANYTHING
-            var count = cubes.Count;
-            for (var i = 0; i < count; i++)
-            {
-                var test = cubes[i];
-                var location = _cubeLocations[i];
-                test.transform.position = new Vector3(_map.GeoToWorldPosition(location).x, 3,
-                    _map.GeoToWorldPosition(location).z);
-                test.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-                if (!CheckIsFreePos(test.transform.position) |
-                    !CalculateDistanceInEditor(location))
-                {
-                    _locationStrings[i] = null;
-                    _spawnedObjects[i].Destroy();
-                    _spawnedObjects[i] = null;
-                }
-            }
-
-            activateUpdate = true;
-            UpdateSafeLocation();
-            yield return null;
-        }*/
-
         public void SpawnCubes()
         {
             _cubeLocations = new Vector2d[_locationStrings.Count];

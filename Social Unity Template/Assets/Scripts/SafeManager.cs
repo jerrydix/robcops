@@ -34,7 +34,9 @@ public class SafeManager : MonoBehaviour
         Debug.Log("safe clicked");
         //todo add checkSafe method
         Debug.Log("SAFE ID: " + id);
-        StartCoroutine(checkBreakInStatus());
+        if (!GameManager.Instance.role)
+            StartCoroutine(checkBreakInStatus());
+        //todo arrest when playing cop
     }
 
     private IEnumerator checkBreakInStatus()

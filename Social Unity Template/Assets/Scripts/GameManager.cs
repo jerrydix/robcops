@@ -63,18 +63,11 @@ public class GameManager : MonoBehaviour
         {
             ImmediatePositionWithLocationProvider =
                 GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
-            //client = GameObject.FindWithTag("Server").GetComponent<S_UserLogin>();
             spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
-            //Instance.GetAllSafes();
             updateSafesCoroutine = StartCoroutine(UpdateSafes());
         }
     }
-
-
-    /*public void GetAllSafes()
-    {
-        StartCoroutine(GetSafeInfo());
-    }*/
+    
 
     public void InitializeSafe(int level, int cost)
     {
@@ -105,39 +98,7 @@ public class GameManager : MonoBehaviour
         yield return UpdateSafesAfterPlacing();
         yield return new WaitForSeconds(60f);
         updateSafesCoroutine = StartCoroutine(UpdateSafes());
-
-        //StartCoroutine(GetSafeInfo()); //todo fix so that only one safe is added, and not all safes are fetched again
     }
-
-    /*public IEnumerator GetSafeInfo()
-    {
-        using var www = new WWW(BASE_URL + "get_all_safes/");
-        yield return www;
-        Debug.Log(www.text);
-        var safesTupels = www.text.Split("|");
-        var ids = new List<int>();
-        var levels = new List<int>();
-        var hps = new List<int>();
-        var locations = new List<string>();
-        for (var i = 1; i < safesTupels.Length; i++)
-        {
-            var tupel = safesTupels[i].Split(",");
-            ids.Add(int.Parse(tupel[0]));
-            levels.Add(int.Parse(tupel[1]));
-            hps.Add(int.Parse(tupel[2]));
-            locations.Add(tupel[3] + "," + tupel[4]);
-            //Debug.Log(tupel[3] + "," + tupel[4]);
-            //Debug.Log(int.Parse(tupel[0]));
-        }
-
-        spawnOnMap.ids = ids;
-        spawnOnMap.levels = levels;
-        spawnOnMap.hps = hps;
-        spawnOnMap._locationStrings = locations;
-        spawnOnMap.SpawnCubes();
-        //yield return StartCoroutine(spawnOnMap.WaitForCubeLocationThenSpawnSafe());
-        spawnOnMap.WaitForCubeLocationThenSpawnSafe();
-    }*/
 
     public IEnumerator UpdateSafes()
     {
