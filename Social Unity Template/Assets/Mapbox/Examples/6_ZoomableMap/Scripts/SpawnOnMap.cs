@@ -26,6 +26,7 @@ namespace Mapbox.Examples
         public List<int> ids = new();
         public List<int> levels = new();
         public List<int> hps = new();
+        public List<int> statuses = new();
         public Vector2d[] _cubeLocations;
         public Vector2d[] _locations;
         private ImmediatePositionWithLocationProvider _immediatePositionWithLocationProvider;
@@ -95,6 +96,7 @@ namespace Mapbox.Examples
                 currentSafeManager.level = levels[i];
                 currentSafeManager.locationX = _locations[i].x; //locationString.Split(",")[0];
                 currentSafeManager.locationY = _locations[i].y;
+                currentSafeManager.status = statuses[i];
 
                 instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i]);
                 
@@ -121,19 +123,6 @@ namespace Mapbox.Examples
             }
         }
 
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         private bool CalculateDistanceToNorm(Vector2d location)
         {
             for (var i = 0; i < _locationStrings.Count; i++)
@@ -161,7 +150,7 @@ namespace Mapbox.Examples
                 var finalResult = Mathd.Abs(result);
 
                 //Filter Safes that are more than 1km away
-
+            
                 if (finalResult <= 350) return true;
             }
 

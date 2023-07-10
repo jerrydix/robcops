@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject mapScreenUI;
     [SerializeField] private GameObject shopUI;
     [SerializeField] private GameObject settingsUI;
+    [SerializeField] private GameObject penaltyUI;
     [SerializeField] private Button switchRoleButton;
     [SerializeField] private GameObject placeSafeButton;
     [SerializeField] private TextMeshProUGUI moneyText;
@@ -132,6 +133,12 @@ public class UIManager : MonoBehaviour
             var nennung = stations[i].Split(", ")[1];
             script.SetParameters(i + 1 + ".", nennung, id, false, false);
         }
+    }
+
+    public void OpenPenalty(SafeManager safeManager)
+    {
+        penaltyUI.SetActive(true);
+        penaltyUI.GetComponent<S_Penalty>().safeManager = safeManager;
     }
 
     public void ShopButton()

@@ -12,10 +12,12 @@ public class SafeManager : MonoBehaviour
     public int hp; //todo make ranges of hp depending on level
     public double locationX;
     public double locationY;
+    public int status;
     public bool createLobby;
     public int lobbyPlayerCount;
     public List<string> lobbyNames;
     private UIManager _uiManager;
+    private GameObject player;
 
     // Start is called before the first frame update
     private void Awake()
@@ -27,6 +29,7 @@ public class SafeManager : MonoBehaviour
     private void Start()
     {
         _uiManager = GameObject.Find("UI").GetComponent<UIManager>();
+        player = GameObject.FindWithTag("Player");
     }
 
     public void SafeClicked()
@@ -36,7 +39,31 @@ public class SafeManager : MonoBehaviour
         Debug.Log("SAFE ID: " + id);
         if (!GameManager.Instance.role)
             StartCoroutine(checkBreakInStatus());
-        //todo arrest when playing cop
+        if (getDistanceToObject() <= 20f && status == 3)
+        {
+            _uiManager.OpenPenalty(this);
+        }
+    }
+    
+    public float getDistanceToObject()
+    {
+        float dist = Vector3.Distance(player.transform.position, transform.position);
+        return dist;
+    }
+
+    public void arrest(int penalty)
+    {
+        StartCoroutine(Arrest(penalty));
+    }
+
+    public IEnumerator Arrest(int penalty)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("safeId", id);
+        form.AddField("penalty", penalty);
+        using var www = new WWW(GameManager.Instance.BASE_URL + "arrest_lobby/", form);
+        yield return www;
+        Debug.Log(www.text);
     }
 
     private IEnumerator checkBreakInStatus()
