@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
 
         if (Instance == null)
         {
+            StartCoroutine(GetPlayerMoney());
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -65,6 +66,19 @@ public class GameManager : MonoBehaviour
                 GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
             spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
             updateSafesCoroutine = StartCoroutine(UpdateSafes());
+        }
+    }
+    
+    public IEnumerator GetPlayerMoney()
+    {
+        while (true)
+        {
+            using var www = new WWW(Instance.BASE_URL + "get_money/");
+            yield return www;
+            Debug.Log(www.text);
+            int money = int.Parse(www.text);
+            Instance.money = money;
+            yield return new WaitForSeconds(60f);
         }
     }
     
