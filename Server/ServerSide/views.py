@@ -833,5 +833,28 @@ def generate_robunion(request):
 
 
 @login_required
+def generate_random_safe(request):
+    radius = 500
+    radiusInDegrees = radius / 111300
+    r = radiusInDegrees
+    x0 = request.user.player.locationX
+    y0 = request.user.player.locationY
+
+    u = float(random.uniform(0.0, 1.0))
+    v = float(random.uniform(0.0, 1.0))
+
+    w = r * math.sqrt(u)
+    t = 2 * math.pi * v
+    x = w * math.cos(t)
+    y = w * math.sin(t)
+
+    xLat = x + x0
+    yLong = y + y0
+    safe = Safe(level=1, hp=1000, locationY=yLong, locationX=xLat)
+    safe.save()
+    return HttpResponse(f'{safe.locationX}|{safe.locationX}')
+
+
+@login_required
 def get_robunion_coordinates(request):
     return HttpResponse(f'{request.user.player.policeStation.robUnionX}|{request.user.player.policeStation.robUnionY}')
