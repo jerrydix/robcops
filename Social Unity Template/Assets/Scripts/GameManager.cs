@@ -140,17 +140,23 @@ public class GameManager : MonoBehaviour
             
             for (var i = 0; i < allPlayerStrings.Length; i++)
             {
-                Debug.Log("Strings: " + allPlayerStrings[i]);
                 string[] playerTupel = allPlayerStrings[i].Split(";");
-                for (int j = 0; j < playerTupel.Length; j++)
+                string[] rotationFloats = playerTupel[4].Split(":");
+                if (rotationFloats.Length < 4)
                 {
-                    Debug.Log("TupelInfo: " + playerTupel[j]);
+                    spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]), bool.Parse(playerTupel[1]), new Vector2d(double.Parse(playerTupel[2]), double.Parse(playerTupel[3])), new Quaternion(0f,
+                        0f, 0f, 0f)));
                 }
-                string[] rotationFloats = playerTupel[4].Split(",");
-                spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]), bool.Parse(playerTupel[1]), new Vector2d(double.Parse(playerTupel[2]), double.Parse(playerTupel[3])), new Quaternion(float.Parse(rotationFloats[0]),
-                    float.Parse(rotationFloats[1]), float.Parse(rotationFloats[2]), float.Parse(rotationFloats[3]))));
-                
-                
+                else
+                {
+                    foreach (var rot in rotationFloats)
+                    {
+                        Debug.Log("Length" + rotationFloats.Length);
+                        Debug.Log(rot);
+                    }
+                    spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]), bool.Parse(playerTupel[1]), new Vector2d(double.Parse(playerTupel[2]), double.Parse(playerTupel[3])), new Quaternion(float.Parse(rotationFloats[0]),
+                        float.Parse(rotationFloats[1]), float.Parse(rotationFloats[2]), float.Parse(rotationFloats[3])))); 
+                }
             }
             
             spawnOnMap.SpawnOtherPlayers();

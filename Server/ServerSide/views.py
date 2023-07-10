@@ -741,7 +741,8 @@ def send_location(request):
         request.user.player.locationX = x
         request.user.player.locationY = y
         request.user.player.save()
-        return HttpResponse("1")
+        return HttpResponse(
+            f"{request.user.player.locationX}|{request.user.player.locationY}|{request.user.player.rotation}")
 
 
 @login_required

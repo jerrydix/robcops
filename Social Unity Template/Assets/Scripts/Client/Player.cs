@@ -150,7 +150,8 @@ public class Player : MonoBehaviour
             
             form.AddField("locationX", locationX);
             form.AddField("locationY", locationY);
-            form.AddField("rotation", _rotation.ToString().Replace(", ", ",").Trim('"').Trim('(').Trim(')'));
+            form.AddField("rotation", _rotation.ToString().Replace(", ", ":").Trim('"').Trim('(').Trim(')'));
+            Debug.Log("X:                         " + locationX);
         
             using var www = new WWW(GameManager.Instance.BASE_URL + "send_location/", form);
             yield return www;

@@ -65,6 +65,7 @@ namespace Mapbox.Examples
                 }
                 instance.transform.localPosition = _map.GeoToWorldPosition(otherPlayer.location);
                 instance.transform.localRotation = otherPlayer.rotation;
+                Debug.Log("INSTANCE"+ instance.GetComponent<OtherPlayer>());
                 instance.GetComponent<OtherPlayer>().role = otherPlayer.role;
                 instance.GetComponent<OtherPlayer>().id = otherPlayer.id;
                 instance.GetComponent<OtherPlayer>().location = otherPlayer.location;
