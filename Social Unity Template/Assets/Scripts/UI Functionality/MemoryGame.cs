@@ -5,6 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Original code by: <author>Nicole Scheitler</author>
+/// Github: https://github.com/nextRound
+/// </summary>
+
 public class MemoryGame : MonoBehaviour
 {
 
