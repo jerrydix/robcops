@@ -536,10 +536,10 @@ def upgrade_amount_of_clicks(request):
         return HttpResponse("0|False method")
     else:
         cost = request.POST["cost"]
-        if request.user.player.money < cost:
+        if request.user.player.money < int(cost):
             return HttpResponse("0|You have not enough money")
         else:
-            request.user.player.money -= cost
+            request.user.player.money -= int(cost)
             request.user.player.amountOfClicks += 1
             request.user.player.save()
             response = f"1|{request.user.player.amountOfClicks}"
@@ -552,10 +552,10 @@ def upgrade_click_power(request):
         return HttpResponse("0|False method")
     else:
         cost = request.POST["cost"]
-        if request.user.player.money < cost:
+        if request.user.player.money < int(cost):
             return HttpResponse("0|You have not enough money")
         else:
-            request.user.player.money -= cost
+            request.user.player.money -= int(cost)
             request.user.player.clickPower += 1
             request.user.player.save()
             response = f"1|{request.user.player.clickPower}"
