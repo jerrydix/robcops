@@ -42,6 +42,7 @@ urlpatterns = [
     path('edit_robberxp/', views.edit_robberxp, name='edit_robberxp'),
     path('place_safe/', views.place_safe, name='place_safe'),
     path('generate_robunion/', views.generate_robunion, name='generate_robunion'),
+    path('send_location/', views.send_location, name='send_location'),
 
     # Lobby Settings
     path('create_personal_safe/', views.create_personal_safe, name='create_personal_safe'),

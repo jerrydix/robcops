@@ -127,6 +127,7 @@ public class GameManager : MonoBehaviour
             
             for (var i = 0; i < allPlayerStrings.Length; i++)
             {
+                Debug.Log(allPlayerStrings[i]);
                 string[] playerTupel = allPlayerStrings[i].Split(";");
                 spawnOnMap.otherPlayers[i].id = int.Parse(playerTupel[0]);
                 spawnOnMap.otherPlayers[i].role = bool.Parse(playerTupel[1]);
