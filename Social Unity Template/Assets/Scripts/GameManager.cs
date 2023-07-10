@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public int money;
     public bool role;
     public string username;
+    public int userId;
     private bool firstLoad;
     private List<string> locations = new List<string>();
 

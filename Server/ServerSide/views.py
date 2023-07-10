@@ -31,7 +31,7 @@ def login_user(request):
                 f'1|{request.user.username}|{request.user.player.money}|{request.user.player.amountOfClicks}|'
                 f'{request.user.player.clickPower}|{request.user.player.locationX}|{request.user.player.locationY}|'
                 f'{request.user.player.role}|{request.user.player.robUnion_id}|'
-                f'{request.user.player.policeStation_id}|{request.user.player.friends}')
+                f'{request.user.player.policeStation_id}|{request.user.id}')
         else:
             return HttpResponse('0|User not found / Wrong password')  # TODO wrong password abfrage (this)
 

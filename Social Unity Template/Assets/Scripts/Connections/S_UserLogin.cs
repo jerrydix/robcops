@@ -127,5 +127,6 @@ public class S_UserLogin : MonoBehaviour
             GameManager.Instance.guild = guildID;
         else
             GameManager.Instance.guild = -1;
+        GameManager.Instance.userId = int.Parse(list[9]);
     }
 }
