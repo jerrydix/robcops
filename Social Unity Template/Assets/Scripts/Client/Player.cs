@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Mapbox.Examples;
 using Mapbox.Unity.Location;
 using Mapbox.Unity.Utilities;
@@ -15,6 +16,8 @@ public class Player : MonoBehaviour
     private SpawnOnMap _spawnOnMap;
     private ImmediatePositionWithLocationProvider _immediatePositionWithLocationProvider;
     private LocationArrayEditorLocationProvider _locationArrayEditorLocationProvider;
+    private Quaternion _rotation;
+    
     public Faction faction { get; set; }
     public List<Friend> friends { get; set; }
 
@@ -27,6 +30,35 @@ public class Player : MonoBehaviour
     public const int xpRequiredForFactionChange = 2000; //Change Value if needed
 
     public List<ItemListElement> items { get; set; }
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        _spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
+        _immediatePositionWithLocationProvider =
+            GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
+        _locationArrayEditorLocationProvider =
+            GameObject.FindWithTag("EditorOnly").GetComponent<LocationArrayEditorLocationProvider>();
+        _rotation = transform.rotation;
+        StartCoroutine(SendPlayerLocationAndRotationToServer());
+        distance = new List<double>();
+        CalculateDistanceInEditor();
+        CalculateDistanceWithImmediatePosition();
+        for (int i = 0; i < distance.Count; i++)
+        {
+            Debug.Log(distance[i] + " m");
+        }
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        CalculateDistanceInEditor();
+        CalculateDistanceWithImmediatePosition();
+        _rotation = transform.localRotation;
+    }
+
 
     /**
      * Add the specified amount to the users money, negative values will subtract
@@ -101,6 +133,31 @@ public class Player : MonoBehaviour
     public bool canChangeFaction()
     {
         return xp >= xpRequiredForFactionChange;
+    }
+
+    private IEnumerator SendPlayerLocationAndRotationToServer()
+    {
+        while (true)
+        {
+            WWWForm form = new WWWForm();
+            var locationX =
+                _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(
+                    CultureInfo.InvariantCulture);
+       
+            var locationY =
+                _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(
+                    CultureInfo.InvariantCulture);
+            
+            form.AddField("locationX", locationX);
+            form.AddField("locationY", locationY);
+            form.AddField("rotation", _rotation.ToString());
+        
+            using var www = new WWW(GameManager.Instance.BASE_URL + "send_location/", form);
+            yield return www;
+            Debug.Log(www.text);
+        
+            yield return new WaitForSeconds(15f);
+        }
     }
 
     private void CalculateDistanceWithImmediatePosition()
@@ -179,30 +236,5 @@ public class Player : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        _spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
-        _immediatePositionWithLocationProvider =
-            GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
-        _locationArrayEditorLocationProvider =
-            GameObject.FindWithTag("EditorOnly").GetComponent<LocationArrayEditorLocationProvider>();
-        distance = new List<double>();
-        CalculateDistanceInEditor();
-        CalculateDistanceWithImmediatePosition();
-        for (int i = 0; i < distance.Count; i++)
-        {
-            Debug.Log(distance[i] + " m");
-        }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        CalculateDistanceInEditor();
-        CalculateDistanceWithImmediatePosition();
-        
-    }
     
 }

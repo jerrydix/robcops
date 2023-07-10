@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public int hp;
     public int currentMinutes;
     public int currentSeconds;
+    public int currentSafeLevel;
     public ImmediatePositionWithLocationProvider ImmediatePositionWithLocationProvider;
     public int level;
     public Vector2 location;

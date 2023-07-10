@@ -27,8 +27,6 @@ public class SafeUIManager : MonoBehaviour
 
     [HideInInspector] public string[] members; //todo get members from game manager / server
 
-    public int minigameIndex = 2; //todo get minigame index from server
-
     private bool _createLobby;
     private int _id;
     private List<string> _lobbyNames;
@@ -201,6 +199,7 @@ public class SafeUIManager : MonoBehaviour
         GameManager.Instance.currentHP = int.Parse(response[1]);
         GameManager.Instance.currentMinutes = int.Parse(response[0].Split(".")[0]);
         GameManager.Instance.currentSeconds = int.Parse(response[0].Split(".")[1]);
+        GameManager.Instance.currentSafeLevel = int.Parse(response[0].Split(".")[2]);
 
         Random rnd = new Random();
         int index = rnd.Next(1, 3);
