@@ -392,7 +392,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1790427380871744754}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4467225089997418119}
+        m_TargetAssemblyTypeName: OtherPlayer, Assembly-CSharp
+        m_MethodName: PressCopButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3929991513948879747
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +608,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8773197806234323660}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4467225089997418119}
+        m_TargetAssemblyTypeName: OtherPlayer, Assembly-CSharp
+        m_MethodName: PressCopButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5447017549005543748
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,6 +678,7 @@ MonoBehaviour:
     x: 0
     y: 0
   rotation: {x: 0, y: 0, z: 0, w: 0}
+  _uiManager: {fileID: 0}
 --- !u!114 &8949105094204423996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -869,7 +894,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7205506132441839655}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4467225089997418119}
+        m_TargetAssemblyTypeName: OtherPlayer, Assembly-CSharp
+        m_MethodName: PressCopButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6923616560048721257
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,7 +1027,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4448800959577682290}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4467225089997418119}
+        m_TargetAssemblyTypeName: OtherPlayer, Assembly-CSharp
+        m_MethodName: PressCopButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8113075060022442750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,7 +1160,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3962940810456634517}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4467225089997418119}
+        m_TargetAssemblyTypeName: OtherPlayer, Assembly-CSharp
+        m_MethodName: PressCopButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8804613350019378231
 GameObject:
   m_ObjectHideFlags: 0
