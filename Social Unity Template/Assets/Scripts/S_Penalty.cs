@@ -5,7 +5,6 @@ using UnityEngine;
 public class S_Penalty : MonoBehaviour
 {
     public SafeManager safeManager;
-    public bool penalty;
 
     public void yes()
     {

@@ -427,7 +427,7 @@ def arrest_lobby(request):
     else:
         safeId = request.POST["safeId"]
         penalty = request.POST["penalty"]
-        if bool(penalty):
+        if int(penalty) == 1:
             if Safe.objects.get(id=safeId).status == 3:
                 event = Safe.objects.get(id=safeId).breakinevent
                 event.arrested = True

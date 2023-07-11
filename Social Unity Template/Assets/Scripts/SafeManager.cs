@@ -65,7 +65,7 @@ public class SafeManager : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         form.AddField("xp", 50);
-        using var www = new WWW(GameManager.Instance.BASE_URL + "edit_robberxp" + "/");
+        using var www = new WWW(GameManager.Instance.BASE_URL + "edit_robberxp" + "/", form);
         yield return www;
         Debug.Log(www.text);
     }
