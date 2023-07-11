@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponse, StreamingHttpResponse
-
+from math import sin, cos, sqrt, atan2, radians
 from ServerSide.models import FriendRequest
 from ServerSide.models import *
 from django.db import transaction
@@ -824,6 +824,29 @@ def update_policeman_money(request):
         time.sleep(3600)
         policeman.money += policeman.safesActive * 1000
         policeman.save()
+
+
+@login_required
+def are_safes_near_you(request):
+    R = 6373.0
+    near = False
+    lat1 = radians(request.user.player.locationX)
+    lon1 = radians(request.user.player.locationY)
+    for safe in Safe.objects.all():
+        lat2 = radians(safe.locationX)
+        lon2 = radians(safe.locationY)
+
+        dlon = lon2 - lon1
+        dlat = lat2 - lat1
+
+        a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+        c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+        distance = R * c
+        if distance <= 0.5:
+            near = True
+            break
+    return HttpResponse(near)
 
 
 def generate_robunion(request):

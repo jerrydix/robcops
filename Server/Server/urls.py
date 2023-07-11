@@ -44,6 +44,7 @@ urlpatterns = [
     path('generate_robunion/', views.generate_robunion, name='generate_robunion'),
     path('send_location/', views.send_location, name='send_location'),
     path('generate_random_safe/', views.generate_random_safe, name='generate_random_safe'),
+    path('are_safes_near_you/', views.are_safes_near_you, name='are_safes_near_you'),
 
     # Lobby Settings
     path('create_personal_safe/', views.create_personal_safe, name='create_personal_safe'),
