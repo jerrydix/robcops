@@ -458,7 +458,7 @@ def get_safe_status(request):
 
 @login_required
 def get_arrest_status(request):
-    return HttpResponse(request.user.player.event.arrested)
+    return HttpResponse(f'{request.user.player.event.arrested}|{request.user.player.event.penalty}')
 
 
 @login_required
