@@ -67,6 +67,8 @@ namespace Mapbox.Examples
                 {
                     instance = Instantiate(robberPrefab);
                 }
+                Debug.Log(" ");
+                Debug.Log(otherPlayer.location.ToString());
                 instance.transform.localPosition = _map.GeoToWorldPosition(otherPlayer.location);
                 instance.transform.localRotation = otherPlayer.rotation;
                 //Debug.Log("INSTANCE"+ instance.GetComponent<OtherPlayer>());

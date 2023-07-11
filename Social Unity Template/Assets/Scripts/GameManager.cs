@@ -146,7 +146,6 @@ public class GameManager : MonoBehaviour
 
             using var www = new WWW(BASE_URL + "get_all_locations/");
             yield return www;
-            //Debug.Log("getAllLocations: " + www.text);
             if (www.text == "")
             {
                 yield return new WaitForSeconds(10f);
@@ -159,9 +158,12 @@ public class GameManager : MonoBehaviour
             {
                 string[] playerTupel = allPlayerStrings[i].Split(";");
                 string[] rotationFloats = playerTupel[4].Split(":");
+                Debug.Log(playerTupel[2] + "       " + playerTupel[3]);
+                Debug.Log(double.Parse(playerTupel[2].Replace(".", ",")) + "       " + double.Parse(playerTupel[3].Replace(".", ",")));
+
                 if (rotationFloats.Length < 4)
                 {
-                    spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]), bool.Parse(playerTupel[1]), new Vector2d(double.Parse(playerTupel[2]), double.Parse(playerTupel[3])), new Quaternion(0f,
+                    spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]), bool.Parse(playerTupel[1]), new Vector2d(double.Parse(playerTupel[2].Replace(".", ",")), double.Parse(playerTupel[3].Replace(".", ","))), new Quaternion(0f,
                         0f, 0f, 0f)));
                 }
                 else
@@ -171,7 +173,7 @@ public class GameManager : MonoBehaviour
                         //Debug.Log("Length" + rotationFloats.Length);
                         //Debug.Log(rot);
                     }
-                    spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]), bool.Parse(playerTupel[1]), new Vector2d(double.Parse(playerTupel[2]), double.Parse(playerTupel[3])), new Quaternion(float.Parse(rotationFloats[0]),
+                    spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]), bool.Parse(playerTupel[1]), new Vector2d(double.Parse(playerTupel[2].Replace(".", ",")), double.Parse(playerTupel[3].Replace(".", ","))), new Quaternion(float.Parse(rotationFloats[0]),
                         float.Parse(rotationFloats[1]), float.Parse(rotationFloats[2]), float.Parse(rotationFloats[3])))); 
                 }
             }
