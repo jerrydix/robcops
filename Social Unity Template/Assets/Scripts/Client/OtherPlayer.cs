@@ -22,6 +22,7 @@ public class OtherPlayer : MonoBehaviour
 
     private void Awake()
     {
+        clickablePoliceman = GetComponent<Canvas>();
         clickablePoliceman.worldCamera = Camera.main;
     }
 } 
