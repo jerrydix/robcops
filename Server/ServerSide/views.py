@@ -399,6 +399,21 @@ def joinToEvent(request, safeId):
 
 
 @login_required
+def joinToRaid(request, safeId):
+    safe = Safe.objects.get(id=safeId)
+    if not safe.breakinevent.isStarted or safe.breakinevent.members.count() < 5 or safe.breakinevent.members.all()[
+        0].policeStation.id == request.user.player.policeStation_id:
+        request.user.player.event = safe.breakinevent
+        request.user.player.save()
+        response = f"1|{request.user.player.event.members.count()}|"
+        for member in request.user.player.event.members.all():
+            response += member.user.username + "|"
+        return HttpResponse(response)
+    else:
+        return HttpResponse("0|You can't join the event")
+
+
+@login_required
 def checkIfStarted(request):
     return HttpResponse(request.user.player.event.isStarted)
 

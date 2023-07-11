@@ -72,6 +72,7 @@ urlpatterns = [
     path('get_arrest_status/', views.get_arrest_status, name='get_arrest_status'),
     path('damage_safe_memory/', views.damage_safe_memory, name='damage_safe_memory'),
     path('damage_safe_maze/', views.damage_safe_maze, name='damage_safe_maze'),
+    path('joinToRaid/<int:safeId>/', views.joinToRaid, name='joinToRaid'),
 
     # Get Lists
     path('get_all_safes/', views.get_all_safes, name='get_all_safes'),
