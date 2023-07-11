@@ -31,7 +31,8 @@ def login_user(request):
                 f'1|{request.user.username}|{request.user.player.money}|{request.user.player.amountOfClicks}|'
                 f'{request.user.player.clickPower}|{request.user.player.locationX}|{request.user.player.locationY}|'
                 f'{request.user.player.role}|{request.user.player.robUnion_id}|'
-                f'{request.user.player.policeStation_id}|{request.user.id}')
+                f'{request.user.player.policeStation_id}|{request.user.id}|{request.user.player.robberXP}|'
+                f'{request.user.player.policeXP}')
         else:
             return HttpResponse('0|User not found / Wrong password')  # TODO wrong password abfrage (this)
 
@@ -51,7 +52,8 @@ def get_player_info(request):
         f'1|{request.user.username}|{request.user.player.money}|{request.user.player.amountOfClicks}|'
         f'{request.user.player.clickPower}|{request.user.player.locationX}|{request.user.player.locationY}|'
         f'{request.user.player.role}|{request.user.player.robUnion_id}|'
-        f'{request.user.player.policeStation_id}|{request.user.player.friends}')
+        f'{request.user.player.policeStation_id}|{request.user.id}|{request.user.player.robberXP}|'
+        f'{request.user.player.policeXP}')
 
 
 def register_user(request):
@@ -305,6 +307,40 @@ def update_hints(request):
 
 
 @login_required
+def give_hint(request):
+    if request.method != 'POST':
+        return HttpResponse('Incorrect request method')
+    else:
+        copId = request.POST["cop_id"]
+        cop = User.objects.get(id=copId).player
+        if cop.policeStation is not None:
+            cop.policeStation.hints += 1
+            cop.policeStation.save()
+            request.user.player.policeXP += 10
+            request.user.player.save()
+            if cop.policeStation.hints == 5:
+                generate_robunion_by_id(copId)
+            return HttpResponse(request.user.player.policeXP)
+        else:
+            return HttpResponse("No police Station")
+
+
+@login_required
+def give_hint_test(request, copId):
+    cop = User.objects.get(id=copId).player
+    if cop.policeStation is not None:
+        cop.policeStation.hints += 1
+        cop.policeStation.save()
+        request.user.player.policeXP += 10
+        request.user.player.save()
+        if cop.policeStation.hints == 5:
+            generate_robunion_by_id(copId)
+        return HttpResponse(cop.policeStation.hints)
+    else:
+        return HttpResponse("No police Station")
+
+
+@login_required
 def leave_guild(request):
     request.user.player.robUnion = None
     request.user.player.policeStation = None
@@ -454,26 +490,29 @@ def arrest_lobby(request):
     else:
         safeId = request.POST["safeId"]
         penalty = request.POST["penalty"]
-        if int(penalty) == 1:
-            if Safe.objects.get(id=safeId).status == 3:
-                event = Safe.objects.get(id=safeId).breakinevent
-                event.arrested = True
-                event.penalty = 1
-                event.save()
-                request.user.player.money += 100000
-                request.user.player.save()
-                return HttpResponse(f"{event.arrested}|{event.penalty}")
+        if Safe.objects.get(id=safeId).isRobUnion == 0:
+            if int(penalty) == 1:
+                if Safe.objects.get(id=safeId).status == 3:
+                    event = Safe.objects.get(id=safeId).breakinevent
+                    event.arrested = True
+                    event.penalty = 1
+                    event.save()
+                    request.user.player.money += 100000
+                    request.user.player.save()
+                    return HttpResponse(f"{event.arrested}|{event.penalty}")
+                else:
+                    return HttpResponse(False)
             else:
-                return HttpResponse(False)
+                if Safe.objects.get(id=safeId).status == 3:
+                    event = Safe.objects.get(id=safeId).breakinevent
+                    event.arrested = True
+                    event.penalty = 0
+                    event.save()
+                    return HttpResponse(f"{event.arrested}|{event.penalty}")
+                else:
+                    return HttpResponse(False)
         else:
-            if Safe.objects.get(id=safeId).status == 3:
-                event = Safe.objects.get(id=safeId).breakinevent
-                event.arrested = True
-                event.penalty = 0
-                event.save()
-                return HttpResponse(f"{event.arrested}|{event.penalty}")
-            else:
-                return HttpResponse(False)
+            return HttpResponse(False)
 
 
 @login_required
@@ -884,7 +923,35 @@ def generate_robunion(request):
     yLong = y + y0
     request.user.player.policeStation.robUnionX = xLat
     request.user.player.policeStation.robUnionY = yLong
+    request.user.player.policeStation.hints = 0
     request.user.player.policeStation.save()
+    return HttpResponse(f'{xLat}|{yLong}')
+
+
+def generate_robunion_by_id(cop_id):
+    cop = User.objects.get(id=cop_id).player
+    radius = 3000
+    radiusInDegrees = radius / 111300
+    r = radiusInDegrees
+    x0 = cop.locationX
+    y0 = cop.locationY
+
+    u = float(random.uniform(0.0, 1.0))
+    v = float(random.uniform(0.0, 1.0))
+
+    w = r * math.sqrt(u)
+    t = 2 * math.pi * v
+    x = w * math.cos(t)
+    y = w * math.sin(t)
+
+    xLat = x + x0
+    yLong = y + y0
+    cop.policeStation.robUnionX = xLat
+    cop.policeStation.robUnionY = yLong
+    cop.policeStation.hints = 0
+    cop.policeStation.save()
+    safe = Safe(level=random.randrange(3, 4), hp=500000, locationX=xLat, locationY=yLong, isRobUnion=1)
+    safe.save()
     return HttpResponse(f'{xLat}|{yLong}')
 
 

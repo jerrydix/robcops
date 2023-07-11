@@ -45,6 +45,8 @@ urlpatterns = [
     path('send_location/', views.send_location, name='send_location'),
     path('generate_random_safe/', views.generate_random_safe, name='generate_random_safe'),
     path('are_safes_near_you/', views.are_safes_near_you, name='are_safes_near_you'),
+    path('give_hint/', views.give_hint, name='give_hint'),
+    path('give_hint_test/<int:copId>/', views.give_hint_test, name='give_hint_test'),
 
     # Lobby Settings
     path('create_personal_safe/', views.create_personal_safe, name='create_personal_safe'),
