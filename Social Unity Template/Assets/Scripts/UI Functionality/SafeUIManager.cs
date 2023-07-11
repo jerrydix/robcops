@@ -199,7 +199,7 @@ public class SafeUIManager : MonoBehaviour
         GameManager.Instance.currentHP = int.Parse(response[1]);
         GameManager.Instance.currentMinutes = int.Parse(response[0].Split(".")[0]);
         GameManager.Instance.currentSeconds = int.Parse(response[0].Split(".")[1]);
-        GameManager.Instance.currentSafeLevel = int.Parse(response[0].Split(".")[2]);
+        GameManager.Instance.currentSafeLevel = int.Parse(response[2]);
 
         Random rnd = new Random();
         int index = rnd.Next(1, 3);
