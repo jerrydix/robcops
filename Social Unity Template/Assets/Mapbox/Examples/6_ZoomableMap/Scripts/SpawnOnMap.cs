@@ -4,6 +4,7 @@ using Mapbox.Unity.Map;
 using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = Unity.Mathematics.Random;
 
 namespace Mapbox.Examples
@@ -54,30 +55,33 @@ namespace Mapbox.Examples
 
         public void SpawnOtherPlayers()
         {
-            foreach (var otherPlayer in otherPlayers)
+            if (SceneManager.GetActiveScene().buildIndex == 1)
             {
-                if(otherPlayer.id == GameManager.Instance.userId)
-                    continue;
-                GameObject instance;
-                if (otherPlayer.role)
+                foreach (var otherPlayer in otherPlayers)
                 {
-                    instance = Instantiate(copPrefab);
-                }
-                else
-                {
-                    instance = Instantiate(robberPrefab);
-                }
-                Debug.Log(" ");
-                Debug.Log(otherPlayer.location.ToString());
-                instance.transform.localPosition = _map.GeoToWorldPosition(otherPlayer.location);
-                instance.transform.localRotation = otherPlayer.rotation;
-                //Debug.Log("INSTANCE"+ instance.GetComponent<OtherPlayer>());
-                instance.GetComponent<OtherPlayer>().role = otherPlayer.role;
-                instance.GetComponent<OtherPlayer>().id = otherPlayer.id;
-                instance.GetComponent<OtherPlayer>().location = otherPlayer.location;
-                instance.GetComponent<OtherPlayer>().rotation = otherPlayer.rotation;
-                playersObjects.Add(instance);
-            }    
+                    if(otherPlayer.id == GameManager.Instance.userId)
+                        continue;
+                    GameObject instance;
+                    if (otherPlayer.role)
+                    {
+                        instance = Instantiate(copPrefab);
+                    }
+                    else
+                    {
+                        instance = Instantiate(robberPrefab);
+                    }
+                    Debug.Log(" ");
+                    Debug.Log(otherPlayer.location.ToString());
+                    instance.transform.localPosition = _map.GeoToWorldPosition(otherPlayer.location);
+                    instance.transform.localRotation = otherPlayer.rotation;
+                    //Debug.Log("INSTANCE"+ instance.GetComponent<OtherPlayer>());
+                    instance.GetComponent<OtherPlayer>().role = otherPlayer.role;
+                    instance.GetComponent<OtherPlayer>().id = otherPlayer.id;
+                    instance.GetComponent<OtherPlayer>().location = otherPlayer.location;
+                    instance.GetComponent<OtherPlayer>().rotation = otherPlayer.rotation;
+                    playersObjects.Add(instance);
+                }       
+            }
         } 
 
         public void WaitForCubeLocationThenSpawnSafe()
