@@ -240,6 +240,7 @@ public class GameManager : MonoBehaviour
             var levels = new List<int>();
             var locations = new List<string>();
             var hps = new List<int>();
+            var stats = new List<int>();
             for (var i = 0; i < safesTupels.Length; i++)
             {
                 var tupel = safesTupels[i].Split(",");
@@ -247,6 +248,7 @@ public class GameManager : MonoBehaviour
                 levels.Add(int.Parse(tupel[1]));
                 hps.Add(int.Parse(tupel[2]));
                 locations.Add(tupel[3] + "," + tupel[4]);
+                stats.Add(int.Parse(tupel[5]));
                 //Debug.Log(tupel[3] + "," + tupel[4]);
                 //Debug.Log(int.Parse(tupel[0]));
             }
@@ -258,6 +260,7 @@ public class GameManager : MonoBehaviour
             spawnOnMap.levels = levels;
             spawnOnMap.hps = hps;
             spawnOnMap._locationStrings = locations;
+            spawnOnMap.statuses = stats;
             spawnOnMap.SpawnCubes();
             spawnOnMap.WaitForCubeLocationThenSpawnSafe();
             if (firstLoadSafes)
@@ -293,6 +296,7 @@ public class GameManager : MonoBehaviour
         var levels = new List<int>();
         var hps = new List<int>();
         var locations = new List<string>();
+        var stats = new List<int>();
         for (var i = 0; i < safesTupels.Length; i++)
         {
             var tupel = safesTupels[i].Split(",");
@@ -300,6 +304,7 @@ public class GameManager : MonoBehaviour
             levels.Add(int.Parse(tupel[1]));
             hps.Add(int.Parse(tupel[2]));
             locations.Add(tupel[3] + "," + tupel[4]);
+            stats.Add(int.Parse(tupel[5]));
             //Debug.Log(tupel[3] + "," + tupel[4]);
             //Debug.Log(int.Parse(tupel[0]));
         }
@@ -311,6 +316,7 @@ public class GameManager : MonoBehaviour
         spawnOnMap.levels = levels;
         spawnOnMap.hps = hps;
         spawnOnMap._locationStrings = locations;
+        spawnOnMap.statuses = stats;
         spawnOnMap.SpawnCubes();
         spawnOnMap.WaitForCubeLocationThenSpawnSafe();
     }
