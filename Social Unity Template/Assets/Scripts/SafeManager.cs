@@ -53,7 +53,21 @@ public class SafeManager : MonoBehaviour
 
     public void arrest(int penalty)
     {
+        _uiManager.ClosePenalty();
+        if (penalty == 0)
+        {
+            StartCoroutine(giveXP());
+        }
         StartCoroutine(Arrest(penalty));
+    }
+    
+    private IEnumerator giveXP()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("xp", 50);
+        using var www = new WWW(GameManager.Instance.BASE_URL + "edit_robberxp" + "/");
+        yield return www;
+        Debug.Log(www.text);
     }
 
     public IEnumerator Arrest(int penalty)
@@ -64,6 +78,7 @@ public class SafeManager : MonoBehaviour
         Debug.Log("Id " + id + "penalty " + penalty);
         using var www = new WWW(GameManager.Instance.BASE_URL + "arrest_lobby/", form);
         yield return www;
+        StartCoroutine(GameManager.Instance.GetPlayerMoneyOnce());
         Debug.Log(www.text);
     }
 

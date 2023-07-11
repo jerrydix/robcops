@@ -140,6 +140,11 @@ public class UIManager : MonoBehaviour
         penaltyUI.SetActive(true);
         penaltyUI.GetComponent<S_Penalty>().safeManager = safeManager;
     }
+    
+    public void ClosePenalty()
+    {
+        penaltyUI.SetActive(false);
+    }
 
     public void ShopButton()
     {

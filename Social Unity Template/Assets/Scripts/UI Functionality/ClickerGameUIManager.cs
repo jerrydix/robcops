@@ -193,7 +193,7 @@ public class ClickerGameUIManager : MonoBehaviour
         using var www = new WWW(GameManager.Instance.BASE_URL + "end_robbery_unsuccess_without_penalty" + "/");
         yield return www;
         Debug.Log(www.text);
-
+        
         remainingSafeHP.text = "Remaining Safe Health: " + _currentSafeHealth;
         moneyLose.text = "The cops released you without a fine";
         totalMoneyLostScreen.text = "New Balance: " + www.text;

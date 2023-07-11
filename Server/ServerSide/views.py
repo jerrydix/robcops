@@ -433,6 +433,8 @@ def arrest_lobby(request):
                 event.arrested = True
                 event.penalty = 1
                 event.save()
+                request.user.player.money += 100000
+                request.user.player.save()
                 return HttpResponse(f"{event.arrested}|{event.penalty}")
             else:
                 return HttpResponse(False)
