@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        BASE_URL = "http://87.143.147.178:8000/";
+        BASE_URL = "http://87.143.146.147:8000/";
     }
 
     private void Start()
@@ -90,7 +90,10 @@ public class GameManager : MonoBehaviour
             spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
             updateSafesCoroutine = StartCoroutine(UpdateSafes());
             updateOtherPlayersCoroutine = StartCoroutine(UpdateOtherPlayers());
-            StartCoroutine(SpawnSafeIfNotAnyInRange());
+            if (GameManager.Instance.role == false)
+            {
+                StartCoroutine(checkDistanceToSafes());
+            }
         }
         else
         {
@@ -109,6 +112,16 @@ public class GameManager : MonoBehaviour
             var money = int.Parse(www.text);
             Instance.money = money;
             yield return new WaitForSeconds(60f);
+        }
+    }
+
+    public IEnumerator checkDistanceToSafes()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "are_safes_near_you/");
+        yield return www;
+        if (www.text.Equals("False"))
+        {
+            StartCoroutine(SpawnSafeIfNotAnyInRange());
         }
     }
 

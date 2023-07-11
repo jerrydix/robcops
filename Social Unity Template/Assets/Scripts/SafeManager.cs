@@ -52,7 +52,7 @@ public class SafeManager : MonoBehaviour
         Debug.Log("safe clicked");
         //todo add checkSafe method
         Debug.Log("SAFE ID: " + id);
-        if (!GameManager.Instance.role)
+        if (!GameManager.Instance.role && getDistanceToObject() <= 20f)
             StartCoroutine(checkBreakInStatus());
         if (getDistanceToObject() <= 20f && status == 3 && GameManager.Instance.role)
         {

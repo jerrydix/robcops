@@ -98,7 +98,7 @@ namespace Mapbox.Examples
                 currentSafeManager.locationX = _locations[i].x; //locationString.Split(",")[0];
                 currentSafeManager.locationY = _locations[i].y;
                 currentSafeManager.status = statuses[i];
-                if (isRobunionList[i] == 1)
+                if (isRobunionList[i] == 1 && GameManager.Instance.role)
                 {
                     currentSafeManager.ActivateRobUnion();
                 }
