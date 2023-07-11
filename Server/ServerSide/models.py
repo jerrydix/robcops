@@ -18,7 +18,7 @@ class Safe(models.Model):
     status = models.IntegerField(default=1)
     timePlaced = models.DateTimeField(default=datetime.datetime.now(), auto_now=False, auto_now_add=False)
     author = models.OneToOneField(User, null=True, default=None, on_delete=models.CASCADE, blank=True)
-    isRobUnion = models.BooleanField(default=False)
+    isRobUnion = models.IntegerField(default=0)
 
 
 class BreakInEvent(models.Model):

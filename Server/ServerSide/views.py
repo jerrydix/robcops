@@ -222,7 +222,8 @@ def get_all_safes(request):
             'hp',
             'locationX',
             'locationY',
-            'status')))
+            'status',
+            'isRobUnion')))
     return HttpResponse(response)
 
 

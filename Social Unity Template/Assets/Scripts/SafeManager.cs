@@ -18,6 +18,8 @@ public class SafeManager : MonoBehaviour
     public List<string> lobbyNames;
     private UIManager _uiManager;
     private GameObject player;
+    public GameObject safeModel;
+    public GameObject robuionModel;
 
     // Start is called before the first frame update
     private void Awake()
@@ -30,6 +32,19 @@ public class SafeManager : MonoBehaviour
     {
         _uiManager = GameObject.Find("UI").GetComponent<UIManager>();
         player = GameObject.FindWithTag("Player");
+    }
+
+    public void ActivateRobUnion()
+    {
+        robuionModel.SetActive(true);
+        safeModel.SetActive(false);
+    }
+    
+    public void DeactivateRobUnion()
+    {
+        robuionModel.SetActive(false);
+        safeModel.SetActive(true);
+
     }
 
     public void SafeClicked()

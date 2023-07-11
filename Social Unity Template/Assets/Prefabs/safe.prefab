@@ -712,6 +712,8 @@ MonoBehaviour:
   createLobby: 0
   lobbyPlayerCount: 0
   lobbyNames: []
+  safeModel: {fileID: 0}
+  robuionModel: {fileID: 0}
 --- !u!1 &6169024371590543621
 GameObject:
   m_ObjectHideFlags: 0

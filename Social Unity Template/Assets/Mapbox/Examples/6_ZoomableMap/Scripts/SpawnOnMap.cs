@@ -27,6 +27,7 @@ namespace Mapbox.Examples
         public List<int> levels = new();
         public List<int> hps = new();
         public List<int> statuses = new();
+        public List<int> isRobunionList = new();
         public Vector2d[] _cubeLocations;
         public Vector2d[] _locations;
         private ImmediatePositionWithLocationProvider _immediatePositionWithLocationProvider;
@@ -86,9 +87,7 @@ namespace Mapbox.Examples
                 var locationString = _locationStrings[i];
                // Debug.Log(locationString);
                 _locations[i] = Conversions.StringToLatLon(locationString);
-                Debug.Log("SHIIIIIIIIIIIIIIIIIIIIIIIIIIIIIT");
                 var instance = Instantiate(_markerPrefab);
-                Debug.Log("afterInstntiate");
 
                 var currentSafeManager =  instance.GetComponent<SafeManager>();
                 //Debug.Log("CURRENTSAFEMANAGER: " + currentSafeManager);
@@ -99,7 +98,10 @@ namespace Mapbox.Examples
                 currentSafeManager.locationX = _locations[i].x; //locationString.Split(",")[0];
                 currentSafeManager.locationY = _locations[i].y;
                 currentSafeManager.status = statuses[i];
-
+                if (isRobunionList[i] == 1)
+                {
+                    currentSafeManager.ActivateRobUnion();
+                }
                 instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i]);
                 
                 instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
