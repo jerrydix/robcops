@@ -11,7 +11,7 @@ public class OtherPlayer : MonoBehaviour
     public Vector2d location;
     public Quaternion rotation;
     private Canvas clickablePoliceman;
-    [SerializeField] private UIManager _uiManager;
+    private UIManager _uiManager;
     private GameObject player;
 
     public OtherPlayer(int id, bool role, Vector2d location, Quaternion rotation)
@@ -33,6 +33,7 @@ public class OtherPlayer : MonoBehaviour
 
     private void Start()
     {
+        _uiManager = GameObject.Find("UI").GetComponent<UIManager>();
         player = GameObject.FindWithTag("Player");
     }
 
