@@ -293,11 +293,14 @@ def upgrade_armor(request):
 
 @login_required
 def update_hints(request):
-    request.user.player.policeStation.hints += 1
-    request.user.player.policeStation.save()
-    if request.user.player.policeStation.hints == 5:
-        generate_robunion(request)
-    return HttpResponse(request.user.player.policeStation.hints)
+    if request.user.player.policeStation is not None:
+        request.user.player.policeStation.hints += 1
+        request.user.player.policeStation.save()
+        if request.user.player.policeStation.hints == 5:
+            generate_robunion(request)
+        return HttpResponse(request.user.player.policeStation.hints)
+    else:
+        return HttpResponse("No police Station")
 
 
 @login_required
@@ -726,6 +729,7 @@ def switch_role(request):
         request.user.player.role = True
         request.user.player.robUnion = None
         request.user.player.event = None
+        request.user.player.money += 50000
         request.user.player.safesActive = 0
         request.user.player.c4 = 0
         request.user.player.alarmDisabler = 0

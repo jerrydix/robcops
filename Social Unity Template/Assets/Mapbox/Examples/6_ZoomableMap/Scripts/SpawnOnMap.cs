@@ -55,6 +55,8 @@ namespace Mapbox.Examples
         {
             foreach (var otherPlayer in otherPlayers)
             {
+                if(otherPlayer.id == GameManager.Instance.userId)
+                    continue;
                 GameObject instance;
                 if (otherPlayer.role)
                 {

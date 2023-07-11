@@ -17435,7 +17435,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safeManager: {fileID: 0}
-  penalty: 0
 --- !u!1 &9031686490055913094
 GameObject:
   m_ObjectHideFlags: 0
