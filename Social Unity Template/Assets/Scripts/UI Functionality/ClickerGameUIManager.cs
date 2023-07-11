@@ -145,14 +145,15 @@ public class ClickerGameUIManager : MonoBehaviour
         {
             using var www = new WWW(GameManager.Instance.BASE_URL + "get_arrest_status/");
             yield return www;
+            Debug.Log("arrested: " + www.text);
             string[] subs = www.text.Split("|");
             bool arrested = bool.Parse(subs[0]);
-            bool penalty = bool.Parse(subs[1]);
-            if (arrested && penalty)
+            int penalty = int.Parse(subs[1]);
+            if (arrested && penalty == 1)
             {
                 StartCoroutine(FailedRobbery());
             }
-            else if(arrested && penalty == false)
+            else if(arrested && penalty == 0)
             {
                 StartCoroutine(FailedRobberyWithout());
             }
@@ -187,7 +188,7 @@ public class ClickerGameUIManager : MonoBehaviour
         lostScreen.SetActive(true);
     }
     
-    private IEnumerator FailedRobberyWithout()
+    private IEnumerator FailedRobberyWithout() //TODO ADD TO OTHER MINIGAMES
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "end_robbery_unsuccess_without_penalty" + "/");
         yield return www;
