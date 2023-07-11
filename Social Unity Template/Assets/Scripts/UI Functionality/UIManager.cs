@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject placeSafeButton;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private GameObject safePlacingDialogue;
+    [SerializeField] private GameObject corruptionDialogue;
     [SerializeField] private GameObject robUnionListScreen;
     [SerializeField] private GameObject policeStationListScreen;
     [SerializeField] private GameObject guildUI;
@@ -30,6 +31,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI safeLvl2Text;
     [SerializeField] private TextMeshProUGUI safeLvl3Text;
     [SerializeField] private TextMeshProUGUI safeLvl4Text;
+    private int _currentCorruptionCopID;
     private readonly int _cost1 = 10000;
     private readonly int _cost2 = 100000;
     private readonly int _cost3 = 250000;
@@ -193,6 +195,35 @@ public class UIManager : MonoBehaviour
         safeLvl3Text.text = DisplayMoney(_cost3);
         safeLvl4Text.text = DisplayMoney(_cost4);
         //GameManager.Instance.InitializeSafe();
+    }
+
+    public void ActivateCorruptionDialogue(int copID)
+    {
+        _currentCorruptionCopID = copID;
+        corruptionDialogue.SetActive(true);
+    }
+    
+    public void PressGiveHintButton()
+    {
+        StartCoroutine(GiveHint());
+
+        //close dialogue
+    }
+
+    private IEnumerator GiveHint()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("cop_id", _currentCorruptionCopID);
+        using var www = new WWW(GameManager.Instance.BASE_URL + "give_hint/", form);
+        yield return www;
+        Debug.Log("Current robber xp: " + www.text);
+        GameManager.Instance.xp = int.Parse(www.text);
+        corruptionDialogue.SetActive(false);
+    }
+
+    public void PressCorruptionDialogueCloseButton()
+    {
+        corruptionDialogue.SetActive(false);
     }
 
     public string DisplayMoney(int money)

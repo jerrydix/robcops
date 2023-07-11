@@ -132,5 +132,15 @@ public class S_UserLogin : MonoBehaviour
             GameManager.Instance.guild = -1;
     
         GameManager.Instance.userId = int.Parse(list[10]);
+
+        int currentXP;
+        if (!GameManager.Instance.role && int.TryParse(list[11], out currentXP))
+        {
+            GameManager.Instance.xp = currentXP;
+        }
+        else if (int.TryParse(list[12], out currentXP))
+            GameManager.Instance.xp = currentXP;
+        else
+            GameManager.Instance.xp = 0;
     }
 }

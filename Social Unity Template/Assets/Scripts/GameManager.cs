@@ -14,7 +14,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO, USE GET PLAYER INFO SERVER METHOD, AND USE SETDATA METHOD FORM USER LOGIN
+//TODO IF PLAYER CHANGES ROLE, RESET ALL STUFF EXCEPT MONEY (XP, Guilds, ETC)
 {
     public string BASE_URL = "http://87.143.146.147:8000/";
     [HideInInspector] public string socialTab = "members/";
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
     public bool role;
     public string username;
     public int userId;
+    public int xp;
     private bool firstLoadPlayers;
     private bool firstLoadSafes;
     //private List<string> locations = new List<string>();

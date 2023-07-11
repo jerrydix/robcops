@@ -20,6 +20,7 @@ public class SafeManager : MonoBehaviour
     private GameObject player;
     public GameObject safeModel;
     public GameObject robuionModel;
+    public int isRobUnion;
 
     // Start is called before the first frame update
     private void Awake()
@@ -52,8 +53,12 @@ public class SafeManager : MonoBehaviour
         Debug.Log("safe clicked");
         //todo add checkSafe method
         Debug.Log("SAFE ID: " + id);
-        if (!GameManager.Instance.role && getDistanceToObject() <= 20f)
+        if (!GameManager.Instance.role && getDistanceToObject() <= 20f && status != 3 && isRobUnion == 0)
             StartCoroutine(checkBreakInStatus());
+        if (GameManager.Instance.role && isRobUnion == 1 && getDistanceToObject() <= 20f)
+        {
+            //_uiManager.OpenRobUnion(this); //todo 
+        }
         if (getDistanceToObject() <= 20f && status == 3 && GameManager.Instance.role)
         {
             _uiManager.OpenPenalty(this);
@@ -82,7 +87,8 @@ public class SafeManager : MonoBehaviour
         form.AddField("xp", 50);
         using var www = new WWW(GameManager.Instance.BASE_URL + "edit_robberxp" + "/", form);
         yield return www;
-        Debug.Log(www.text);
+        Debug.Log("Current XP: " + www.text);
+        GameManager.Instance.xp = int.Parse(www.text);
     }
 
     public IEnumerator Arrest(int penalty)
