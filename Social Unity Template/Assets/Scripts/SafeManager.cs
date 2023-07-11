@@ -39,7 +39,7 @@ public class SafeManager : MonoBehaviour
         Debug.Log("SAFE ID: " + id);
         if (!GameManager.Instance.role)
             StartCoroutine(checkBreakInStatus());
-        if (getDistanceToObject() <= 20f && status == 3)
+        if (getDistanceToObject() <= 20f && status == 3 && GameManager.Instance.role)
         {
             _uiManager.OpenPenalty(this);
         }
@@ -61,6 +61,7 @@ public class SafeManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("safeId", id);
         form.AddField("penalty", penalty);
+        Debug.Log("Id " + id + "penalty " + penalty);
         using var www = new WWW(GameManager.Instance.BASE_URL + "arrest_lobby/", form);
         yield return www;
         Debug.Log(www.text);
