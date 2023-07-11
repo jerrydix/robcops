@@ -38,6 +38,18 @@ public class S_RobUnionController : MonoBehaviour
         Debug.Log(panel);
     }
 
+    public void leaveGuild()
+    {
+        StartCoroutine(Leave());
+    }
+
+    public IEnumerator Leave()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "leave_guild/");
+        yield return www;
+        SceneManager.LoadScene(1);
+    }
+
     public void CloseRobUnionScreen()
     {
         SceneManager.LoadScene(1);

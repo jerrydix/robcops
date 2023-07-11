@@ -9,7 +9,7 @@ public class S_UserLogin : MonoBehaviour
 {
     // For now only local address
 
-    public string BASE_URL = "http://87.143.147.178:8000/";
+    public string BASE_URL = "http://87.143.146.147:8000/";
     [HideInInspector] public string socialTab = "members/";
 
     [SerializeField] private LoginScreenUIManager manager;

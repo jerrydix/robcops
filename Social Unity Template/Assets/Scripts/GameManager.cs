@@ -16,7 +16,7 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    public string BASE_URL = "http://87.143.147.178:8000/";
+    public string BASE_URL = "http://87.143.146.147:8000/";
     [HideInInspector] public string socialTab = "members/";
     public int amountOfClicks;
 

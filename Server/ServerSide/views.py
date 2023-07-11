@@ -304,6 +304,14 @@ def update_hints(request):
 
 
 @login_required
+def leave_guild(request):
+    request.user.player.robUnion = None
+    request.user.player.policeStation = None
+    request.user.player.save()
+    return HttpResponse(1)
+
+
+@login_required
 def get_robunion_info(request):
     response = f"{request.user.player.robUnion.id}|{request.user.player.robUnion.name}"
     return HttpResponse(response)
@@ -861,7 +869,7 @@ def generate_random_safe(request):
     yLong = y + y0
     safe = Safe(level=1, hp=1000, locationY=yLong, locationX=xLat)
     safe.save()
-    return HttpResponse(f'{safe.locationX}|{safe.locationX}')
+    return HttpResponse(f'{safe.locationX}|{safe.locationY}')
 
 
 @login_required
