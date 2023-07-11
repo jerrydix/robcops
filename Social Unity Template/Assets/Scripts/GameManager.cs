@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
             spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
             updateSafesCoroutine = StartCoroutine(UpdateSafes());
             updateOtherPlayersCoroutine = StartCoroutine(UpdateOtherPlayers());
+            StartCoroutine(SpawnSafeIfNotAnyInRange());
         }
         else
         {
@@ -270,10 +271,12 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                yield return new WaitForSeconds(60f);
+                yield return new WaitForSeconds(30f);
             }
         }
     }
+
+    
 
     public IEnumerator UpdateSafesAfterPlacing()
     {
@@ -350,6 +353,22 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SendSafeToServer());
     }
 
+    private IEnumerator SpawnSafeIfNotAnyInRange()
+    {
+        StopCoroutine(updateSafesCoroutine);
+        using var www = new WWW(BASE_URL + "generate_random_safe/");
+        yield return www;
+        var text = www.text;
+        var temp = text.Split("|");
+        List<string> locations = new List<string>();
+        var textFinal = temp[0] + "," + temp[1];
+        locations.Add(textFinal);
+        yield return UpdateSafesAfterPlacing();
+        yield return new WaitForSeconds(30f);
+        updateSafesCoroutine = StartCoroutine(UpdateSafes());
+
+    }
+
     /*private void CreateSafeIfNone()
     {
         //Check if there any safes are in Range
@@ -380,6 +399,7 @@ public class GameManager : MonoBehaviour
         }
     }*/
 
+    /*
     private int GetCorrespondingNumber(int level)
     {
         switch (level)
@@ -428,6 +448,7 @@ public class GameManager : MonoBehaviour
             default: return 1;
         }
     }
+    */
 
     /*private IEnumerator CreateSafe(string locationX, string locationY, int hp, int level)
     {
@@ -489,14 +510,15 @@ public class GameManager : MonoBehaviour
 
             //Filter Safes that are more than 1km away
 
-            if (finalResult <= 350) return true;
+            if (finalResult <= 350)
+                return true;
         }
 
         return false;
     }
 
 
-    private bool CalculateDistanceInEditor(Vector2d location)
+    private bool CalculateDistanceInEditor()
     {
         for (var i = 0; i < spawnOnMap._locationStrings.Count; i++)
         {
@@ -504,18 +526,17 @@ public class GameManager : MonoBehaviour
             //Get Locations of Safe and Player
 
             //var currentString = spawnOnMap._locationStrings[i];
-            var instance = location;
-            var x = new Vector2d(48.264518, 11.6713515);
+            var x = transform.position;
             var playerLocation = x.x;
             var playerLocationy = x.y;
 
             //Calculate the Distance
 
-            var deltaLat = (instance.x - playerLocation) * Mathd.PI / 180;
-            var deltaLon = (instance.y - playerLocationy) * Mathd.PI / 180;
+            var deltaLat = (x.x - playerLocation) * Mathd.PI / 180;
+            var deltaLon = (x.y - playerLocationy) * Mathd.PI / 180;
 
             var calc = Mathd.Pow(Mathd.Sin(deltaLat / 2), 2) + Mathd.Cos(playerLocation * Mathd.PI / 180)
-                * Mathd.Cos(instance.x * Mathd.PI / 180) * Mathd.Pow(Mathd.Sin(deltaLon / 2), 2);
+                * Mathd.Cos(x.x * Mathd.PI / 180) * Mathd.Pow(Mathd.Sin(deltaLon / 2), 2);
             var temp = 2 * Mathd.Atan2(Mathd.Sqrt(calc), Mathd.Sqrt(1 - calc));
             var result = 6371 * temp;
             result *= 1000;
@@ -523,7 +544,9 @@ public class GameManager : MonoBehaviour
 
             //Filter Safes that are more than 1km away
 
-            if (finalResult <= 350) return true;
+            if (finalResult <= 350) 
+                Debug.Log("Yay");
+                return true;
         }
 
         return false;
