@@ -102,8 +102,8 @@ public class S_RobUnionController : MonoBehaviour
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_guild_money/");
         yield return www;
         int money = int.Parse(www.text);
-        DisplayPlayerMoney(money);
-        GameManager.Instance.money = money;
+        DisplayMoney(money);
+        
     }
 
     public IEnumerator GetPlayerMoney()
@@ -112,6 +112,7 @@ public class S_RobUnionController : MonoBehaviour
         yield return www;
         Debug.Log(www.text);
         DisplayPlayerMoney(int.Parse(www.text));
+        GameManager.Instance.money = money;
     }
 
     public void SpawnMachines(int amount)
