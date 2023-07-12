@@ -952,7 +952,21 @@ def generate_robunion_by_id(cop_id):
     cop.policeStation.save()
     safe = Safe(level=random.randrange(3, 4), hp=500000, locationX=xLat, locationY=yLong, isRobUnion=1)
     safe.save()
+    cop.policeStation.robUnionSafeID = safe.id
+    cop.policeStation.save()
     return HttpResponse(f'{xLat}|{yLong}')
+
+
+@login_required
+def get_robunion_safe_id(request):
+    return HttpResponse(request.user.player.policeStation.robUnionSafeID)
+
+
+@login_required
+def reset_robunion_safe_id(request):
+    request.user.player.policeStation.robUnionSafeID = -1
+    request.user.player.policeStation.save()
+    return HttpResponse(request.user.player.policeStation.robUnionSafeID)
 
 
 @login_required

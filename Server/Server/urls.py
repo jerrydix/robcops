@@ -103,6 +103,8 @@ urlpatterns = [
     path('start_machine_farm/', views.start_machine_farm, name='start_machine_farm'),
     path('get_robunion_coordinates/', views.get_robunion_coordinates, name='get_robunion_coordinates'),
     path('leave_guild/', views.leave_guild, name='leave_guild'),
+    path('get_robunion_safe_id/', views.get_robunion_safe_id, name='get_robunion_safe_id'),
+    path('reset_robunion_safe_id/', views.reset_robunion_safe_id, name='reset_robunion_safe_id'),
 
     # Amount of clicks
     path('get_amount_of_clicks/', views.get_amount_of_clicks, name='get_amount_of_clicks'),

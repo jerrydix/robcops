@@ -50,6 +50,7 @@ class PoliceStation(Guild):
     hints = models.IntegerField(default=0)
     robUnionX = models.CharField(default="", max_length=30)
     robUnionY = models.CharField(default="", max_length=30)
+    robUnionSafeID = models.IntegerField(default=-1, blank=True)
 
 
 # Powerups RobUnion
