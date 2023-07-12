@@ -2,19 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Mapbox.Examples;
-using Mathd = Mapbox.Utils.Mathd;
-using Vector2d = Mapbox.Utils.Vector2d;
-
-using Mapbox.Utils;
-
 using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO, USE GET PLAYER INFO SERVER METHOD, AND USE SETDATA METHOD FORM USER LOGIN
+public class
+    GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO, USE GET PLAYER INFO SERVER METHOD, AND USE SETDATA METHOD FORM USER LOGIN
 //TODO IF PLAYER CHANGES ROLE, RESET ALL STUFF EXCEPT MONEY (XP, Guilds, ETC)
 {
     public string BASE_URL = "http://87.143.146.147:8000/";
@@ -39,6 +33,7 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
     public int userId;
     public int xp;
     private bool firstLoadPlayers;
+
     private bool firstLoadSafes;
     //private List<string> locations = new List<string>();
 
@@ -46,9 +41,9 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
 
     private SpawnOnMap spawnOnMap;
 
-    public Coroutine updateSafesCoroutine;
-
     public Coroutine updateOtherPlayersCoroutine;
+
+    public Coroutine updateSafesCoroutine;
 
     //private bool cannotPlaceAnyMoreSafes = false;
 
@@ -82,10 +77,7 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "RotationGame")
-        {
-            Time.timeScale = 1;
-        }
+        if (scene.name == "RotationGame") Time.timeScale = 1;
         if (scene.buildIndex == 1)
         {
             firstLoadSafes = true;
@@ -96,10 +88,7 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
             spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
             updateSafesCoroutine = StartCoroutine(UpdateSafes());
             updateOtherPlayersCoroutine = StartCoroutine(UpdateOtherPlayers());
-            if (GameManager.Instance.role == false)
-            {
-                StartCoroutine(checkDistanceToSafes());
-            }
+            if (Instance.role == false) StartCoroutine(checkDistanceToSafes());
         }
         else
         {
@@ -123,12 +112,9 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
 
     public IEnumerator checkDistanceToSafes()
     {
-        using var www = new WWW(GameManager.Instance.BASE_URL + "are_safes_near_you/");
+        using var www = new WWW(Instance.BASE_URL + "are_safes_near_you/");
         yield return www;
-        if (www.text.Equals("False"))
-        {
-            StartCoroutine(SpawnSafeIfNotAnyInRange());
-        }
+        if (www.text.Equals("False")) StartCoroutine(SpawnSafeIfNotAnyInRange());
     }
 
     public IEnumerator GetPlayerMoneyOnce()
@@ -139,13 +125,13 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
         var money = int.Parse(www.text);
         Instance.money = money;
     }
-    
+
     public IEnumerator UpdateOtherPlayers()
     {
         while (true)
         {
             //Innefficient shit code, but works. 
-            
+
             for (var i = spawnOnMap.playersObjects.Count - 1; i >= 0; i--) spawnOnMap.playersObjects[i].Destroy();
 
             spawnOnMap.otherPlayers = new List<C_OtherPlayerInfo>();
@@ -158,19 +144,23 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
                 continue;
             }
 
-            string[] allPlayerStrings = www.text.Split("|");
-            
+            var allPlayerStrings = www.text.Split("|");
+
             for (var i = 0; i < allPlayerStrings.Length; i++)
             {
-                string[] playerTupel = allPlayerStrings[i].Split(";");
-                string[] rotationFloats = playerTupel[4].Split(":");
+                var playerTupel = allPlayerStrings[i].Split(";");
+                var rotationFloats = playerTupel[4].Split(":");
                 Debug.Log(playerTupel[2] + "       " + playerTupel[3]);
-                Debug.Log(double.Parse(playerTupel[2].Replace(".", ",")) + "       " + double.Parse(playerTupel[3].Replace(".", ",")));
+                Debug.Log(double.Parse(playerTupel[2].Replace(".", ",")) + "       " +
+                          double.Parse(playerTupel[3].Replace(".", ",")));
 
                 if (rotationFloats.Length < 4)
                 {
-                    spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]), bool.Parse(playerTupel[1]), new Vector2d(double.Parse(playerTupel[2].Replace(".", ",")), double.Parse(playerTupel[3].Replace(".", ","))), new Quaternion(0f,
-                        0f, 0f, 0f)));
+                    spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]),
+                        bool.Parse(playerTupel[1]),
+                        new Vector2d(double.Parse(playerTupel[2].Replace(".", ",")),
+                            double.Parse(playerTupel[3].Replace(".", ","))), new Quaternion(0f,
+                            0f, 0f, 0f)));
                 }
                 else
                 {
@@ -179,17 +169,23 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
                         //Debug.Log("Length" + rotationFloats.Length);
                         //Debug.Log(rot);
                     }
-                    spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]), bool.Parse(playerTupel[1]), new Vector2d(double.Parse(playerTupel[2].Replace(".", ",")), double.Parse(playerTupel[3].Replace(".", ","))), new Quaternion(float.Parse(rotationFloats[0]),
-                        float.Parse(rotationFloats[1]), float.Parse(rotationFloats[2]), float.Parse(rotationFloats[3])))); 
+
+                    spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]),
+                        bool.Parse(playerTupel[1]),
+                        new Vector2d(double.Parse(playerTupel[2].Replace(".", ",")),
+                            double.Parse(playerTupel[3].Replace(".", ","))), new Quaternion(
+                            float.Parse(rotationFloats[0]),
+                            float.Parse(rotationFloats[1]), float.Parse(rotationFloats[2]),
+                            float.Parse(rotationFloats[3]))));
                 }
             }
-            
+
             spawnOnMap.SpawnOtherPlayers();
-            
+
             if (firstLoadPlayers)
             {
                 firstLoadPlayers = false;
-                yield return new WaitForSeconds(0.1f); //TODO FIX THIS
+                yield return new WaitForSeconds(1f);
             }
             else
             {
@@ -292,7 +288,7 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
             if (firstLoadSafes)
             {
                 firstLoadSafes = false;
-                yield return new WaitForSeconds(0.1f); //TODO FIX THIS
+                yield return new WaitForSeconds(1f);
             }
             else
             {
@@ -301,7 +297,6 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
         }
     }
 
-    
 
     public IEnumerator UpdateSafesAfterPlacing()
     {
@@ -317,7 +312,7 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
 
         using var www = new WWW(BASE_URL + "get_all_safes/");
         yield return www;
-       // Debug.Log("getAllSafesText: " + www.text);
+        // Debug.Log("getAllSafesText: " + www.text);
         if (www.text == "") yield return new WaitForSeconds(3f);
         var safesTupels = www.text.Split("|");
         var ids = new List<int>();
@@ -388,13 +383,12 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
         yield return www;
         var text = www.text;
         var temp = text.Split("|");
-        List<string> locations = new List<string>();
+        var locations = new List<string>();
         var textFinal = temp[0] + "," + temp[1];
         locations.Add(textFinal);
         yield return UpdateSafesAfterPlacing();
         yield return new WaitForSeconds(30f);
         updateSafesCoroutine = StartCoroutine(UpdateSafes());
-
     }
 
     /*private void CreateSafeIfNone()
@@ -492,7 +486,7 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
         yield return UpdateSafesAfterPlacing();
     }*/
 
-    
+
     /*private IEnumerator SendNewSafesToServer(string locationX, string locationY, int Health, int Level)
     {
         var form = new WWWForm();
@@ -572,9 +566,9 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
 
             //Filter Safes that are more than 1km away
 
-            if (finalResult <= 350) 
+            if (finalResult <= 350)
                 Debug.Log("Yay");
-                return true;
+            return true;
         }
 
         return false;
