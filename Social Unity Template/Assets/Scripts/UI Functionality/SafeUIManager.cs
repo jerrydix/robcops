@@ -202,7 +202,7 @@ public class SafeUIManager : MonoBehaviour
         GameManager.Instance.currentSafeLevel = int.Parse(response[2]);
 
         Random rnd = new Random();
-        int index = rnd.Next(3, 4);
+        int index = rnd.Next(1, 4);
         switch (index)
         {
             case 1:

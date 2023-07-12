@@ -33,7 +33,7 @@ public class RotateGameManager : MonoBehaviour
     private void Awake()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
 
         for (short i = 0; i < scenes.Length; i++)
@@ -42,10 +42,11 @@ public class RotateGameManager : MonoBehaviour
         }
     }
 
-    // private void Start()
-    // {
-    //     //StartCoroutine(StartGame());
-    // }
+    private void Start()
+    {
+        //StartCoroutine(StartGame());
+        Initialize();
+    }
 
     public void Initialize()
     {
