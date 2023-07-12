@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MemoryGame.unity
     guid: b5d12c412540a6440b89307514cad28f
   - enabled: 1
+    path: Assets/RotationGame/RotationGame.unity
+    guid: 6461a82b3289d9e4f8dcf84bdaafab05
+  - enabled: 1
     path: Assets/Scenes/PoliceStation.unity
     guid: f419f2ed1fe008a48b4bce57fe061417
   - enabled: 1

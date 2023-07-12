@@ -202,17 +202,19 @@ public class SafeUIManager : MonoBehaviour
         GameManager.Instance.currentSafeLevel = int.Parse(response[2]);
 
         Random rnd = new Random();
-        int index = rnd.Next(1, 3);
+        int index = rnd.Next(3, 4);
         switch (index)
         {
             case 1:
                 SceneManager.LoadScene("Scenes/ClickerGame");
                 break;
             case 2:
-                SceneManager.LoadScene("Scenes/MemoryGame"); //todo add maze game index
+                SceneManager.LoadScene("Scenes/MemoryGame");
+                break;
+            case 3:
+                SceneManager.LoadScene("RotationGame/RotationGame");
                 break;
         }
     }
-
-    //TODO Powerup shop + guild powerup UI add, remove
+    
 }
