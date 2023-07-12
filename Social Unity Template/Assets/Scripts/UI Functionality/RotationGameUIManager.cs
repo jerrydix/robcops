@@ -6,16 +6,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ClickerGameUIManager : MonoBehaviour
+public class RotationGameUIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private Button safe;
     [SerializeField] private TextMeshProUGUI clickDamageMultiplierText;
-
-    [SerializeField] public Sprite[] safeSprites;
-    [SerializeField] private Image currentImage;
-
-    [SerializeField] private Animator animator;
 
     [SerializeField] public HealthBar hpBar;
 
@@ -33,12 +27,12 @@ public class ClickerGameUIManager : MonoBehaviour
     private float _clickDamageMultiplier;
     private int _currentSafeHealth;
 
-    private string currentTakenTime; 
+    private string currentTakenTime;
 
     private string currentTime;
 
     private float finalTime;
-    private bool gameComplete;
+    public bool gameComplete;
 
     private string[] players;
 
@@ -53,7 +47,6 @@ public class ClickerGameUIManager : MonoBehaviour
         gameComplete = false;
         _clickDamageMultiplier = 1; //get from GameManager
         _currentSafeHealth = GameManager.Instance.currentHP; //get from gameManager according to level
-        currentImage.sprite = safeSprites[GameManager.Instance.currentSafeLevel - 1];
 
         timerText.text = GameManager.Instance.currentMinutes + ":" + GameManager.Instance.currentSeconds;
 
@@ -73,7 +66,6 @@ public class ClickerGameUIManager : MonoBehaviour
     {
         if (_currentSafeHealth > 0)
         {
-            animator.SetTrigger("ClickTrigger");
             StartCoroutine(DoDamageToSafe());
         }
     }
@@ -82,7 +74,7 @@ public class ClickerGameUIManager : MonoBehaviour
     {
         if (!timeOver)
         {
-            using var www = new WWW(GameManager.Instance.BASE_URL + "damage_safe" + "/");
+            using var www = new WWW(GameManager.Instance.BASE_URL + "damage_safe_maze" + "/");
             yield return www;
             Debug.Log(www.text);
             var remainingHealth = int.Parse(www.text);
@@ -188,7 +180,7 @@ public class ClickerGameUIManager : MonoBehaviour
         lostScreen.SetActive(true);
     }
     
-    private IEnumerator FailedRobberyWithout() //TODO ADD TO OTHER MINIGAMES
+    private IEnumerator FailedRobberyWithout()
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "end_robbery_unsuccess_without_penalty" + "/");
         yield return www;

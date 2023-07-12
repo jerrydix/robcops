@@ -397,10 +397,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2634727875663473532, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
-      propertyPath: m_text
-      value: 'Time Left: 00:00'
-      objectReference: {fileID: 0}
     - target: {fileID: 2634727876125780427, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
       propertyPath: m_Pivot.x
       value: 0

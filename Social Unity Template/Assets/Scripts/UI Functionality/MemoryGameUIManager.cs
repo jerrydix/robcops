@@ -64,6 +64,7 @@ public class MemoryGameUIManager : MonoBehaviour
 
         StartCoroutine(GetSafeHealth());
         StartCoroutine(GetDiff());
+        StartCoroutine(getArrest());
     }
 
     public void DamageSafe()
@@ -135,6 +136,28 @@ public class MemoryGameUIManager : MonoBehaviour
         }
     }
 
+    public IEnumerator getArrest()
+    {
+        while (!gameComplete)
+        {
+            using var www = new WWW(GameManager.Instance.BASE_URL + "get_arrest_status/");
+            yield return www;
+            Debug.Log("arrested: " + www.text);
+            string[] subs = www.text.Split("|");
+            bool arrested = bool.Parse(subs[0]);
+            int penalty = int.Parse(subs[1]);
+            if (arrested && penalty == 1)
+            {
+                StartCoroutine(FailedRobbery());
+            }
+            else if(arrested && penalty == 0)
+            {
+                StartCoroutine(FailedRobberyWithout());
+            }
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
     private IEnumerator SuccessfulRobbery()
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "end_robbery_success" + "/");
@@ -145,8 +168,6 @@ public class MemoryGameUIManager : MonoBehaviour
         moneyGain.text = "Money Gained: " + response[1];
         totalMoneyWinScreen.text = "New Balance: " + response[0].Split(".")[0];
         GameManager.Instance.money = int.Parse(response[0].Split(".")[0]);
-        if (currentMemoryGame != null)
-            currentMemoryGame.SetActive(false);
         winScreen.SetActive(true);
     }
 
@@ -161,13 +182,24 @@ public class MemoryGameUIManager : MonoBehaviour
         moneyLose.text = "Money Lost: " + int.Parse(response[1]) / 2;
         totalMoneyLostScreen.text = "New Balance: " + response[0].Split(".")[0];
         GameManager.Instance.money = int.Parse(response[0].Split(".")[0]);
-        currentMemoryGame.SetActive(false);
+        lostScreen.SetActive(true);
+    }
+    
+    private IEnumerator FailedRobberyWithout() //TODO ADD TO OTHER MINIGAMES
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "end_robbery_unsuccess_without_penalty" + "/");
+        yield return www;
+        Debug.Log(www.text);
+        
+        remainingSafeHP.text = "Remaining Safe Health: " + _currentSafeHealth;
+        moneyLose.text = "The cops released you without a fine";
+        totalMoneyLostScreen.text = "New Balance: " + www.text;
         lostScreen.SetActive(true);
     }
 
     public void CloseButton()
     {
-        SceneManager.LoadScene(1); //todo add 
+        SceneManager.LoadScene(1);
     }
     
     //todo add damage multiplier x2 effect

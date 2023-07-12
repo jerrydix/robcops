@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class TestInputProvider : MonoBehaviour
 {
-    [SerializeField]
-    private float damage;
-    [SerializeField]
-    private float hp;
-    [SerializeField]
-    private float time;
-    
+
     private RotateGameManager manager;
 
     private void Awake()
@@ -20,7 +14,7 @@ public class TestInputProvider : MonoBehaviour
 
     void Start()
     {
-        manager.Initialize(time, hp, damage);
+        manager.Initialize();
     }
     
 }

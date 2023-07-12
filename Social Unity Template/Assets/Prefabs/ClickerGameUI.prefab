@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'Time Left: 00:00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56c4e1f8e7a35e740932858b3510e53b, type: 2}
   m_sharedMaterial: {fileID: -5405882748149710917, guid: 56c4e1f8e7a35e740932858b3510e53b, type: 2}
@@ -1009,8 +1009,6 @@ MonoBehaviour:
   timerText: {fileID: 2634727875663473532}
   safe: {fileID: 2634727877170388044}
   clickDamageMultiplierText: {fileID: 0}
-  maxSafeHealth: 0
-  safeLevel: 0
   safeSprites:
   - {fileID: 21300000, guid: e7389097603f1f94fb066c40ca8dd84f, type: 3}
   - {fileID: 21300000, guid: 9c6a0ca26a25cfc4cb7ba664aa019593, type: 3}

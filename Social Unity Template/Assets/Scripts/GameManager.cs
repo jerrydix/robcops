@@ -82,6 +82,10 @@ public class GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO,
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (scene.name == "RotationGame")
+        {
+            Time.timeScale = 1;
+        }
         if (scene.buildIndex == 1)
         {
             firstLoadSafes = true;

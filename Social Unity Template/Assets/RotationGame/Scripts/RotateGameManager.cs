@@ -24,9 +24,11 @@ public class RotateGameManager : MonoBehaviour
 
     private GameObject gameBall;
     private GameObject startPos;
-    private GameObject scene;
+    public GameObject scene;
 
     private bool hasEnded;
+
+    public RotationGameUIManager rotationGameUIManager;
 
     private void Awake()
     {
@@ -40,20 +42,13 @@ public class RotateGameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        StartCoroutine(StartGame());
-    }
+    // private void Start()
+    // {
+    //     //StartCoroutine(StartGame());
+    // }
 
-    public void Initialize(float time, float hp, float damage)
+    public void Initialize()
     {
-        this.time = time;
-        this.hp = hp;
-        this.damage = damage;
-        timeField.text = time.ToString("F2");
-        hpField.text = hp.ToString("F2");
-        eventField.text = "";
-        hasEnded = false;
         PickRandomScene();
     }
 
@@ -64,24 +59,24 @@ public class RotateGameManager : MonoBehaviour
 
     
 
-    private void FixedUpdate()
-    {
-        if (!hasEnded)
-        {
-            time -= Time.fixedDeltaTime * Time.timeScale;
-            timeField.text = time.ToString("F2");
-            if (time <= 0)
-            {
-                Fail();
-                hasEnded = true;
-                time = 0;
-                timeField.text = time.ToString("F2");
-            }
-        }
+    // private void FixedUpdate()
+    // {
+    //     if (!hasEnded)
+    //     {
+    //         time -= Time.fixedDeltaTime * Time.timeScale;
+    //         timeField.text = time.ToString("F2");
+    //         if (time <= 0)
+    //         {
+    //             Fail();
+    //             hasEnded = true;
+    //             time = 0;
+    //             timeField.text = time.ToString("F2");
+    //         }
+    //     }
+    //
+    // }
 
-    }
-
-    public void DecrementHealth()
+    /*public void DecrementHealth()
     {
         if (!hasEnded) {
             hp -= damage;
@@ -97,9 +92,9 @@ public class RotateGameManager : MonoBehaviour
                 PickRandomScene();
             }
         }
-    }
+    }*/
 
-    private void Fail()
+    /*private void Fail()
     {
         eventField.text = "You Failed!";
     }
@@ -107,9 +102,9 @@ public class RotateGameManager : MonoBehaviour
     private void Win()
     {
         eventField.text = "You Won!";
-    }
+    }*/
 
-    private IEnumerator StartGame()
+    /*private IEnumerator StartGame()
     {
         yield return new WaitForSecondsRealtime(1);
         eventField.text = "3";
@@ -120,9 +115,9 @@ public class RotateGameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1);
         eventField.text = "";
         Time.timeScale = 1;
-    }
+    }*/
 
-    private void PickRandomScene()
+    public void PickRandomScene()
     {
         int rand = UnityEngine.Random.Range(0, scenes.Length);
         Maze s = scenes[rand];

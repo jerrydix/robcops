@@ -11,8 +11,14 @@ public class Goal : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ball"))
         {
-            manager.DecrementHealth();
-            manager.ResetBall();
+            manager.rotationGameUIManager.DamageSafe();
+            if (manager.rotationGameUIManager.gameComplete)
+            {
+                manager.scene.SetActive(false);
+                manager.PickRandomScene();
+                manager.ResetBall();
+            }
+            
         }
     }
 }
