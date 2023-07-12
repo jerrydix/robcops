@@ -28,7 +28,9 @@ ALLOWED_HOSTS = [
     "87.143.147.178",
     "chernogop.pythonanywhere.com",
     "127.0.0.1",
-    "87.143.146.147"
+    "87.143.146.147",
+    "www.robcops.de",
+    "robcops.de"
 ]
 
 # Application definition
