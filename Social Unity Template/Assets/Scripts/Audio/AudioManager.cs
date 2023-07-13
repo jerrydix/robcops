@@ -58,9 +58,7 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-        if (SettingsUI.activeInHierarchy)
-        {
-            Array.Find(sounds, sound => sound.name == "ButtonPressed").setVolume(soundVolumeSlider.GetComponent<Slider>().value) ;
+        Array.Find(sounds, sound => sound.name == "ButtonPressed").SetVolume(soundVolumeSlider.GetComponent<Slider>().value) ;
             Array.Find(sounds, sound => sound.name == "Theme").volume = musicVolumeSlider.GetComponent<Slider>().value;
             foreach (var s in sounds)
             {
@@ -68,7 +66,6 @@ public class AudioManager : MonoBehaviour
                 //s.source.pitch = s.pitch;
                 //s.source.loop = s.loop;
             }
-        }
     }
 
     public void Play(string name)

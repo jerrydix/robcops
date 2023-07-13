@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -167,8 +167,13 @@ MonoBehaviour:
   ids: 
   levels: 
   hps: 
+  statuses: 
+  isRobunionList: 
   _cubeLocations: []
   _locations: []
+  playersObjects: []
+  robberPrefab: {fileID: 0}
+  copPrefab: {fileID: 0}
 --- !u!4 &8638542
 Transform:
   m_ObjectHideFlags: 0
@@ -2652,64 +2657,17 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _WindowColor: {r: 0.23529412, g: 0.41911763, b: 1, a: 1}
   m_BuildTextureStacks: []
---- !u!1 &1758642172
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1758642174}
-  - component: {fileID: 1758642173}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1758642173
+--- !u!114 &1758642173 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 5269349775122568130, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+  m_PrefabInstance: {fileID: 5269349774722968639}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758642172}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4616d6f13312e3e4ab0567f621820157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: ButtonPressed
-    clip: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
-    volume: 49
-    pitch: 0
-    loop: 1
-    source: {fileID: 0}
-  soundMuted: 0
-  musicMuted: 0
-  soundVolumeSlider: {fileID: 1112975718}
-  musicVolumeSlider: {fileID: 900583186}
-  soundVolumeButton: {fileID: 193438022}
-  musicVolumeButton: {fileID: 1990266658}
-  SettingsUI: {fileID: 1269700177}
---- !u!4 &1758642174
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758642172}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &1863673153
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -2777,6 +2735,83 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1990266658, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
   m_PrefabInstance: {fileID: 642850092}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5269349774722968639
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5269349775122568129, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568129, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568129, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568129, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568129, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568129, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568129, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568129, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568129, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568129, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568129, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568130, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: SettingsUI
+      value: 
+      objectReference: {fileID: 1269700177}
+    - target: {fileID: 5269349775122568130, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: musicVolumeButton
+      value: 
+      objectReference: {fileID: 1990266658}
+    - target: {fileID: 5269349775122568130, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: musicVolumeSlider
+      value: 
+      objectReference: {fileID: 900583186}
+    - target: {fileID: 5269349775122568130, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: soundVolumeButton
+      value: 
+      objectReference: {fileID: 193438022}
+    - target: {fileID: 5269349775122568130, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: soundVolumeSlider
+      value: 
+      objectReference: {fileID: 1112975718}
+    - target: {fileID: 5269349775122568131, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
 --- !u!1001 &8966197343267100295
 PrefabInstance:
   m_ObjectHideFlags: 0
