@@ -31,8 +31,14 @@ public class SafeUIManager : MonoBehaviour
     private int _id;
     private List<string> _lobbyNames;
     private int _lobbyPlayerCount;
+    private bool isRURaid;
 
     //todo animation with dots changing for waiting for players
+
+    private void Start()
+    {
+        isRURaid = false;
+    }
 
     public void InitializeSafe(int level, double locationX, double locationY, bool createLobby, int id)
     {
@@ -40,6 +46,23 @@ public class SafeUIManager : MonoBehaviour
         _id = id;
         safeLevelTextDialogue.text = "Level " + level + " Safe";
         safeLevelTextScreen.text = "Level " + level + " Safe\nWaiting for Players...";
+        locationTextDialogue.text = "Coordinates: " +
+                                    Math.Round(locationX, 4)
+                                        .ToString(CultureInfo.CurrentCulture)
+                                        .Replace(",", ".") +
+                                    ", " +
+                                    Math.Round(locationY, 4)
+                                        .ToString(CultureInfo.CurrentCulture)
+                                        .Replace(",", ".");
+    }
+    
+    public void InitializeRURaidSafe(int level, double locationX, double locationY, bool createLobby, int id)
+    {
+        isRURaid = true;
+        _createLobby = createLobby;
+        _id = id;
+        safeLevelTextDialogue.text = "Level " + level + " RobUnion";
+        safeLevelTextScreen.text = "Level " + level + " RobUnion\nWaiting for Players...";
         locationTextDialogue.text = "Coordinates: " +
                                     Math.Round(locationX, 4)
                                         .ToString(CultureInfo.CurrentCulture)
@@ -201,18 +224,18 @@ public class SafeUIManager : MonoBehaviour
         GameManager.Instance.currentSeconds = int.Parse(response[0].Split(".")[1]);
         GameManager.Instance.currentSafeLevel = int.Parse(response[2]);
 
-        Random rnd = new Random();
-        int index = rnd.Next(1, 4);
+        var rnd = new Random();
+        var index = rnd.Next(1, 4);
         switch (index)
         {
             case 1:
-                SceneManager.LoadScene("Scenes/ClickerGame");
+                SceneManager.LoadScene(isRURaid ? "Scenes/ClickerGameRURaid" : "Scenes/ClickerGame");
                 break;
             case 2:
-                SceneManager.LoadScene("Scenes/MemoryGame");
+                SceneManager.LoadScene(isRURaid ? "Scenes/MemoryGameRURaid" : "Scenes/MemoryGame");
                 break;
             case 3:
-                SceneManager.LoadScene("RotationGame/RotationGame");
+                SceneManager.LoadScene(isRURaid ? "Scenes/RotationGameRURaid" : "Scenes/RotationGame");
                 break;
         }
     }

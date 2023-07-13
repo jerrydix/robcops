@@ -49,6 +49,7 @@ public class S_PoliceStationController : MonoBehaviour
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "leave_guild/");
         yield return www;
+        GameManager.Instance.guild = -1;
         SceneManager.LoadScene(1);
     }
 

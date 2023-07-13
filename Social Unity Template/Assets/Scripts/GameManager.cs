@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Connections;
 using Mapbox.Examples;
 using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
@@ -9,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class
     GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO, USE GET PLAYER INFO SERVER METHOD, AND USE SETDATA METHOD FORM USER LOGIN
-//TODO IF PLAYER CHANGES ROLE, RESET ALL STUFF EXCEPT MONEY (XP, Guilds, ETC)
+
 {
     public string BASE_URL = "http://87.143.146.147:8000/";
     [HideInInspector] public string socialTab = "members/";
@@ -32,6 +33,7 @@ public class
     public string username;
     public int userId;
     public int xp;
+    public int currentRobUnionSafeID; //TODO make request for each when this is needed
     private bool firstLoadPlayers;
 
     private bool firstLoadSafes;
@@ -44,6 +46,8 @@ public class
     public Coroutine updateOtherPlayersCoroutine;
 
     public Coroutine updateSafesCoroutine;
+    
+    
 
     //private bool cannotPlaceAnyMoreSafes = false;
 
@@ -52,6 +56,7 @@ public class
     private void Awake()
     {
         BASE_URL = "http://87.143.146.147:8000/";
+        currentRobUnionSafeID = -1;
     }
 
     private void Start()
@@ -164,12 +169,6 @@ public class
                 }
                 else
                 {
-                    foreach (var rot in rotationFloats)
-                    {
-                        //Debug.Log("Length" + rotationFloats.Length);
-                        //Debug.Log(rot);
-                    }
-
                     spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]),
                         bool.Parse(playerTupel[1]),
                         new Vector2d(double.Parse(playerTupel[2].Replace(".", ",")),
@@ -233,9 +232,9 @@ public class
             //Innefficient shit code, but works. 
             spawnOnMap._locationStrings = new List<string>();
             for (var i = spawnOnMap._spawnedObjects.Count - 1; i >= 0; i--) spawnOnMap._spawnedObjects[i].Destroy();
-            // spawnOnMap._spawnedObjects.RemoveAt(i);
+           
             for (var i = spawnOnMap.cubes.Count - 1; i >= 0; i--) spawnOnMap.cubes[i].Destroy();
-            //spawnOnMap.cubes.RemoveAt(i);
+           
             spawnOnMap._spawnedObjects = new List<GameObject>();
             spawnOnMap.cubes = new List<GameObject>();
 
@@ -245,10 +244,6 @@ public class
             Debug.Log("getAllSafesText: " + www.text);
             if (www.text == "")
             {
-                /*if (!cannotPlaceAnyMoreSafes)
-                {
-                    //CreateSafeIfNone();   
-                }*/
                 yield return new WaitForSeconds(10f);
                 continue;
             }
@@ -270,14 +265,12 @@ public class
                 locations.Add(tupel[3] + "," + tupel[4]);
                 stats.Add(int.Parse(tupel[5]));
                 robUns.Add(int.Parse(tupel[6]));
-                //Debug.Log(tupel[3] + "," + tupel[4]);
-                //Debug.Log(int.Parse(tupel[0]));
             }
 
             spawnOnMap.ids = ids;
             var idString = "";
             foreach (var id in spawnOnMap.ids) idString += id + ",";
-            //Debug.Log("idstring: " + idString);
+          
             spawnOnMap.levels = levels;
             spawnOnMap.hps = hps;
             spawnOnMap._locationStrings = locations;
@@ -572,5 +565,64 @@ public class
         }
 
         return false;
+    }
+    
+    public static void SetData(List<string> list)
+    {
+        Instance.username = list[1];
+        Instance.money = int.Parse(list[2]);
+        Instance.amountOfClicks = int.Parse(list[3]);
+        Instance.clickPower = float.Parse(list[4]);
+        Instance.location = new Vector2(float.Parse(list[5]), float.Parse(list[6]));
+        Instance.role = bool.Parse(list[7]);
+        int guildID;
+        if (!Instance.role && int.TryParse(list[8], out guildID))
+        {
+            Instance.guild = guildID;
+        }
+        else if (int.TryParse(list[9], out guildID))
+            Instance.guild = guildID;
+        else
+            Instance.guild = -1;
+    
+        Instance.userId = int.Parse(list[10]);
+
+        int currentXP;
+        if (!Instance.role && int.TryParse(list[11], out currentXP))
+        {
+            Instance.xp = currentXP;
+        }
+        else if (int.TryParse(list[12], out currentXP))
+            Instance.xp = currentXP;
+        else
+            Instance.xp = 0;
+    }
+
+    public IEnumerator getPlayerInfo()
+    {
+        using var www = new WWW(Instance.BASE_URL + "get_player_info/");
+        yield return www;
+        List<string> data = S_Parser.ParseResponse(www.text);
+        SetData(data);
+    }
+
+    public IEnumerator getPlayerInfoUpdate() //TODO USE IF THERE ARE UI BUGS
+    {
+        while (true)
+        {
+            using var www = new WWW(Instance.BASE_URL + "get_player_info/");
+            yield return www;
+            List<string> data = S_Parser.ParseResponse(www.text);
+            SetData(data);
+            yield return new WaitForSeconds(30f);
+        }
+        
+    }
+    
+    public IEnumerator getRobUnionSafeID()
+    {
+        using var www = new WWW(Instance.BASE_URL + "get_robunion_safe_id/");
+        yield return www;
+        Instance.currentRobUnionSafeID = int.Parse(www.text);
     }
 }

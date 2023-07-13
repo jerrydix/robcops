@@ -21,6 +21,7 @@ public class SafeManager : MonoBehaviour
     public GameObject safeModel;
     public GameObject robuionModel;
     public int isRobUnion;
+    
 
     // Start is called before the first frame update
     private void Awake()
@@ -57,14 +58,18 @@ public class SafeManager : MonoBehaviour
             StartCoroutine(checkBreakInStatus());
         if (GameManager.Instance.role && isRobUnion == 1 && getDistanceToObject() <= 20f)
         {
-            //_uiManager.OpenRobUnion(this); //todo 
+            StartCoroutine(GameManager.Instance.getRobUnionSafeID());
+            if (GameManager.Instance.currentRobUnionSafeID == id)
+            {
+                StartCoroutine(checkRURaidStatus());
+            }
         }
         if (getDistanceToObject() <= 20f && status == 3 && GameManager.Instance.role)
         {
             _uiManager.OpenPenalty(this);
         }
     }
-    
+
     public float getDistanceToObject()
     {
         float dist = Vector3.Distance(player.transform.position, transform.position);
@@ -110,5 +115,14 @@ public class SafeManager : MonoBehaviour
         Debug.Log(GameManager.Instance.BASE_URL + "checkLobby/" + id + "/");
         createLobby = Convert.ToBoolean(int.Parse(www.text));
         _uiManager.ActivateDialogue(level, locationX, locationY, createLobby, id);
+    }
+    
+    private IEnumerator checkRURaidStatus()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "checkLobby/" + id + "/");
+        yield return www;
+        Debug.Log(GameManager.Instance.BASE_URL + "checkLobby/" + id + "/");
+        createLobby = Convert.ToBoolean(int.Parse(www.text));
+        _uiManager.ActivateRURaidDialogue(level, locationX, locationY, createLobby, id);
     }
 }

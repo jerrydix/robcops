@@ -786,13 +786,17 @@ def switch_role(request):
     if request.user.player.role is True:
         request.user.player.role = False
         request.user.player.policeStation = None
+        request.user.player.robUnion = None
         request.user.player.robberXP = 0
         request.user.player.safesActive = 0
+        request.user.player.event = None
     else:
         request.user.player.role = True
         request.user.player.robUnion = None
+        request.user.player.policeStation = None
         request.user.player.event = None
-        request.user.player.money += 50000
+        if request.user.player.money < 10000:
+            request.user.player.money = 10000
         request.user.player.safesActive = 0
         request.user.player.c4 = 0
         request.user.player.alarmDisabler = 0

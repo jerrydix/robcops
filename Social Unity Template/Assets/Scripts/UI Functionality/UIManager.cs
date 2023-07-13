@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject penaltyUI;
     [SerializeField] private Button switchRoleButton;
     [SerializeField] private GameObject placeSafeButton;
+    [SerializeField] private Image brassKnucklesImage;
+    [SerializeField] private Sprite brassKnucklesSprite; 
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private GameObject safePlacingDialogue;
     [SerializeField] private GameObject corruptionDialogue;
@@ -50,7 +52,11 @@ public class UIManager : MonoBehaviour
         switchRoleButton.interactable = switchButtonActivated;
         //Debug.Log(GameManager.Instance.role);
         ChangePlaceSafeButton(GameManager.Instance.role);
-        
+
+        if (GameManager.Instance.role)
+        {
+            ChangeBrassKnucklesSprite();
+        }
         //safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
     }
 
@@ -64,6 +70,12 @@ public class UIManager : MonoBehaviour
     {
         safeUIManager.gameObject.SetActive(true);
         safeUIManager.InitializeSafe(level, locationX, locationY, createLobby, id);
+    }
+    
+    public void ActivateRURaidDialogue(int level, double locationX, double locationY, bool createLobby, int id)
+    {
+        safeUIManager.gameObject.SetActive(true);
+        safeUIManager.InitializeRURaidSafe(level, locationX, locationY, createLobby, id);
     }
 
     public void GuildButton()
@@ -182,8 +194,9 @@ public class UIManager : MonoBehaviour
 
     public void SwitchRoleButton()
     {
-        switchRoleDialogue.gameObject.SetActive(true);
-        //switchRoleDialogue.InitializeDialogue(GameManager.instance.currentRole);
+        if (GameManager.Instance.xp == 100)
+            switchRoleDialogue.gameObject.SetActive(true);
+        switchRoleDialogue.InitializeDialogue(GameManager.Instance.role);
     }
 
     public void PlaceSafeButton()
@@ -206,8 +219,6 @@ public class UIManager : MonoBehaviour
     public void PressGiveHintButton()
     {
         StartCoroutine(GiveHint());
-
-        //close dialogue
     }
 
     private IEnumerator GiveHint()
@@ -297,5 +308,10 @@ public class UIManager : MonoBehaviour
     public void ChangePlaceSafeButton(bool visible)
     {
         placeSafeButton.SetActive(visible);
+    }
+    
+    public void ChangeBrassKnucklesSprite()
+    {
+        brassKnucklesImage.sprite = brassKnucklesSprite;
     }
 }

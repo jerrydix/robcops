@@ -18,8 +18,17 @@ EditorBuildSettings:
     path: Assets/Scenes/MemoryGame.unity
     guid: b5d12c412540a6440b89307514cad28f
   - enabled: 1
-    path: Assets/RotationGame/RotationGame.unity
+    path: Assets/Scenes/RotationGame.unity
     guid: 6461a82b3289d9e4f8dcf84bdaafab05
+  - enabled: 1
+    path: Assets/Scenes/ClickerGameRURaid.unity
+    guid: ade8b87ff32eb5d4bb499b3f0159566d
+  - enabled: 1
+    path: Assets/Scenes/MemoryGameRURaid.unity
+    guid: d772e88ff9a09e042bd7e82cc4ecf73b
+  - enabled: 1
+    path: Assets/Scenes/RotationGameRURaid.unity
+    guid: 9ffc277a333d6294492dd045f18a9929
   - enabled: 1
     path: Assets/Scenes/PoliceStation.unity
     guid: f419f2ed1fe008a48b4bce57fe061417

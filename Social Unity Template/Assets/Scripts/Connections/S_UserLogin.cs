@@ -60,7 +60,7 @@ public class S_UserLogin : MonoBehaviour
         var success = S_Parser.ParseResponse(www.text)[0];
         if (success == "1")
         {
-            SetData(S_Parser.ParseResponse(www.text));
+            GameManager.SetData(S_Parser.ParseResponse(www.text));
             SceneManager.LoadSceneAsync(1);
         }
     }
@@ -111,36 +111,5 @@ public class S_UserLogin : MonoBehaviour
         yield return www;
         Debug.Log(www.text.TrimStart());
         SceneManager.LoadScene(0);
-    }
-
-    public void SetData(List<string> list)
-    {
-        GameManager.Instance.username = list[1];
-        GameManager.Instance.money = int.Parse(list[2]);
-        GameManager.Instance.amountOfClicks = int.Parse(list[3]);
-        GameManager.Instance.clickPower = float.Parse(list[4]);
-        GameManager.Instance.location = new Vector2(float.Parse(list[5]), float.Parse(list[6]));
-        GameManager.Instance.role = bool.Parse(list[7]);
-        int guildID;
-        if (!GameManager.Instance.role && int.TryParse(list[8], out guildID))
-        {
-            GameManager.Instance.guild = guildID;
-        }
-        else if (int.TryParse(list[9], out guildID))
-            GameManager.Instance.guild = guildID;
-        else
-            GameManager.Instance.guild = -1;
-    
-        GameManager.Instance.userId = int.Parse(list[10]);
-
-        int currentXP;
-        if (!GameManager.Instance.role && int.TryParse(list[11], out currentXP))
-        {
-            GameManager.Instance.xp = currentXP;
-        }
-        else if (int.TryParse(list[12], out currentXP))
-            GameManager.Instance.xp = currentXP;
-        else
-            GameManager.Instance.xp = 0;
     }
 }
