@@ -12,7 +12,7 @@ public class Goal : MonoBehaviour
         if (other.gameObject.CompareTag("Ball"))
         {
             manager.rotationGameUIManager.DamageSafe();
-            if (manager.rotationGameUIManager.gameComplete)
+            if (!manager.rotationGameUIManager.gameComplete)
             {
                 manager.scene.SetActive(false);
                 manager.PickRandomScene();
