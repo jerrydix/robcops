@@ -481,6 +481,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2634727876125780429, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1920
+      objectReference: {fileID: 0}
     - target: {fileID: 2634727876125780431, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
       propertyPath: m_Name
       value: ClickerGameUI
