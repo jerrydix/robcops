@@ -172,6 +172,8 @@ public class ClickerGameUIManager : MonoBehaviour
         totalMoneyWinScreen.text = "New Balance: " + response[0].Split(".")[0];
         GameManager.Instance.money = int.Parse(response[0].Split(".")[0]);
         winScreen.SetActive(true);
+        if (GameManager.Instance.role)
+            StartCoroutine(GameManager.Instance.resetRobUnionSafeID());
     }
 
     private IEnumerator FailedRobbery()
@@ -186,6 +188,8 @@ public class ClickerGameUIManager : MonoBehaviour
         totalMoneyLostScreen.text = "New Balance: " + response[0].Split(".")[0];
         GameManager.Instance.money = int.Parse(response[0].Split(".")[0]);
         lostScreen.SetActive(true);
+        if (GameManager.Instance.role)
+            StartCoroutine(GameManager.Instance.resetRobUnionSafeID());
     }
     
     private IEnumerator FailedRobberyWithout() //TODO ADD TO OTHER MINIGAMES
@@ -198,6 +202,8 @@ public class ClickerGameUIManager : MonoBehaviour
         moneyLose.text = "The cops released you without a fine";
         totalMoneyLostScreen.text = "New Balance: " + www.text;
         lostScreen.SetActive(true);
+        if (GameManager.Instance.role)
+            StartCoroutine(GameManager.Instance.resetRobUnionSafeID());
     }
 
     public void CloseButton()

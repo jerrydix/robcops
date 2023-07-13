@@ -625,4 +625,11 @@ public class
         yield return www;
         Instance.currentRobUnionSafeID = int.Parse(www.text);
     }
+    
+    public IEnumerator resetRobUnionSafeID()
+    {
+        using var www = new WWW(Instance.BASE_URL + "reset_robunion_safe_id/");
+        yield return www;
+        Instance.currentRobUnionSafeID = int.Parse(www.text);
+    }
 }

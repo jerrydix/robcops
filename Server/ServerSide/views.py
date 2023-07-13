@@ -969,6 +969,8 @@ def get_robunion_safe_id(request):
 @login_required
 def reset_robunion_safe_id(request):
     request.user.player.policeStation.robUnionSafeID = -1
+    request.user.player.policeStation.robUnionX = ""
+    request.user.player.policeStation.robUnionY= ""
     request.user.player.policeStation.save()
     return HttpResponse(request.user.player.policeStation.robUnionSafeID)
 

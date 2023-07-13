@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 {
     [FormerlySerializedAs("safeDialogue")] [FormerlySerializedAs("dialogue")] [SerializeField]
     private SafeUIManager safeUIManager;
+    [SerializeField] private SafeUIManager RURaidSafeUIManager;
 
     [SerializeField] private SwitchRoleDialogue switchRoleDialogue;
     [SerializeField] private GameObject mapScreenUI;
@@ -74,8 +75,8 @@ public class UIManager : MonoBehaviour
     
     public void ActivateRURaidDialogue(int level, double locationX, double locationY, bool createLobby, int id)
     {
-        safeUIManager.gameObject.SetActive(true);
-        safeUIManager.InitializeRURaidSafe(level, locationX, locationY, createLobby, id);
+        RURaidSafeUIManager.gameObject.SetActive(true);
+        RURaidSafeUIManager.InitializeRURaidSafe(level, locationX, locationY, createLobby, id);
     }
 
     public void GuildButton()
@@ -195,8 +196,10 @@ public class UIManager : MonoBehaviour
     public void SwitchRoleButton()
     {
         if (GameManager.Instance.xp == 100)
+        {
             switchRoleDialogue.gameObject.SetActive(true);
-        switchRoleDialogue.InitializeDialogue(GameManager.Instance.role);
+            switchRoleDialogue.InitializeDialogue(GameManager.Instance.role);
+        }
     }
 
     public void PlaceSafeButton()

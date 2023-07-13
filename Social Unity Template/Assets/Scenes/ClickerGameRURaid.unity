@@ -397,6 +397,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2634727875780032714, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f92455056e77857498a0730fd5a52a80, type: 3}
+    - target: {fileID: 2634727875990663153, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634727876092087766, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634727876125780426, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: safeSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 23342a7753d76b549ab78b253be05959, type: 3}
+    - target: {fileID: 2634727876125780426, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: safeSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 1813ce9603c292046bbb4562c650ea9b, type: 3}
+    - target: {fileID: 2634727876125780426, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: safeSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: c1c0efd8256c9454c985db3a722883ed, type: 3}
+    - target: {fileID: 2634727876125780426, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: safeSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 9383143eadc5a34499dc0e4276fac3f3, type: 3}
+    - target: {fileID: 2634727876125780426, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: safeSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: c38dd04574486994caeeced8d51aa315, type: 3}
+    - target: {fileID: 2634727876125780426, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: safeSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: d82033d9d66281145913ab3d6297e935, type: 3}
     - target: {fileID: 2634727876125780427, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -497,5 +533,17 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2634727876793789034, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 703ae3606232c714790a8d3ad4bd4c8a, type: 3}
+    - target: {fileID: 2634727876961257232, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a28bd66803212dd418abec601a60ecd5, type: 3}
+    - target: {fileID: 2634727877170388043, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 23342a7753d76b549ab78b253be05959, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1f29adecb94043449e19afa08e4b38c, type: 3}
