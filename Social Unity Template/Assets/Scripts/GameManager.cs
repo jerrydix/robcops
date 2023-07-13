@@ -117,8 +117,10 @@ public class
 
     public IEnumerator checkDistanceToSafes()
     {
+        yield return new WaitForSeconds(1.5f);
         using var www = new WWW(Instance.BASE_URL + "are_safes_near_you/");
         yield return www;
+        Debug.Log(www.text);
         if (www.text.Equals("False")) StartCoroutine(SpawnSafeIfNotAnyInRange());
     }
 
@@ -155,10 +157,6 @@ public class
             {
                 var playerTupel = allPlayerStrings[i].Split(";");
                 var rotationFloats = playerTupel[4].Split(":");
-                Debug.Log(playerTupel[2] + "       " + playerTupel[3]);
-                Debug.Log(double.Parse(playerTupel[2].Replace(".", ",")) + "       " +
-                          double.Parse(playerTupel[3].Replace(".", ",")));
-
                 if (rotationFloats.Length < 4)
                 {
                     spawnOnMap.otherPlayers.Add(new C_OtherPlayerInfo(int.Parse(playerTupel[0]),
@@ -218,7 +216,6 @@ public class
 
         using var www = new WWW(BASE_URL + "place_safe/", form);
         yield return www;
-        Debug.Log(www.text);
 
         yield return UpdateSafesAfterPlacing();
         yield return new WaitForSeconds(60f);
@@ -241,7 +238,6 @@ public class
 
             using var www = new WWW(BASE_URL + "get_all_safes/");
             yield return www;
-            Debug.Log("getAllSafesText: " + www.text);
             if (www.text == "")
             {
                 yield return new WaitForSeconds(10f);
