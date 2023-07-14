@@ -204,7 +204,13 @@ public class SafeUIManager : MonoBehaviour
                 RobberyButton();
                 break;
             }
-
+            
+            lobbyCountText.text = response[0] + "/5";
+            if (!isRURaid)
+            {
+                c4CountText.text = response[2];
+                wireCutterCountText.text = response[3];
+            }
             lobbyCountText.text = response[0] + "/5";
             c4CountText.text = response[2];
             wireCutterCountText.text = response[3];
