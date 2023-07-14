@@ -82,15 +82,10 @@ public class MemoryGameUIManager : MonoBehaviour
             currentMemoryGame = Instantiate(memoryGame, gameObject.transform);
             currentMemoryGame.transform.SetSiblingIndex(0);
         }
-        else
-        {
-            currentMemoryGame.SetActive(false);
-        }
     }
 
     private void Update()
     {
-        if (timeOver && gameComplete) currentMemoryGame.SetActive(false);
     }
 
     private IEnumerator GetSafeHealth()
