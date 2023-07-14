@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     private LocationArrayEditorLocationProvider _locationArrayEditorLocationProvider;
     private Quaternion _rotation;
     public TextMeshProUGUI debugText;
+    public TextMeshProUGUI debugText2;
+
     
     public Faction faction { get; set; }
     public List<Friend> friends { get; set; }
@@ -148,7 +150,7 @@ public class Player : MonoBehaviour
     private IEnumerator SendPlayerLocationAndRotationToServer()
     {
         yield return new WaitForSeconds(1f);
-        debugText.text += "IS CALLED";
+        debugText2.text += "IS CALLED";
         while (true)
         {
             WWWForm form = new WWWForm();
@@ -159,7 +161,7 @@ public class Player : MonoBehaviour
             var locationY =
                 _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(
                     CultureInfo.InvariantCulture).Replace(",", ".");
-            debugText.text += "BEFORE POST LocX: " + locationX + "LocY: " + locationY;
+            debugText2.text += "BEFORE POST LocX: " + locationX + "LocY: " + locationY;
 
             form.AddField("locationX", locationX);
             form.AddField("locationY", locationY);
@@ -167,7 +169,7 @@ public class Player : MonoBehaviour
 
             using var www = new WWW(GameManager.Instance.BASE_URL + "send_location/", form);
             yield return www;
-            debugText.text += www.text;
+            debugText2.text += www.text;
             Debug.Log("LocX: " + locationX + "LocY: " + locationY);
             yield return new WaitForSeconds(15f);
         }
