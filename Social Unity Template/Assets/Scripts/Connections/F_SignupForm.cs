@@ -24,6 +24,7 @@ public class F_SignupForm : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.errorMessage.PopUp("Passwords are not the same!");
             Debug.Log("0|Passwords are not the same");
         }
     }

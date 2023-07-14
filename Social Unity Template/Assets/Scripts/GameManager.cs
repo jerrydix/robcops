@@ -104,7 +104,10 @@ public class
                 StopCoroutine(moneyRoutine);
         }
 
-        errorMessage = GameObject.Find("Error").GetComponent<S_Error>();
+        if (GameObject.Find("Error").GetComponent<S_Error>() != null)
+        {
+            errorMessage = GameObject.Find("Error").GetComponent<S_Error>();
+        }
     }
 
     public IEnumerator GetPlayerMoney()

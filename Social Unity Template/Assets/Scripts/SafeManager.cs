@@ -54,14 +54,34 @@ public class SafeManager : MonoBehaviour
         Debug.Log("safe clicked");
         //todo add checkSafe method
         Debug.Log("SAFE ID: " + id);
+        if (getDistanceToObject() > 20f && isRobUnion == 1)
+        {
+            GameManager.Instance.errorMessage.PopUp("RobUnion is too far away!");
+            return;
+        }
+
+        if (getDistanceToObject() > 20f && isRobUnion == 0)
+        {
+            GameManager.Instance.errorMessage.PopUp("Safe is too far away!");
+            return;
+
+        }
+
         if (!GameManager.Instance.role && getDistanceToObject() <= 20f && status != 3 && isRobUnion == 0)
+        {
             StartCoroutine(checkBreakInStatus());
+        }
+        
         if (GameManager.Instance.role && isRobUnion == 1 && getDistanceToObject() <= 20f)
         {
             StartCoroutine(GameManager.Instance.getRobUnionSafeID());
             if (GameManager.Instance.currentRobUnionSafeID == id)
             {
                 StartCoroutine(checkRURaidStatus());
+            }
+            else
+            {
+                GameManager.Instance.errorMessage.PopUp("You are not responsible for raiding this RobUnion!");
             }
         }
         if (getDistanceToObject() <= 20f && status == 3 && GameManager.Instance.role)
