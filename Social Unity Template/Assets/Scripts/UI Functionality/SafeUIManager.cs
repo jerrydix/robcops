@@ -105,7 +105,10 @@ public class SafeUIManager : MonoBehaviour
         yield return www;
         Debug.Log(www.text);
         if (S_Parser.ParseResponse(www.text)[0] == "0")
+        {
+            GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
             yield break;
+        }
         wireCutterCountText.text = www.text;
     }
 
@@ -120,7 +123,10 @@ public class SafeUIManager : MonoBehaviour
         yield return www;
         Debug.Log(www.text);
         if (S_Parser.ParseResponse(www.text)[0] == "0")
+        {
+            GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
             yield break;
+        }
         c4CountText.text = www.text;
     }
 
@@ -154,6 +160,7 @@ public class SafeUIManager : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.errorMessage.PopUp("Lobby full / started");
             Debug.Log("lobby full / started");
         }
 

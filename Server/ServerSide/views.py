@@ -651,7 +651,7 @@ def add_upgrades_to_lobby(request, item):
             return HttpResponse(request.user.player.event.c4s)
     elif item == 1:
         if request.user.player.alarmDisabler < 1:
-            return HttpResponse("0|You have not enough alarms")
+            return HttpResponse("0|You have not enough wire cutters")
         else:
             request.user.player.event.alarms += 1
             request.user.player.alarmDisabler -= 1
@@ -970,7 +970,7 @@ def get_robunion_safe_id(request):
 def reset_robunion_safe_id(request):
     request.user.player.policeStation.robUnionSafeID = -1
     request.user.player.policeStation.robUnionX = ""
-    request.user.player.policeStation.robUnionY= ""
+    request.user.player.policeStation.robUnionY = ""
     request.user.player.policeStation.save()
     return HttpResponse(request.user.player.policeStation.robUnionSafeID)
 

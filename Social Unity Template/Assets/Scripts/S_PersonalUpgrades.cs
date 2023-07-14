@@ -47,6 +47,7 @@ public class S_PersonalUpgrades : MonoBehaviour
         if (int.Parse(subs[0]) == 0)
         {
             Debug.Log("Not enough Money");
+            GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
         }
         else
         {
@@ -64,6 +65,7 @@ public class S_PersonalUpgrades : MonoBehaviour
         var subs = www.text.Split("|");
         if (int.Parse(subs[0]) == 0)
         {
+            GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
             Debug.Log("Not enough Money");
         }
         else

@@ -500,7 +500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1509428502003932808, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
       propertyPath: m_Name
-      value: UI 2
+      value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 1509428502003932808, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
       propertyPath: m_IsActive
@@ -2114,7 +2114,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1509428502003932808, guid: 381b5336294d45a4fb3406fc3413ad72, type: 3}
       propertyPath: m_Name
-      value: UI
+      value: UI FALSCH
       objectReference: {fileID: 0}
     - target: {fileID: 1509428502003932808, guid: 381b5336294d45a4fb3406fc3413ad72, type: 3}
       propertyPath: m_IsActive

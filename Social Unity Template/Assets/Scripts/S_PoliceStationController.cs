@@ -182,6 +182,10 @@ public class S_PoliceStationController : MonoBehaviour
         form.AddField("cost", 50000);
         using var www = new WWW(GameManager.Instance.BASE_URL + "upgrade_weapons/", form);
         yield return www;
+        if (www.text.Split("|")[0].Equals("0"))
+        {
+            GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
+        }
         Debug.Log(www.text);
         DisplayMoney(int.Parse(www.text));
         StartCoroutine(getInfo());
@@ -193,6 +197,10 @@ public class S_PoliceStationController : MonoBehaviour
         form.AddField("cost", 50000);
         using var www = new WWW(GameManager.Instance.BASE_URL + "upgrade_armor/", form);
         yield return www;
+        if (www.text.Split("|")[0].Equals("0"))
+        {
+            GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
+        }
         Debug.Log(www.text);
         DisplayMoney(int.Parse(www.text));
         StartCoroutine(getInfo());
