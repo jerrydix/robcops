@@ -89,7 +89,7 @@ public class MemoryGameUIManager : MonoBehaviour
 
     private void Update()
     {
-        if (!timeOver && !gameComplete) currentMemoryGame.SetActive(false);
+        if (timeOver && gameComplete) currentMemoryGame.SetActive(false);
     }
 
     private IEnumerator GetSafeHealth()
