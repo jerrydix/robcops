@@ -58,7 +58,7 @@ public class MemoryGameUIManager : MonoBehaviour
 
         //Win Screen Setup
         winScreen.SetActive(false);
-        Instantiate(memoryGame, gameObject.transform);
+        currentMemoryGame = Instantiate(memoryGame, gameObject.transform);
 
         StartCoroutine(GetSafeHealth());
         StartCoroutine(GetDiff());
