@@ -80,6 +80,7 @@ public class MemoryGameUIManager : MonoBehaviour
             _currentSafeHealth = remainingHealth;
             hpBar.setHp(_currentSafeHealth);
             currentMemoryGame = Instantiate(memoryGame, gameObject.transform);
+            currentMemoryGame.transform.SetSiblingIndex(0);
         }
         else
         {
