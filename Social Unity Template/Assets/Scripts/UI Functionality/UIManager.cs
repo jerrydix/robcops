@@ -70,7 +70,11 @@ public class UIManager : MonoBehaviour
         {
             ChangeSwitchIconToCop();
         }
-        
+        if (GameManager.Instance.xp >= XPthreshold)
+        {
+            switchButtonActivated = true;
+            switchRoleButton.interactable = switchButtonActivated;
+        }
         //safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
     }
 
@@ -260,7 +264,7 @@ public class UIManager : MonoBehaviour
 
     public void SwitchRoleButton()
     {
-        if (GameManager.Instance.xp == 100)
+        if (GameManager.Instance.xp >= 100)
         {
             switchRoleDialogue.gameObject.SetActive(true);
             switchRoleDialogue.InitializeDialogue(GameManager.Instance.role);

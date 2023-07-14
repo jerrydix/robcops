@@ -63,6 +63,10 @@ public class S_UserLogin : MonoBehaviour
             GameManager.SetData(S_Parser.ParseResponse(www.text));
             SceneManager.LoadSceneAsync(1);
         }
+        else
+        {
+            GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
+        }
     }
 
     public IEnumerator Signup(string username, string password, string passwordRepeat)
@@ -84,6 +88,10 @@ public class S_UserLogin : MonoBehaviour
             manager.registerScreen.SetActive(false);
             logo.SetActive(false);
             roleSwitchScreen.SetActive(true);
+        }
+        else
+        {
+            GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
         }
     }
 

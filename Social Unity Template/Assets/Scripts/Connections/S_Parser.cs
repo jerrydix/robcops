@@ -14,7 +14,7 @@ namespace Connections
             var substrings = contents.Split('|');
             if (substrings[0] == "0")
             {
-                throw new HttpListenerException(0, substrings[1]);
+                //throw new HttpListenerException(0, substrings[1]);
             }
 
             var result = new List<string>();

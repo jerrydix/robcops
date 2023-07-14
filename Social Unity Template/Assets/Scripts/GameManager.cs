@@ -46,6 +46,8 @@ public class
     public Coroutine updateOtherPlayersCoroutine;
 
     public Coroutine updateSafesCoroutine;
+
+    public S_Error errorMessage;
     
     
 
@@ -62,6 +64,7 @@ public class
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        errorMessage = GameObject.Find("Error").GetComponent<S_Error>();
 
         if (Instance == null)
         {
@@ -100,6 +103,8 @@ public class
             if (moneyRoutine != null)
                 StopCoroutine(moneyRoutine);
         }
+
+        errorMessage = GameObject.Find("Error").GetComponent<S_Error>();
     }
 
     public IEnumerator GetPlayerMoney()
