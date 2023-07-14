@@ -4,8 +4,6 @@ using Connections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using Random = System.Random;
 
 public class MemoryGameUIManager : MonoBehaviour
 {
@@ -29,6 +27,8 @@ public class MemoryGameUIManager : MonoBehaviour
     private float _clickDamageMultiplier;
     private int _currentSafeHealth;
 
+    private GameObject currentMemoryGame;
+
     private string currentTakenTime;
 
     private string currentTime;
@@ -41,8 +41,6 @@ public class MemoryGameUIManager : MonoBehaviour
     private float startTime;
 
     private bool timeOver;
-    
-    private GameObject currentMemoryGame;
 
     // Start is called before the first frame update
     private void Start()
@@ -69,15 +67,12 @@ public class MemoryGameUIManager : MonoBehaviour
 
     public void DamageSafe()
     {
-        if (_currentSafeHealth > 0)
-        {
-            StartCoroutine(DoDamageToSafe());
-        }
+        if (_currentSafeHealth > 0) StartCoroutine(DoDamageToSafe());
     }
 
     private IEnumerator DoDamageToSafe()
     {
-        if (!timeOver)
+        if (!timeOver && !gameComplete)
         {
             using var www = new WWW(GameManager.Instance.BASE_URL + "damage_safe_memory" + "/");
             yield return www;
@@ -85,6 +80,10 @@ public class MemoryGameUIManager : MonoBehaviour
             _currentSafeHealth = remainingHealth;
             hpBar.setHp(_currentSafeHealth);
             currentMemoryGame = Instantiate(memoryGame, gameObject.transform);
+        }
+        else
+        {
+            currentMemoryGame.SetActive(false);
         }
     }
 
@@ -143,17 +142,12 @@ public class MemoryGameUIManager : MonoBehaviour
             using var www = new WWW(GameManager.Instance.BASE_URL + "get_arrest_status/");
             yield return www;
             Debug.Log("arrested: " + www.text);
-            string[] subs = www.text.Split("|");
-            bool arrested = bool.Parse(subs[0]);
-            int penalty = int.Parse(subs[1]);
+            var subs = www.text.Split("|");
+            var arrested = bool.Parse(subs[0]);
+            var penalty = int.Parse(subs[1]);
             if (arrested && penalty == 1)
-            {
                 StartCoroutine(FailedRobbery());
-            }
-            else if(arrested && penalty == 0)
-            {
-                StartCoroutine(FailedRobberyWithout());
-            }
+            else if (arrested && penalty == 0) StartCoroutine(FailedRobberyWithout());
             yield return new WaitForSeconds(0.2f);
         }
     }
@@ -188,13 +182,13 @@ public class MemoryGameUIManager : MonoBehaviour
         if (GameManager.Instance.role)
             StartCoroutine(GameManager.Instance.resetRobUnionSafeID());
     }
-    
+
     private IEnumerator FailedRobberyWithout() //TODO ADD TO OTHER MINIGAMES
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "end_robbery_unsuccess_without_penalty" + "/");
         yield return www;
         Debug.Log(www.text);
-        
+
         remainingSafeHP.text = "Remaining Safe Health: " + _currentSafeHealth;
         moneyLose.text = "The cops released you without a fine";
         totalMoneyLostScreen.text = "New Balance: " + www.text;
@@ -207,6 +201,6 @@ public class MemoryGameUIManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-    
+
     //todo add damage multiplier x2 effect
 }
