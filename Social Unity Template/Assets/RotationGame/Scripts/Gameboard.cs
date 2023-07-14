@@ -8,7 +8,7 @@ public class Gameboard : MonoBehaviour
     private Vector3 initObjRotationEuler;
     private Quaternion initObjRotation;
     private float accuAcc;
-    private float maxAccuAcc = 10;
+    private float maxAccuAcc = 5;
 
 
     private void Awake()
