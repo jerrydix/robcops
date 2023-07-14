@@ -154,6 +154,41 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void setXp()
+    {
+        StartCoroutine(SetXP());
+    }
+
+    public IEnumerator SetXP()
+    {
+        if (GameManager.Instance.role)
+        {
+            using var www = new WWW(GameManager.Instance.BASE_URL + "get_robberxp/");
+            yield return www;
+            int xp = int.Parse(www.text);
+            GameManager.Instance.xp = xp;
+            switchImage.fillAmount = (float) GameManager.Instance.xp / XPthreshold;
+            if (GameManager.Instance.xp >= XPthreshold)
+            {
+                switchButtonActivated = true;
+                switchRoleButton.interactable = switchButtonActivated;
+            }
+        }
+        else
+        {
+            using var www = new WWW(GameManager.Instance.BASE_URL + "get_policexp/");
+            yield return www;
+            int xp = int.Parse(www.text);
+            GameManager.Instance.xp = xp;
+            switchImage.fillAmount = (float) GameManager.Instance.xp / XPthreshold;
+            if (GameManager.Instance.xp >= XPthreshold)
+            {
+                switchButtonActivated = true;
+                switchRoleButton.interactable = switchButtonActivated;
+            } 
+        }
+    }
+
     public IEnumerator getPoliceStations()
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_all_stations/");
@@ -178,6 +213,7 @@ public class UIManager : MonoBehaviour
     public void ClosePenalty()
     {
         penaltyUI.SetActive(false);
+        setXp();
     }
 
     public void ShopButton()
@@ -249,6 +285,7 @@ public class UIManager : MonoBehaviour
         form.AddField("cop_id", _currentCorruptionCopID);
         using var www = new WWW(GameManager.Instance.BASE_URL + "give_hint/", form);
         yield return www;
+        setXp();
         Debug.Log("Current robber xp: " + www.text);
         GameManager.Instance.xp = int.Parse(www.text);
         corruptionDialogue.SetActive(false);

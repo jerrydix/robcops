@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SwitchRoleDialogue: MonoBehaviour
 {
@@ -30,7 +31,8 @@ public class SwitchRoleDialogue: MonoBehaviour
         using var www = new WWW(GameManager.Instance.BASE_URL + "switch_role/");
         yield return www;
         yield return StartCoroutine(GameManager.Instance.getPlayerInfo());
-        gameObject.SetActive(false);
+        SceneManager.LoadScene(1);
+        //gameObject.SetActive(false);
     }
 
     public void PressCancelButton()
