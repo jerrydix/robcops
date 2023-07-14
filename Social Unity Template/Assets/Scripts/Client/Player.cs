@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
     private IEnumerator SendPlayerLocationAndRotationToServer()
     {
         yield return new WaitForSeconds(1f);
-
+        debugText.text += "IS CALLED";
         while (true)
         {
             WWWForm form = new WWWForm();
@@ -159,13 +159,15 @@ public class Player : MonoBehaviour
             var locationY =
                 _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(
                     CultureInfo.InvariantCulture).Replace(",", ".");
-            
+            debugText.text += "BEFORE POST LocX: " + locationX + "LocY: " + locationY;
+
             form.AddField("locationX", locationX);
             form.AddField("locationY", locationY);
             form.AddField("rotation", _rotation.ToString().Replace(", ", ":").Trim('"').Trim('(').Trim(')'));
 
             using var www = new WWW(GameManager.Instance.BASE_URL + "send_location/", form);
             yield return www;
+            debugText.text += www.text;
             Debug.Log("LocX: " + locationX + "LocY: " + locationY);
             yield return new WaitForSeconds(15f);
         }
