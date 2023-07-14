@@ -44,7 +44,8 @@ public class Player : MonoBehaviour
         _locationArrayEditorLocationProvider =
             GameObject.FindWithTag("EditorOnly").GetComponent<LocationArrayEditorLocationProvider>();
         _rotation = transform.rotation;
-        StartCoroutine(SendPlayerLocationAndRotationToServer());
+        SenPlayerPOLOZHENIE();
+        //StartCoroutine(SendPlayerLocationAndRotationToServer());
         distance = new List<double>();
         CalculateDistanceInEditor();
         CalculateDistanceWithImmediatePosition();
@@ -52,6 +53,12 @@ public class Player : MonoBehaviour
         {
             Debug.Log(distance[i] + " m");
         }
+
+    }
+
+    public void SenPlayerPOLOZHENIE()
+    {
+        StartCoroutine(SendPlayerLocationAndRotationToServer());
 
     }
 
