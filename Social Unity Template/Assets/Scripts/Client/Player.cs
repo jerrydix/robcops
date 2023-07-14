@@ -6,6 +6,7 @@ using Mapbox.Examples;
 using Mapbox.Unity.Location;
 using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Console = Mapbox.Unity.Utilities.Console;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
     private ImmediatePositionWithLocationProvider _immediatePositionWithLocationProvider;
     private LocationArrayEditorLocationProvider _locationArrayEditorLocationProvider;
     private Quaternion _rotation;
+    public TextMeshProUGUI debugText;
     
     public Faction faction { get; set; }
     public List<Friend> friends { get; set; }
@@ -57,6 +59,14 @@ public class Player : MonoBehaviour
         CalculateDistanceInEditor();
         CalculateDistanceWithImmediatePosition();
         _rotation = transform.localRotation;
+        var locationX =
+            _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(
+                CultureInfo.InvariantCulture).Replace(",", ".");
+       
+        var locationY =
+            _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(
+                CultureInfo.InvariantCulture).Replace(",", ".");
+        debugText.text = "X: " + locationX + " Y: " + locationY;
     }
 
 
