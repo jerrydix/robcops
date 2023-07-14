@@ -59,6 +59,7 @@ public class MemoryGameUIManager : MonoBehaviour
         //Win Screen Setup
         winScreen.SetActive(false);
         currentMemoryGame = Instantiate(memoryGame, gameObject.transform);
+        currentMemoryGame.transform.SetSiblingIndex(1);
 
         StartCoroutine(GetSafeHealth());
         StartCoroutine(GetDiff());
@@ -80,7 +81,7 @@ public class MemoryGameUIManager : MonoBehaviour
             _currentSafeHealth = remainingHealth;
             hpBar.setHp(_currentSafeHealth);
             currentMemoryGame = Instantiate(memoryGame, gameObject.transform);
-            currentMemoryGame.transform.SetSiblingIndex(0);
+            currentMemoryGame.transform.SetSiblingIndex(1);
         //}
     }
 
