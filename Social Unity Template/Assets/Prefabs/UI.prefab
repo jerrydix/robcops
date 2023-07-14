@@ -13962,9 +13962,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 642850096}
-        m_TargetAssemblyTypeName: SafeUIManager, Assembly-CSharp
-        m_MethodName: CancelButton
+      - m_Target: {fileID: 1509428502003932802}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: DeactivateDialogue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20345,9 +20345,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3019590222194986672}
-        m_TargetAssemblyTypeName: SafeUIManager, Assembly-CSharp
-        m_MethodName: CancelButton
+      - m_Target: {fileID: 1509428502003932802}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: DeactivateRURaidDialogue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

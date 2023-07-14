@@ -96,11 +96,21 @@ public class UIManager : MonoBehaviour
         safeUIManager.gameObject.SetActive(true);
         safeUIManager.InitializeSafe(level, locationX, locationY, createLobby, id);
     }
+    
+    public void DeactivateDialogue()
+    {
+        safeUIManager.gameObject.SetActive(false);
+    }
 
     public void ActivateRURaidDialogue(int level, double locationX, double locationY, bool createLobby, int id)
     {
         RURaidSafeUIManager.gameObject.SetActive(true);
         RURaidSafeUIManager.InitializeRURaidSafe(level, locationX, locationY, createLobby, id);
+    }
+    
+    public void DeactivateRURaidDialogue()
+    {
+        RURaidSafeUIManager.gameObject.SetActive(false);
     }
 
     public void GuildButton()
@@ -294,6 +304,11 @@ public class UIManager : MonoBehaviour
     public void PressCorruptionDialogueCloseButton()
     {
         corruptionDialogue.SetActive(false);
+    }
+    
+    public void CloseSafeInfoDialogue()
+    {
+        
     }
 
     public string DisplayMoney(int money)
