@@ -72,8 +72,8 @@ public class MemoryGameUIManager : MonoBehaviour
 
     private IEnumerator DoDamageToSafe()
     {
-        if (!timeOver && !gameComplete)
-        {
+        //if (!timeOver && !gameComplete)
+        //{
             using var www = new WWW(GameManager.Instance.BASE_URL + "damage_safe_memory" + "/");
             yield return www;
             var remainingHealth = int.Parse(www.text);
@@ -81,7 +81,7 @@ public class MemoryGameUIManager : MonoBehaviour
             hpBar.setHp(_currentSafeHealth);
             currentMemoryGame = Instantiate(memoryGame, gameObject.transform);
             currentMemoryGame.transform.SetSiblingIndex(0);
-        }
+        //}
     }
 
     private void Update()
