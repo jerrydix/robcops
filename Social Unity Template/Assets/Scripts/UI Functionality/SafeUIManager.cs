@@ -212,8 +212,6 @@ public class SafeUIManager : MonoBehaviour
                 wireCutterCountText.text = response[3];
             }
             lobbyCountText.text = response[0] + "/5";
-            c4CountText.text = response[2];
-            wireCutterCountText.text = response[3];
             var currentMembersText = "";
             for (var i = 4; i < response.Count - 1; i++) currentMembersText += response[i] + "\n";
             membersText.text = currentMembersText;
