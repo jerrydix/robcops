@@ -4,7 +4,6 @@ using Connections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class RotationGameUIManager : MonoBehaviour
 {
@@ -22,6 +21,7 @@ public class RotationGameUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moneyLose;
     [SerializeField] private TextMeshProUGUI totalMoneyWinScreen;
     [SerializeField] private TextMeshProUGUI totalMoneyLostScreen;
+    public bool gameComplete;
 
 
     private float _clickDamageMultiplier;
@@ -32,7 +32,6 @@ public class RotationGameUIManager : MonoBehaviour
     private string currentTime;
 
     private float finalTime;
-    public bool gameComplete;
 
     private string[] players;
 
@@ -64,10 +63,7 @@ public class RotationGameUIManager : MonoBehaviour
 
     public void DamageSafe()
     {
-        if (_currentSafeHealth > 0)
-        {
-            StartCoroutine(DoDamageToSafe());
-        }
+        if (_currentSafeHealth > 0) StartCoroutine(DoDamageToSafe());
     }
 
     private IEnumerator DoDamageToSafe()
@@ -138,17 +134,12 @@ public class RotationGameUIManager : MonoBehaviour
             using var www = new WWW(GameManager.Instance.BASE_URL + "get_arrest_status/");
             yield return www;
             Debug.Log("arrested: " + www.text);
-            string[] subs = www.text.Split("|");
-            bool arrested = bool.Parse(subs[0]);
-            int penalty = int.Parse(subs[1]);
+            var subs = www.text.Split("|");
+            var arrested = bool.Parse(subs[0]);
+            var penalty = int.Parse(subs[1]);
             if (arrested && penalty == 1)
-            {
                 StartCoroutine(FailedRobbery());
-            }
-            else if(arrested && penalty == 0)
-            {
-                StartCoroutine(FailedRobberyWithout());
-            }
+            else if (arrested && penalty == 0) StartCoroutine(FailedRobberyWithout());
             yield return new WaitForSeconds(0.2f);
         }
     }
@@ -183,13 +174,13 @@ public class RotationGameUIManager : MonoBehaviour
         if (GameManager.Instance.role)
             StartCoroutine(GameManager.Instance.resetRobUnionSafeID());
     }
-    
+
     private IEnumerator FailedRobberyWithout()
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "end_robbery_unsuccess_without_penalty" + "/");
         yield return www;
         Debug.Log(www.text);
-        
+
         remainingSafeHP.text = "Remaining Safe Health: " + _currentSafeHealth;
         moneyLose.text = "The cops released you without a fine";
         totalMoneyLostScreen.text = "New Balance: " + www.text;
@@ -200,8 +191,9 @@ public class RotationGameUIManager : MonoBehaviour
 
     public void CloseButton()
     {
+        Debug.Log("ASS SHIT");
         SceneManager.LoadScene(1);
     }
-    
+
     //todo add damage multiplier x2 effect
 }

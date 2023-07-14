@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -10,6 +9,7 @@ public class UIManager : MonoBehaviour
 {
     [FormerlySerializedAs("safeDialogue")] [FormerlySerializedAs("dialogue")] [SerializeField]
     private SafeUIManager safeUIManager;
+
     [SerializeField] private SafeUIManager RURaidSafeUIManager;
 
     [SerializeField] private SwitchRoleDialogue switchRoleDialogue;
@@ -20,7 +20,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button switchRoleButton;
     [SerializeField] private GameObject placeSafeButton;
     [SerializeField] private Image brassKnucklesImage;
-    [SerializeField] private Sprite brassKnucklesSprite; 
+    [SerializeField] private Sprite brassKnucklesSprite;
+    [SerializeField] private TextMeshProUGUI brassKnucklesText;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private GameObject safePlacingDialogue;
     [SerializeField] private GameObject corruptionDialogue;
@@ -34,14 +35,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI safeLvl2Text;
     [SerializeField] private TextMeshProUGUI safeLvl3Text;
     [SerializeField] private TextMeshProUGUI safeLvl4Text;
-    private int _currentCorruptionCopID;
     private readonly int _cost1 = 10000;
     private readonly int _cost2 = 100000;
     private readonly int _cost3 = 250000;
     private readonly int _cost4 = 1000000;
+    private int _currentCorruptionCopID;
 
     private int currentXP; //verbinden mit gamemanager
-    
+
     private bool switchButtonActivated;
 
     private int XPthreshold;
@@ -54,10 +55,7 @@ public class UIManager : MonoBehaviour
         //Debug.Log(GameManager.Instance.role);
         ChangePlaceSafeButton(GameManager.Instance.role);
 
-        if (GameManager.Instance.role)
-        {
-            ChangeBrassKnucklesSprite();
-        }
+        if (GameManager.Instance.role) ChangeBrassKnucklesSpriteAndText();
         //safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
     }
 
@@ -67,12 +65,17 @@ public class UIManager : MonoBehaviour
         //todo same for xp
     }
 
+    public void OnDestroy()
+    {
+        StopCoroutine(GameManager.Instance.updateSafesCoroutine);
+    }
+
     public void ActivateDialogue(int level, double locationX, double locationY, bool createLobby, int id)
     {
         safeUIManager.gameObject.SetActive(true);
         safeUIManager.InitializeSafe(level, locationX, locationY, createLobby, id);
     }
-    
+
     public void ActivateRURaidDialogue(int level, double locationX, double locationY, bool createLobby, int id)
     {
         RURaidSafeUIManager.gameObject.SetActive(true);
@@ -108,11 +111,6 @@ public class UIManager : MonoBehaviour
     public void deleteChildrenPanelRob()
     {
         foreach (Transform child in robPanel.transform) Destroy(child.gameObject);
-    }
-
-    public void OnDestroy()
-    {
-        StopCoroutine(GameManager.Instance.updateSafesCoroutine);
     }
 
     public void deleteChildrenPanelCop()
@@ -155,7 +153,7 @@ public class UIManager : MonoBehaviour
         penaltyUI.SetActive(true);
         penaltyUI.GetComponent<S_Penalty>().safeManager = safeManager;
     }
-    
+
     public void ClosePenalty()
     {
         penaltyUI.SetActive(false);
@@ -218,7 +216,7 @@ public class UIManager : MonoBehaviour
         _currentCorruptionCopID = copID;
         corruptionDialogue.SetActive(true);
     }
-    
+
     public void PressGiveHintButton()
     {
         StartCoroutine(GiveHint());
@@ -226,7 +224,7 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator GiveHint()
     {
-        WWWForm form = new WWWForm();
+        var form = new WWWForm();
         form.AddField("cop_id", _currentCorruptionCopID);
         using var www = new WWW(GameManager.Instance.BASE_URL + "give_hint/", form);
         yield return www;
@@ -312,9 +310,10 @@ public class UIManager : MonoBehaviour
     {
         placeSafeButton.SetActive(visible);
     }
-    
-    public void ChangeBrassKnucklesSprite()
+
+    public void ChangeBrassKnucklesSpriteAndText()
     {
         brassKnucklesImage.sprite = brassKnucklesSprite;
+        brassKnucklesText.text = "POWER OF JUSTICE";
     }
 }

@@ -13323,6 +13323,7 @@ MonoBehaviour:
   placeSafeButton: {fileID: 1140517682}
   brassKnucklesImage: {fileID: 3799954894014620804}
   brassKnucklesSprite: {fileID: 21300000, guid: c9bc891ee2507f04da6019fa1fd31b15, type: 3}
+  brassKnucklesText: {fileID: 2718621090145140837}
   moneyText: {fileID: 831611792}
   safePlacingDialogue: {fileID: 1148476708}
   corruptionDialogue: {fileID: 912803546}
