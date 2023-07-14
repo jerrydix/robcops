@@ -39,16 +39,19 @@ public class Player : MonoBehaviour
     void Start()
     {
         _spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
+        debugText2.text = "BEFORE";
         _immediatePositionWithLocationProvider =
             GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
-        _locationArrayEditorLocationProvider =
-            GameObject.FindWithTag("EditorOnly").GetComponent<LocationArrayEditorLocationProvider>();
+        //_locationArrayEditorLocationProvider =
+        //    GameObject.FindWithTag("EditorOnly").GetComponent<LocationArrayEditorLocationProvider>();
         _rotation = transform.rotation;
+        debugText2.text = "AFTER";
+
         SenPlayerPOLOZHENIE();
         //StartCoroutine(SendPlayerLocationAndRotationToServer());
         distance = new List<double>();
-        CalculateDistanceInEditor();
-        CalculateDistanceWithImmediatePosition();
+        //CalculateDistanceInEditor();
+        //CalculateDistanceWithImmediatePosition();
         for (int i = 0; i < distance.Count; i++)
         {
             Debug.Log(distance[i] + " m");
@@ -66,8 +69,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CalculateDistanceInEditor();
-        CalculateDistanceWithImmediatePosition();
+        //CalculateDistanceInEditor();
+        //CalculateDistanceWithImmediatePosition();
         _rotation = transform.localRotation;
         var locationX =
             _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(
