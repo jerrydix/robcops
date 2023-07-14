@@ -206,6 +206,8 @@ public class SafeUIManager : MonoBehaviour
             }
             
             lobbyCountText.text = response[0] + "/5";
+            if (GameObject.Find("RURaidUI").activeInHierarchy) isRURaid = true;
+            
             if (!isRURaid)
             {
                 c4CountText.text = response[2];
