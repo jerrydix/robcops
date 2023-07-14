@@ -35,6 +35,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI safeLvl2Text;
     [SerializeField] private TextMeshProUGUI safeLvl3Text;
     [SerializeField] private TextMeshProUGUI safeLvl4Text;
+    [SerializeField] private Image switchImage;
+    [SerializeField] private Image switchImageBack;
+    public Sprite copIcon;
+    public Sprite robIcon;
+
     private readonly int _cost1 = 10000;
     private readonly int _cost2 = 100000;
     private readonly int _cost3 = 250000;
@@ -45,7 +50,7 @@ public class UIManager : MonoBehaviour
 
     private bool switchButtonActivated;
 
-    private int XPthreshold;
+    private int XPthreshold = 100;
     // verbinden mit game manager
     //get current role gamemanager
 
@@ -54,8 +59,18 @@ public class UIManager : MonoBehaviour
         switchRoleButton.interactable = switchButtonActivated;
         //Debug.Log(GameManager.Instance.role);
         ChangePlaceSafeButton(GameManager.Instance.role);
-
-        if (GameManager.Instance.role) ChangeBrassKnucklesSpriteAndText();
+        Debug.Log(GameManager.Instance.xp);
+        switchImage.fillAmount = (float) GameManager.Instance.xp / XPthreshold;
+        Debug.Log((float) GameManager.Instance.xp / XPthreshold);
+        if (GameManager.Instance.role)
+        {
+            ChangeBrassKnucklesSpriteAndText();
+        }
+        else
+        {
+            ChangeSwitchIconToCop();
+        }
+        
         //safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
     }
 
@@ -68,6 +83,12 @@ public class UIManager : MonoBehaviour
     public void OnDestroy()
     {
         StopCoroutine(GameManager.Instance.updateSafesCoroutine);
+    }
+
+    public void ChangeSwitchIconToCop()
+    {
+        switchImageBack.sprite = copIcon;
+        switchImage.sprite = copIcon;
     }
 
     public void ActivateDialogue(int level, double locationX, double locationY, bool createLobby, int id)

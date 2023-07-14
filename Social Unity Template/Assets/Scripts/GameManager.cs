@@ -584,11 +584,11 @@ public class
         Instance.userId = int.Parse(list[10]);
 
         int currentXP;
-        if (!Instance.role && int.TryParse(list[11], out currentXP))
+        if (!Instance.role && int.TryParse(list[12], out currentXP))
         {
             Instance.xp = currentXP;
         }
-        else if (int.TryParse(list[12], out currentXP))
+        else if (int.TryParse(list[11], out currentXP))
             Instance.xp = currentXP;
         else
             Instance.xp = 0;
