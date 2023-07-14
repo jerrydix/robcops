@@ -59,6 +59,7 @@ public class MemoryGameUIManager : MonoBehaviour
         //Win Screen Setup
         winScreen.SetActive(false);
         currentMemoryGame = Instantiate(memoryGame, gameObject.transform);
+        currentMemoryGame.transform.SetSiblingIndex(1);
 
         StartCoroutine(GetSafeHealth());
         StartCoroutine(GetDiff());
@@ -72,16 +73,16 @@ public class MemoryGameUIManager : MonoBehaviour
 
     private IEnumerator DoDamageToSafe()
     {
-        if (!timeOver && !gameComplete)
-        {
+        //if (!timeOver && !gameComplete)
+        //{
             using var www = new WWW(GameManager.Instance.BASE_URL + "damage_safe_memory" + "/");
             yield return www;
             var remainingHealth = int.Parse(www.text);
             _currentSafeHealth = remainingHealth;
             hpBar.setHp(_currentSafeHealth);
             currentMemoryGame = Instantiate(memoryGame, gameObject.transform);
-            currentMemoryGame.transform.SetSiblingIndex(0);
-        }
+            currentMemoryGame.transform.SetSiblingIndex(1);
+        //}
     }
 
     private void Update()

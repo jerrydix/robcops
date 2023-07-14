@@ -30,7 +30,8 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "87.143.146.147",
     "www.robcops.de",
-    "robcops.de"
+    "robcops.de",
+    "80.135.121.237",
 ]
 
 # Application definition
