@@ -58,6 +58,7 @@ public class Player : MonoBehaviour
 
     public void SenPlayerPOLOZHENIE()
     {
+        debugText2.text = "START COR";
         StartCoroutine(SendPlayerLocationAndRotationToServer());
 
     }
@@ -154,8 +155,10 @@ public class Player : MonoBehaviour
         return xp >= xpRequiredForFactionChange;
     }
 
-    private IEnumerator SendPlayerLocationAndRotationToServer()
+    public IEnumerator SendPlayerLocationAndRotationToServer()
     {
+        debugText2.text = "IS CALLED 222222";
+
         yield return new WaitForSeconds(1f);
         debugText2.text += "IS CALLED";
         while (true)
