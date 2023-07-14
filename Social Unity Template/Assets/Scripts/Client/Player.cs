@@ -39,13 +39,13 @@ public class Player : MonoBehaviour
     void Start()
     {
         _spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
-        debugText2.text = "BEFORE";
+        //debugText2.text = "BEFORE";
         _immediatePositionWithLocationProvider =
             GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
         //_locationArrayEditorLocationProvider =
         //    GameObject.FindWithTag("EditorOnly").GetComponent<LocationArrayEditorLocationProvider>();
         _rotation = transform.rotation;
-        debugText2.text = "AFTER";
+       //debugText2.text = "AFTER";
 
         SenPlayerPOLOZHENIE();
         //StartCoroutine(SendPlayerLocationAndRotationToServer());
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
 
     public void SenPlayerPOLOZHENIE()
     {
-        debugText2.text = "START COR";
+        //debugText2.text = "START COR";
         StartCoroutine(SendPlayerLocationAndRotationToServer());
 
     }
@@ -72,14 +72,14 @@ public class Player : MonoBehaviour
         //CalculateDistanceInEditor();
         //CalculateDistanceWithImmediatePosition();
         _rotation = transform.localRotation;
-        var locationX =
-            _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(
-                CultureInfo.InvariantCulture).Replace(",", ".");
+        //var locationX =
+        //    _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(
+       //         CultureInfo.InvariantCulture).Replace(",", ".");
        
-        var locationY =
-            _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(
-                CultureInfo.InvariantCulture).Replace(",", ".");
-        debugText.text = "X: " + locationX + " Y: " + locationY;
+       // var locationY =
+       //     _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(
+        //        CultureInfo.InvariantCulture).Replace(",", ".");
+       // debugText.text = "X: " + locationX + " Y: " + locationY;
     }
 
 
@@ -160,10 +160,10 @@ public class Player : MonoBehaviour
 
     public IEnumerator SendPlayerLocationAndRotationToServer()
     {
-        debugText2.text = "IS CALLED 222222";
+       // debugText2.text = "IS CALLED 222222";
 
         yield return new WaitForSeconds(1f);
-        debugText2.text += "IS CALLED";
+       // debugText2.text += "IS CALLED";
         while (true)
         {
             WWWForm form = new WWWForm();
@@ -174,7 +174,7 @@ public class Player : MonoBehaviour
             var locationY =
                 _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(
                     CultureInfo.InvariantCulture).Replace(",", ".");
-            debugText2.text += "BEFORE POST LocX: " + locationX + "LocY: " + locationY;
+           // debugText2.text += "BEFORE POST LocX: " + locationX + "LocY: " + locationY;
 
             form.AddField("locationX", locationX);
             form.AddField("locationY", locationY);
@@ -182,7 +182,7 @@ public class Player : MonoBehaviour
 
             using var www = new WWW(GameManager.Instance.BASE_URL + "send_location/", form);
             yield return www;
-            debugText2.text += www.text;
+            //debugText2.text += www.text;
             Debug.Log("LocX: " + locationX + "LocY: " + locationY);
             yield return new WaitForSeconds(15f);
         }

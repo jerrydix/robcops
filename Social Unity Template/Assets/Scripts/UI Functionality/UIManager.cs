@@ -353,7 +353,7 @@ public class UIManager : MonoBehaviour
         if (GameManager.Instance.money < _cost2) return;
         GameManager.Instance.InitializeSafe(2, _cost2);
         safePlacingDialogue.SetActive(false);
-        placeSafeButton.SetActive(false);
+        placeSafeButton.SetActive(true);
     }
 
     public void PlaceLevel3SafeButton()

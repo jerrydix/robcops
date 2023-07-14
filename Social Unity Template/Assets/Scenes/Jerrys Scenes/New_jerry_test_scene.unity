@@ -2761,6 +2761,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8966197344919256690, guid: 59052ade3167a4dd288004216c06b593, type: 3}
+      propertyPath: _useNegativeAngle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8966197344919256690, guid: 59052ade3167a4dd288004216c06b593, type: 3}
       propertyPath: _useDeviceOrientation
       value: 1
       objectReference: {fileID: 0}
