@@ -146,7 +146,7 @@ public class UIManager : MonoBehaviour
             var script = element.GetComponent<S_ListElement>();
             var id = int.Parse(stations[i].Split(", ")[0]);
             var nennung = stations[i].Split(", ")[1];
-            script.SetParameters(i + 1 + ".", nennung, id, false, false);
+            script.SetParameters(i + 1 + ".", nennung, id, false, true);
         }
     }
 
