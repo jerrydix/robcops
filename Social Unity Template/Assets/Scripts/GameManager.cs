@@ -111,7 +111,7 @@ public class
             Debug.Log(www.text);
             var money = int.Parse(www.text);
             Instance.money = money;
-            yield return new WaitForSeconds(60f);
+            yield return new WaitForSeconds(30f);
         }
     }
 
@@ -218,7 +218,7 @@ public class
         yield return www;
 
         yield return UpdateSafesAfterPlacing();
-        yield return new WaitForSeconds(60f);
+        yield return new WaitForSeconds(30f);
         updateSafesCoroutine = StartCoroutine(UpdateSafes());
     }
 
