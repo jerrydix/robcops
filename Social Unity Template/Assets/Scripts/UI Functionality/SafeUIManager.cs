@@ -206,7 +206,8 @@ public class SafeUIManager : MonoBehaviour
             }
             
             lobbyCountText.text = response[0] + "/5";
-            if (GameObject.Find("RURaidUI").activeInHierarchy) isRURaid = true;
+            if (GameObject.Find("RURaidUI") != null && GameObject.Find("RURaidUI").activeInHierarchy)
+                isRURaid = true;
             
             if (!isRURaid)
             {
@@ -223,7 +224,8 @@ public class SafeUIManager : MonoBehaviour
 
     private IEnumerator StartRobbery()
     {
-        if (GameObject.Find("RURaidUI").activeInHierarchy) isRURaid = true;
+        if (GameObject.Find("RURaidUI") != null && GameObject.Find("RURaidUI").activeInHierarchy)
+            isRURaid = true;
         using var www = new WWW(GameManager.Instance.BASE_URL + "start_robbery" + "/");
         yield return www;
         Debug.Log(www.text);
