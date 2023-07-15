@@ -322,7 +322,7 @@ def give_hint(request):
                 generate_robunion_by_id(copId)
             return HttpResponse(request.user.player.policeXP)
         else:
-            return HttpResponse("No police Station")
+            return HttpResponse("0|Cop has no police station")
 
 
 @login_required
@@ -770,7 +770,7 @@ def buy_new_machine(request):
         return HttpResponse("0|False method")
     else:
         if request.user.player.robUnion.machines >= 6:
-            return HttpResponse(request.user.player.robUnion.machines)
+            return HttpResponse("0|You've reached the maximum machine capacity!")
         cost = request.POST["cost"]
         if request.user.player.robUnion.guildMoney < int(cost):
             return HttpResponse(0)

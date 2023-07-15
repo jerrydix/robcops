@@ -44,6 +44,10 @@ public class OtherPlayer : MonoBehaviour
             Debug.Log("Cop pressed");
             _uiManager.ActivateCorruptionDialogue(id);
         }
+        else
+        {
+            GameManager.Instance.errorMessage.PopUp("This cop is too far away!");
+        }
     }
 
     public float getDistanceToOtherPlayer()

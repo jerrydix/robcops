@@ -299,10 +299,17 @@ public class UIManager : MonoBehaviour
         form.AddField("cop_id", _currentCorruptionCopID);
         using var www = new WWW(GameManager.Instance.BASE_URL + "give_hint/", form);
         yield return www;
-        setXp();
-        Debug.Log("Current robber xp: " + www.text);
-        GameManager.Instance.xp = int.Parse(www.text);
-        corruptionDialogue.SetActive(false);
+        if (!www.text.Split("|")[0].Equals("0"))
+        {
+            setXp();
+            Debug.Log("Current robber xp: " + www.text);
+            GameManager.Instance.xp = int.Parse(www.text);
+            corruptionDialogue.SetActive(false);
+        }
+        else
+        {
+            GameObject.Find("Error").GetComponent<S_Error>().PopUp(www.text.Split("|")[1]);
+        }
     }
 
     public void PressCorruptionDialogueCloseButton()
@@ -346,7 +353,11 @@ public class UIManager : MonoBehaviour
 
     public void PlaceLevel1SafeButton()
     {
-        if (GameManager.Instance.money < _cost1) return;
+        if (GameManager.Instance.money < _cost1)
+        {
+            GameManager.Instance.errorMessage.PopUp("You haven't enough money. Have a good day!");
+            return;
+        }
         GameManager.Instance.InitializeSafe(1, _cost1);
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
@@ -354,7 +365,11 @@ public class UIManager : MonoBehaviour
 
     public void PlaceLevel2SafeButton()
     {
-        if (GameManager.Instance.money < _cost2) return;
+        if (GameManager.Instance.money < _cost2)
+        {
+            GameManager.Instance.errorMessage.PopUp("You haven't enough money. Have a good day!");
+            return;
+        }
         GameManager.Instance.InitializeSafe(2, _cost2);
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
@@ -362,7 +377,11 @@ public class UIManager : MonoBehaviour
 
     public void PlaceLevel3SafeButton()
     {
-        if (GameManager.Instance.money < _cost3) return;
+        if (GameManager.Instance.money < _cost3)
+        {
+            GameManager.Instance.errorMessage.PopUp("You haven't have enough money. Have a good day!");
+            return;
+        }
         GameManager.Instance.InitializeSafe(3, _cost3);
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
@@ -371,7 +390,11 @@ public class UIManager : MonoBehaviour
 
     public void PlaceLevel4SafeButton()
     {
-        if (GameManager.Instance.money < _cost4) return;
+        if (GameManager.Instance.money < _cost4)
+        {
+            GameManager.Instance.errorMessage.PopUp("You haven't enough money. Have a good day!");
+            return;
+        }
         GameManager.Instance.InitializeSafe(4, _cost4);
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);

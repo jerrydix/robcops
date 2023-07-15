@@ -105,6 +105,10 @@ public class S_RobUnionController : MonoBehaviour
         using var www = new WWW(GameManager.Instance.BASE_URL + "buy_new_machine/", form);
         yield return www;
         Debug.Log(www.text);
+        if (www.text.Split("|")[0] == "0")
+        {
+            GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
+        }
         StartCoroutine(CreateUnion());
         StartCoroutine(GetPlayerMoney());
         StartCoroutine(GetMoney());
@@ -116,7 +120,6 @@ public class S_RobUnionController : MonoBehaviour
         yield return www;
         int money = int.Parse(www.text);
         DisplayMoney(money);
-        
     }
 
     public IEnumerator GetPlayerMoney()
@@ -253,6 +256,10 @@ public class S_RobUnionController : MonoBehaviour
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "buy_powerup/" + item + "/");
         yield return www;
+        if (www.text.Split("|")[0] == "0")
+        {
+            GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
+        }
         Debug.Log(www.text);
         int result = -1;
         if (int.TryParse(www.text, out result))
