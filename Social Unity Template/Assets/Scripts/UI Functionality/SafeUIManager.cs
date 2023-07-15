@@ -88,7 +88,7 @@ public class SafeUIManager : MonoBehaviour
 
     public void CancelButton()
     {
-        if (_createLobby)
+        if (_lobbyPlayerCount == 1)
             StartCoroutine(DisbandLobby());
         else
             StartCoroutine(LeaveLobby());
