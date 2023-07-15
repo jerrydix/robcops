@@ -197,7 +197,6 @@ public class SafeUIManager : MonoBehaviour
         {
             using var www = new WWW(GameManager.Instance.BASE_URL + "check_lobby_info" + "/");
             yield return www;
-          
             var response = S_Parser.ParseResponse(www.text);
             Debug.Log(www.text);
             if (Convert.ToBoolean(response[1]))

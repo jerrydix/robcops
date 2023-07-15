@@ -109,11 +109,11 @@ public class SafeManager : MonoBehaviour
     private IEnumerator giveXP()
     {
         WWWForm form = new WWWForm();
-        form.AddField("xp", 50);
+        form.AddField("xp", 10);
         using var www = new WWW(GameManager.Instance.BASE_URL + "edit_robberxp" + "/", form);
         yield return www;
         Debug.Log("Current XP: " + www.text);
-        GameManager.Instance.successMessage.PopUp("You gained " + www.text + "Robber XP");
+        GameManager.Instance.successMessage.PopUp("You gained " + www.text + "Robber XP!");
         GameManager.Instance.xp = int.Parse(www.text);
     }
 
