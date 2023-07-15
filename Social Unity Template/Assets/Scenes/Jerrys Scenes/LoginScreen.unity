@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1105,7 +1105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d40d656a8d86a564c96030eed554c858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BASE_URL: http://80.135.121.237/
+  BASE_URL: http://robcops.de/
   socialTab: members/
   manager: {fileID: 968689975}
   roleSwitchScreen: {fileID: 1083070754}
@@ -4215,7 +4215,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5964815412879233282, guid: 36b7034ccef7aca40a8fd24e4833e15c, type: 3}
       propertyPath: BASE_URL
-      value: http://80.135.121.237/
+      value: http://robcops.de/
       objectReference: {fileID: 0}
     - target: {fileID: 5964815412879233283, guid: 36b7034ccef7aca40a8fd24e4833e15c, type: 3}
       propertyPath: m_RootOrder
