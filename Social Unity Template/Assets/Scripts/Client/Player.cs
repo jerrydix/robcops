@@ -184,7 +184,7 @@ public class Player : MonoBehaviour
             yield return www;
             //debugText2.text += www.text;
             Debug.Log("LocX: " + locationX + "LocY: " + locationY);
-            yield return new WaitForSeconds(15f);
+            yield return new WaitForSeconds(7f);
         }
     }
 

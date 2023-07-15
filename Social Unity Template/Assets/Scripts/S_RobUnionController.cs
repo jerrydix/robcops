@@ -265,7 +265,7 @@ public class S_RobUnionController : MonoBehaviour
         int result = -1;
         if (int.TryParse(www.text, out result))
         {
-            GameManager.Instance.successMessage.PopUp("Power up added to inventory!");
+            GameManager.Instance.successMessage.PopUp("Power up added to RobUnion inventory!");
             DisplayMoney(result);
         }
         else

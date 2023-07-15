@@ -248,7 +248,7 @@ public class
         yield return www;
 
         yield return UpdateSafesAfterPlacing();
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(20f);
         updateSafesCoroutine = StartCoroutine(UpdateSafes());
     }
     
@@ -339,7 +339,7 @@ public class
             }
             else
             {
-                yield return new WaitForSeconds(30f);
+                yield return new WaitForSeconds(20f);
             }
         }
     }
@@ -434,7 +434,7 @@ public class
         var textFinal = temp[0] + "," + temp[1];
         locations.Add(textFinal);
         yield return UpdateSafesAfterPlacing();
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(20f);
         updateSafesCoroutine = StartCoroutine(UpdateSafes());
     }
 
