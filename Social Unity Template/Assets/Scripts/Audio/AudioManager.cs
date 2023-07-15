@@ -116,5 +116,14 @@ public class AudioManager : MonoBehaviour
             soundVolumeButton.GetComponent<Image>().color = Color.white;
         }
     }
+
+    public void MusicVolume(float value)
+    {
+        Array.Find(sounds, sound => sound.name == "Theme").source.volume = value;
+    }
+    public void ButtonVolume(float value)
+    {
+        Array.Find(sounds, sound => sound.name == "ButtonPressed").source.volume = value;
+    }
     
 }
