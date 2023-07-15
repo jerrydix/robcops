@@ -303,6 +303,7 @@ public class UIManager : MonoBehaviour
         {
             setXp();
             Debug.Log("Current robber xp: " + www.text);
+            GameManager.Instance.successMessage.PopUp("You gave a cop a hint and you now have " + www.text + " corruption xp!");
             GameManager.Instance.xp = int.Parse(www.text);
             corruptionDialogue.SetActive(false);
         }

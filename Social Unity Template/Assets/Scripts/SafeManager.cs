@@ -113,6 +113,7 @@ public class SafeManager : MonoBehaviour
         using var www = new WWW(GameManager.Instance.BASE_URL + "edit_robberxp" + "/", form);
         yield return www;
         Debug.Log("Current XP: " + www.text);
+        GameManager.Instance.successMessage.PopUp("You gained " + www.text + "Robber XP");
         GameManager.Instance.xp = int.Parse(www.text);
     }
 
