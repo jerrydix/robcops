@@ -17,7 +17,8 @@ class Safe(models.Model):
     # 3 = breakIn
     status = models.IntegerField(default=1)
     timePlaced = models.DateTimeField(default=datetime.datetime.now(), auto_now=False, auto_now_add=False)
-    author = models.OneToOneField(User, null=True, default=None, on_delete=models.CASCADE, blank=True)
+    author = models.ForeignKey(User, null=True, related_name="placed_safes", default=None, on_delete=models.CASCADE,
+                               blank=True)
     isRobUnion = models.IntegerField(default=0)
 
 

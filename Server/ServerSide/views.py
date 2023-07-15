@@ -280,6 +280,14 @@ def upgrade_weapons(request):
 
 
 @login_required
+def check_safes(request):
+    for safe in request.user.placed_safes.all():
+        if safe.status == 3:
+            return HttpResponse("0|One of your safes is being broken into!")
+    return HttpResponse("1")
+
+
+@login_required
 def upgrade_armor(request):
     if request.method != 'POST':
         return HttpResponse('Incorrect request method')
