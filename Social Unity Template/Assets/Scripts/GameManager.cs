@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Connections;
 using Mapbox.Examples;
+using Mapbox.Unity.Map;
 using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class
     public int amountOfClicks;
 
     public float clickPower;
+    private AbstractMap _map;
 
     //public S_UserLogin client;
     public int guild;
@@ -75,6 +77,7 @@ public class
         {
             Destroy(gameObject);
         }
+        
     }
 
 
@@ -97,6 +100,7 @@ public class
             updateSafesCoroutine = StartCoroutine(UpdateSafes());
             updateOtherPlayersCoroutine = StartCoroutine(UpdateOtherPlayers());
             if (Instance.role == false) StartCoroutine(checkDistanceToSafes());
+            _map = GameObject.FindWithTag("map").GetComponent<AbstractMap>();
         }
         else
         {
@@ -202,6 +206,13 @@ public class
 
     public void InitializeSafe(int level, int cost)
     {
+        //TODO COMMENT OUT FOR DEMO
+        if (!CheckIsFreePos(ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(CultureInfo.InvariantCulture),
+                ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(CultureInfo.InvariantCulture)))
+        {
+            Debug.Log("Cannot Spawn Safe In InitializeSafe, go outside");
+            return;
+        }
         StartCoroutine(getMoneyAndSetLevel(level, cost));
     }
 
@@ -216,6 +227,15 @@ public class
                 CultureInfo.InvariantCulture);
         //11.6713515.ToString().Replace(",", ".");
 
+        /*
+        if (!CheckIsFreePos(locationX,locationY))
+        {
+            Debug.Log("Cannot Spawn Safe, Go outside!");
+            yield break;
+        }
+        */
+        
+
         var form = new WWWForm();
         form.AddField("level", level);
         form.AddField("hp", hp);
@@ -228,6 +248,33 @@ public class
         yield return UpdateSafesAfterPlacing();
         yield return new WaitForSeconds(30f);
         updateSafesCoroutine = StartCoroutine(UpdateSafes());
+    }
+    
+    private bool CheckIsFreePos(string locationX, string locationY)
+    {
+        var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        cube.GetComponent<Collider>().enabled = false;
+        cube.GetComponent<MeshRenderer>().enabled = false;
+        var temp = locationX + "," + locationY;
+        var temp2 = Conversions.StringToLatLon(temp);
+        cube.transform.position = _map.GeoToWorldPosition(temp2);
+        cube.transform.position = new Vector3(cube.transform.position.x, cube.transform.position.y + 2,
+            cube.transform.position.z);
+        Vector3 newVector = cube.transform.position;
+            RaycastHit hit;
+        if (Physics.Raycast(newVector, Vector3.down, out hit, Mathf.Infinity))
+        {
+            GameObject other = hit.collider.gameObject;
+            if (other.CompareTag("Building") || other.CompareTag("Safe"))
+            {
+                Debug.Log("hit");
+                cube.Destroy();
+                return false;
+            }
+        }
+        Debug.Log("no hit");
+        cube.Destroy();
+        return true;
     }
 
     public IEnumerator UpdateSafes()
