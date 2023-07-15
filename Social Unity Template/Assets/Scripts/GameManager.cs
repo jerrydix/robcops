@@ -37,6 +37,7 @@ public class
     public int xp;
     public int currentRobUnionSafeID; //TODO make request for each when this is needed
     private bool firstLoadPlayers;
+    public bool safe;
 
     private bool firstLoadSafes;
     //private List<string> locations = new List<string>();
@@ -50,6 +51,7 @@ public class
     public Coroutine updateSafesCoroutine;
 
     public S_Error errorMessage;
+    public S_Success successMessage;
     
     
 
@@ -101,6 +103,10 @@ public class
             updateOtherPlayersCoroutine = StartCoroutine(UpdateOtherPlayers());
             if (Instance.role == false) StartCoroutine(checkDistanceToSafes());
             _map = GameObject.FindWithTag("map").GetComponent<AbstractMap>();
+            if (GameObject.Find("Success").GetComponent<S_Success>() != null)
+            {
+                successMessage = GameObject.Find("Success").GetComponent<S_Success>();
+            }
         }
         else
         {
@@ -112,6 +118,8 @@ public class
         {
             errorMessage = GameObject.Find("Error").GetComponent<S_Error>();
         }
+        
+       
     }
 
     public IEnumerator GetPlayerMoney()
@@ -204,16 +212,17 @@ public class
     }
 
 
-    public void InitializeSafe(int level, int cost)
+    public bool InitializeSafe(int level, int cost)
     {
         //TODO COMMENT OUT FOR DEMO
         if (!CheckIsFreePos(ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(CultureInfo.InvariantCulture),
                 ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(CultureInfo.InvariantCulture)))
         {
-            Debug.Log("Cannot Spawn Safe In InitializeSafe, go outside");
-            return;
+            //Debug.Log("Cannot Spawn Safe In InitializeSafe, go outside");
+            return false;
         }
         StartCoroutine(getMoneyAndSetLevel(level, cost));
+        return true;
     }
 
     public IEnumerator SendSafeToServer()
@@ -227,14 +236,6 @@ public class
                 CultureInfo.InvariantCulture);
         //11.6713515.ToString().Replace(",", ".");
 
-        /*
-        if (!CheckIsFreePos(locationX,locationY))
-        {
-            Debug.Log("Cannot Spawn Safe, Go outside!");
-            yield break;
-        }
-        */
-        
 
         var form = new WWWForm();
         form.AddField("level", level);
@@ -258,7 +259,7 @@ public class
         var temp = locationX + "," + locationY;
         var temp2 = Conversions.StringToLatLon(temp);
         cube.transform.position = _map.GeoToWorldPosition(temp2);
-        cube.transform.position = new Vector3(cube.transform.position.x, cube.transform.position.y + 2,
+        cube.transform.position = new Vector3(cube.transform.position.x, cube.transform.position.y + 5,
             cube.transform.position.z);
         Vector3 newVector = cube.transform.position;
             RaycastHit hit;
@@ -267,12 +268,13 @@ public class
             GameObject other = hit.collider.gameObject;
             if (other.CompareTag("Building") || other.CompareTag("Safe"))
             {
-                Debug.Log("hit");
+                
+                //Debug.Log("hit");
                 cube.Destroy();
                 return false;
             }
         }
-        Debug.Log("no hit");
+        //Debug.Log("no hit");
         cube.Destroy();
         return true;
     }

@@ -358,7 +358,13 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.errorMessage.PopUp("You haven't got enough money. Have a good day!");
             return;
         }
-        GameManager.Instance.InitializeSafe(1, _cost1);
+
+        if (!GameManager.Instance.InitializeSafe(1, _cost1))
+        {
+            GameManager.Instance.errorMessage.PopUp("Cannot Spawn Safe on an occupied area, go somewhere else!");
+            return;
+        }
+        GameManager.Instance.successMessage.PopUp("Successfully spawned a Level 1 safe!");
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
     }
@@ -370,7 +376,12 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.errorMessage.PopUp("You haven't got enough money. Have a good day!");
             return;
         }
-        GameManager.Instance.InitializeSafe(2, _cost2);
+        if (!GameManager.Instance.InitializeSafe(2, _cost2))
+        {
+            GameManager.Instance.errorMessage.PopUp("Cannot Spawn Safe on an occupied area, go somewhere else!");
+            return;
+        }
+        GameManager.Instance.successMessage.PopUp("Successfully spawned a Level 2 safe!");
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
     }
@@ -382,7 +393,12 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.errorMessage.PopUp("You haven't have enough money. Have a good day!");
             return;
         }
-        GameManager.Instance.InitializeSafe(3, _cost3);
+        if (!GameManager.Instance.InitializeSafe(3, _cost3))
+        {
+            GameManager.Instance.errorMessage.PopUp("Cannot Spawn Safe on an occupied area, go somewhere else!");
+            return;
+        }
+        GameManager.Instance.successMessage.PopUp("Successfully spawned a Level 3 safe!");
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
     }
@@ -395,7 +411,12 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.errorMessage.PopUp("You haven't enough money. Have a good day!");
             return;
         }
-        GameManager.Instance.InitializeSafe(4, _cost4);
+        if (!GameManager.Instance.InitializeSafe(4, _cost4))
+        {
+            GameManager.Instance.errorMessage.PopUp("Cannot Spawn Safe on an occupied area, go somewhere else!");
+            return;
+        }
+        GameManager.Instance.successMessage.PopUp("Successfully spawned a Level 4 safe!");
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
     }
