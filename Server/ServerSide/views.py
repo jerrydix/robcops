@@ -629,7 +629,7 @@ def upgrade_click_power(request):
     else:
         cost = request.POST["cost"]
         if request.user.player.money < int(cost):
-            return HttpResponse("0|You haven't got enough money")
+            return HttpResponse("0|You haven't got enough money!")
         else:
             request.user.player.money -= int(cost)
             request.user.player.clickPower += 1
