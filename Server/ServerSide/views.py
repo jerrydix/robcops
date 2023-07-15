@@ -187,7 +187,7 @@ def create_robunion(request):
         request.user.player.policeStation = None
         request.user.player.save()
     else:
-        return HttpResponse("You are policeman")
+        return HttpResponse("You are a policeman!")
     return HttpResponse(robunion.id)
 
 
@@ -271,7 +271,7 @@ def upgrade_weapons(request):
     else:
         cost = request.POST["cost"]
         if request.user.player.policeStation.guildMoney < int(cost):
-            return HttpResponse("0|Not Enough Money")
+            return HttpResponse("0|Not enough money!")
         else:
             request.user.player.policeStation.guildMoney -= int(cost)
             request.user.player.policeStation.weaponLvl += 1
@@ -286,7 +286,7 @@ def upgrade_armor(request):
     else:
         cost = request.POST["cost"]
         if request.user.player.policeStation.guildMoney < int(cost):
-            return HttpResponse("0|Not Enough Money")
+            return HttpResponse("0|Not enough money!")
         else:
             request.user.player.policeStation.guildMoney -= int(cost)
             request.user.player.policeStation.armorLvl += 1
@@ -322,7 +322,7 @@ def give_hint(request):
                 generate_robunion_by_id(copId)
             return HttpResponse(request.user.player.policeXP)
         else:
-            return HttpResponse("0|Cop has no police station")
+            return HttpResponse("0|This cop has no police station!")
 
 
 @login_required
@@ -431,7 +431,7 @@ def joinToEvent(request, safeId):
             response += member.user.username + "|"
         return HttpResponse(response)
     else:
-        return HttpResponse("0|You can't join the event")
+        return HttpResponse("0|You can't join the event!")
 
 
 @login_required
@@ -446,7 +446,7 @@ def joinToRaid(request, safeId):
             response += member.user.username + "|"
         return HttpResponse(response)
     else:
-        return HttpResponse("0|You can't join the event")
+        return HttpResponse("0|You can't join the event!")
 
 
 @login_required
@@ -542,7 +542,7 @@ def buy_powerup(request, item):
     members = union.robUnion.all()
     if item == 0:
         if union.guildMoney < 1000:
-            return HttpResponse("0|Not enough money")
+            return HttpResponse("0|Not enough money!")
         else:
             union.guildMoney -= 1000
             for a in members:
@@ -552,7 +552,7 @@ def buy_powerup(request, item):
             return HttpResponse(union.guildMoney)
     elif item == 1:
         if union.guildMoney < 5000:
-            return HttpResponse("0|Not enough money")
+            return HttpResponse("0|Not enough money!")
         else:
             union.guildMoney -= 5000
             for a in members:
@@ -566,7 +566,7 @@ def buy_powerup(request, item):
 @login_required
 def join_rob_union(request, robId):
     if request.user.player.role == 1:
-        return HttpResponse("0| You are cop. Have a good day")
+        return HttpResponse("0|You are a cop. Have a good day!")
     else:
         request.user.player.policeStation = None
         union = RobUnion.objects.get(id=robId)
@@ -578,7 +578,7 @@ def join_rob_union(request, robId):
 @login_required
 def join_police_station(request, policeId):
     if request.user.player.role == 0:
-        return HttpResponse("0| You are rob. Have a good day")
+        return HttpResponse("0|You are a robber. Have a good day!")
     else:
         request.user.player.robUnion = None
         station = PoliceStation.objects.get(id=policeId)
@@ -613,7 +613,7 @@ def upgrade_amount_of_clicks(request):
     else:
         cost = request.POST["cost"]
         if request.user.player.money < int(cost):
-            return HttpResponse("0|You have not enough money")
+            return HttpResponse("0|You haven't got enough money!")
         else:
             request.user.player.money -= int(cost)
             request.user.player.amountOfClicks += 1
@@ -629,7 +629,7 @@ def upgrade_click_power(request):
     else:
         cost = request.POST["cost"]
         if request.user.player.money < int(cost):
-            return HttpResponse("0|You have not enough money")
+            return HttpResponse("0|You haven't got enough money")
         else:
             request.user.player.money -= int(cost)
             request.user.player.clickPower += 1
@@ -642,7 +642,7 @@ def upgrade_click_power(request):
 def add_upgrades_to_lobby(request, item):
     if item == 0:
         if request.user.player.c4 < 1:
-            return HttpResponse("0|You have not enough c4s")
+            return HttpResponse("0|You haven't got enough C4s!")
         else:
             request.user.player.event.c4s += 1
             request.user.player.c4 -= 1
@@ -651,7 +651,7 @@ def add_upgrades_to_lobby(request, item):
             return HttpResponse(request.user.player.event.c4s)
     elif item == 1:
         if request.user.player.alarmDisabler < 1:
-            return HttpResponse("0|You have not enough wire cutters")
+            return HttpResponse("0|You haven't got enough wire cutters!")
         else:
             request.user.player.event.alarms += 1
             request.user.player.alarmDisabler -= 1
@@ -770,7 +770,7 @@ def buy_new_machine(request):
         return HttpResponse("0|False method")
     else:
         if request.user.player.robUnion.machines >= 6:
-            return HttpResponse("0|You've reached the maximum machine capacity!")
+            return HttpResponse("0|You have reached the maximum machine capacity!")
         cost = request.POST["cost"]
         if request.user.player.robUnion.guildMoney < int(cost):
             return HttpResponse(0)

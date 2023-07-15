@@ -355,7 +355,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.Instance.money < _cost1)
         {
-            GameManager.Instance.errorMessage.PopUp("You haven't enough money. Have a good day!");
+            GameManager.Instance.errorMessage.PopUp("You haven't got enough money. Have a good day!");
             return;
         }
         GameManager.Instance.InitializeSafe(1, _cost1);
@@ -367,7 +367,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.Instance.money < _cost2)
         {
-            GameManager.Instance.errorMessage.PopUp("You haven't enough money. Have a good day!");
+            GameManager.Instance.errorMessage.PopUp("You haven't got enough money. Have a good day!");
             return;
         }
         GameManager.Instance.InitializeSafe(2, _cost2);
