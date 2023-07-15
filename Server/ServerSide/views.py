@@ -371,7 +371,10 @@ def get_lobby_members(request):
 @transaction.atomic()
 @login_required
 def damage_safe(request):
-    damage = int(request.user.player.amountOfClicks * request.user.player.clickPower)
+    policeDamage = 1
+    if request.user.player.policeStation is not None:
+        policeDamage = request.user.player.policeStation.armorLvl * request.user.player.policeStation.weaponLvl
+    damage = int(request.user.player.amountOfClicks * request.user.player.clickPower * policeDamage)
     safe = Safe.objects.select_for_update().get(id=request.user.player.event.safe.id)
     safe.hp -= damage
     safe.save()

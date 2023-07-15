@@ -56,14 +56,13 @@ public class Player : MonoBehaviour
         {
             Debug.Log(distance[i] + " m");
         }
-
+        StartCoroutine(checkYourSafes());
     }
 
     public void SenPlayerPOLOZHENIE()
     {
         //debugText2.text = "START COR";
         StartCoroutine(SendPlayerLocationAndRotationToServer());
-
     }
 
     // Update is called once per frame
@@ -185,6 +184,28 @@ public class Player : MonoBehaviour
             //debugText2.text += www.text;
             Debug.Log("LocX: " + locationX + "LocY: " + locationY);
             yield return new WaitForSeconds(7f);
+        }
+    }
+    
+    private IEnumerator checkYourSafes()
+    {
+        yield return new WaitForSeconds(1);
+        int count = 0;
+        while (true)
+        {
+            using var www = new WWW(GameManager.Instance.BASE_URL + "check_safes/");
+            yield return www;
+            if (www.text.Split("|")[0] == "0" && count < 3)
+            {
+                count++;
+                GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
+                Debug.Log("Count: " + count);
+            }
+            else
+            {
+                count = 0;
+            }
+            yield return new WaitForSeconds(5);
         }
     }
 
