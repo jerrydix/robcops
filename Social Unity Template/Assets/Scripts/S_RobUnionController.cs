@@ -254,6 +254,12 @@ public class S_RobUnionController : MonoBehaviour
         using var www = new WWW(GameManager.Instance.BASE_URL + "buy_powerup/" + item + "/");
         yield return www;
         Debug.Log(www.text);
-        DisplayMoney(int.Parse(www.text));
+        int result = -1;
+        if (int.TryParse(www.text, out result))
+            DisplayMoney(result);
+        else
+        {
+            GameManager.Instance.errorMessage.PopUp("The RobUnion doesn't have enough money to buy this power up!");
+        }
     }
 }

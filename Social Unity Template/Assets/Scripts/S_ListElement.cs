@@ -53,7 +53,7 @@ public class S_ListElement : MonoBehaviour
         using var www = new WWW(GameManager.Instance.BASE_URL + "join_rob_union/" + guildId + "/");
         yield return www;
         Debug.Log(www.text);
-        if (www.text.Split("|")[1].Equals("0"))
+        if (www.text.Split("|")[0].Equals("0"))
         {
             GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
         }
@@ -65,7 +65,7 @@ public class S_ListElement : MonoBehaviour
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "join_police_station/" + guildId + "/");
         yield return www;
-        if (www.text.Split("|")[1].Equals("0"))
+        if (www.text.Split("|")[0].Equals("0"))
         {
             GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
         }

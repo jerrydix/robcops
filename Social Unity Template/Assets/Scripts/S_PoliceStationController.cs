@@ -182,12 +182,14 @@ public class S_PoliceStationController : MonoBehaviour
         form.AddField("cost", 50000);
         using var www = new WWW(GameManager.Instance.BASE_URL + "upgrade_weapons/", form);
         yield return www;
-        if (www.text.Split("|")[0].Equals("0"))
+        int result = -1;
+        if (int.TryParse(www.text, out result))
+            DisplayMoney(result);
+        else
         {
-            GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
+            GameManager.Instance.errorMessage.PopUp("The police station doesn't have enough money to buy more weapons!");
         }
         Debug.Log(www.text);
-        DisplayMoney(int.Parse(www.text));
         StartCoroutine(getInfo());
     }
 
@@ -197,12 +199,14 @@ public class S_PoliceStationController : MonoBehaviour
         form.AddField("cost", 50000);
         using var www = new WWW(GameManager.Instance.BASE_URL + "upgrade_armor/", form);
         yield return www;
-        if (www.text.Split("|")[0].Equals("0"))
+        int result = -1;
+        if (int.TryParse(www.text, out result))
+            DisplayMoney(result);
+        else
         {
-            GameManager.Instance.errorMessage.PopUp(www.text.Split("|")[1]);
+            GameManager.Instance.errorMessage.PopUp("The police station doesn't have enough money to buy more armor!");
         }
         Debug.Log(www.text);
-        DisplayMoney(int.Parse(www.text));
         StartCoroutine(getInfo());
     }
 
