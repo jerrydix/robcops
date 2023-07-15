@@ -244,6 +244,7 @@ public class S_RobUnionController : MonoBehaviour
         yield return www;
         Debug.Log(www.text);
         DisplayMoney(int.Parse(www.text));
+        
         StartCoroutine(GetPlayerMoney());
     }
 
@@ -263,7 +264,10 @@ public class S_RobUnionController : MonoBehaviour
         Debug.Log(www.text);
         int result = -1;
         if (int.TryParse(www.text, out result))
+        {
+            GameManager.Instance.successMessage.PopUp("Power up added to inventory!");
             DisplayMoney(result);
+        }
         else
         {
             GameManager.Instance.errorMessage.PopUp("The RobUnion doesn't have enough money to buy this power up!");

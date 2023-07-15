@@ -39,7 +39,7 @@ public class S_PoliceStationController : MonoBehaviour
 
         Debug.Log(panel);
     }
-    
+
     public void leaveGuild()
     {
         StartCoroutine(Leave());
@@ -184,11 +184,17 @@ public class S_PoliceStationController : MonoBehaviour
         yield return www;
         int result = -1;
         if (int.TryParse(www.text, out result))
-            DisplayMoney(result);
-        else
         {
-            GameManager.Instance.errorMessage.PopUp("The police station doesn't have enough money to buy more weapons!");
+            DisplayMoney(result);
+            GameManager.Instance.successMessage.PopUp("You just upgraded your weapons for your squad!");
         }
+        else
+
+        {
+            GameManager.Instance.errorMessage.PopUp(
+                "The police station doesn't have enough money to buy more weapons!");
+        }
+
         Debug.Log(www.text);
         StartCoroutine(getInfo());
     }
@@ -201,11 +207,15 @@ public class S_PoliceStationController : MonoBehaviour
         yield return www;
         int result = -1;
         if (int.TryParse(www.text, out result))
+        {
             DisplayMoney(result);
+            GameManager.Instance.successMessage.PopUp("You just upgraded your armor for your squad!");
+        }
         else
         {
             GameManager.Instance.errorMessage.PopUp("The police station doesn't have enough money to buy more armor!");
         }
+
         Debug.Log(www.text);
         StartCoroutine(getInfo());
     }

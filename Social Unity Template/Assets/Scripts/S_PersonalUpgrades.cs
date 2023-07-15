@@ -18,6 +18,7 @@ public class S_PersonalUpgrades : MonoBehaviour
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_amount_of_clicks/");
         yield return www;
         amountLevel.text = "Lvl: " + www.text;
+       
     }
 
     public IEnumerator getPower()
@@ -25,6 +26,7 @@ public class S_PersonalUpgrades : MonoBehaviour
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_click_power/");
         yield return www;
         powerLevel.text = "Lvl: " + www.text;
+       
     }
 
     public void UpgradeAmount()
@@ -51,6 +53,7 @@ public class S_PersonalUpgrades : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.successMessage.PopUp("Base damage increased!");
             amountLevel.text = "Lvl: " + subs[1];
             StartCoroutine(GameManager.Instance.GetPlayerMoneyOnce());
         }
@@ -70,6 +73,8 @@ public class S_PersonalUpgrades : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.successMessage.PopUp("Damage multiplied!");
+            
             powerLevel.text = "Lvl: " + int.Parse(subs[1]);
             StartCoroutine(GameManager.Instance.GetPlayerMoneyOnce());
         }

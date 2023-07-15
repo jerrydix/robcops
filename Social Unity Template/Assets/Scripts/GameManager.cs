@@ -69,6 +69,7 @@ public class
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         errorMessage = GameObject.Find("Error").GetComponent<S_Error>();
+        //successMessage = GameObject.Find("Success").GetComponent<S_Success>();
 
         if (Instance == null)
         {
@@ -103,10 +104,7 @@ public class
             updateOtherPlayersCoroutine = StartCoroutine(UpdateOtherPlayers());
             if (Instance.role == false) StartCoroutine(checkDistanceToSafes());
             _map = GameObject.FindWithTag("map").GetComponent<AbstractMap>();
-            if (GameObject.Find("Success").GetComponent<S_Success>() != null)
-            {
-                successMessage = GameObject.Find("Success").GetComponent<S_Success>();
-            }
+           
         }
         else
         {
@@ -118,7 +116,10 @@ public class
         {
             errorMessage = GameObject.Find("Error").GetComponent<S_Error>();
         }
-        
+        if (GameObject.Find("Success").GetComponent<S_Success>() != null)
+        {
+            successMessage = GameObject.Find("Success").GetComponent<S_Success>();
+        }
        
     }
 

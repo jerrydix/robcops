@@ -364,7 +364,7 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.errorMessage.PopUp("Cannot Spawn Safe on an occupied area, go somewhere else!");
             return;
         }
-        GameManager.Instance.successMessage.PopUp("Successfully spawned a Level 1 safe!");
+        GameManager.Instance.successMessage.PopUp("Successfully placed a Level 1 safe!");
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
     }
@@ -381,7 +381,7 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.errorMessage.PopUp("Cannot Spawn Safe on an occupied area, go somewhere else!");
             return;
         }
-        GameManager.Instance.successMessage.PopUp("Successfully spawned a Level 2 safe!");
+        GameManager.Instance.successMessage.PopUp("Successfully placed a Level 2 safe!");
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
     }
@@ -398,7 +398,7 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.errorMessage.PopUp("Cannot Spawn Safe on an occupied area, go somewhere else!");
             return;
         }
-        GameManager.Instance.successMessage.PopUp("Successfully spawned a Level 3 safe!");
+        GameManager.Instance.successMessage.PopUp("Successfully placed a Level 3 safe!");
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
     }
@@ -416,7 +416,7 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.errorMessage.PopUp("Cannot Spawn Safe on an occupied area, go somewhere else!");
             return;
         }
-        GameManager.Instance.successMessage.PopUp("Successfully spawned a Level 4 safe!");
+        GameManager.Instance.successMessage.PopUp("Successfully placed a Level 4 safe!");
         safePlacingDialogue.SetActive(false);
         placeSafeButton.SetActive(true);
     }
