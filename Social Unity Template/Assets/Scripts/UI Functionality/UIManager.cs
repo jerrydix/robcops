@@ -86,7 +86,8 @@ public class UIManager : MonoBehaviour
         {
             safeInfoText.gameObject.SetActive(false);
         }
-        //safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
+
+        StartCoroutine(updateSafeMoneyText());
     }
 
     private void Update()
@@ -115,7 +116,6 @@ public class UIManager : MonoBehaviour
     public void DeactivateDialogue()
     {
         safeUIManager.gameObject.SetActive(false);
-        setSafeMoney();
     }
 
     public void ActivateRURaidDialogue(int level, double locationX, double locationY, bool createLobby, int id)

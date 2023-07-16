@@ -135,11 +135,9 @@ public class SafeUIManager : MonoBehaviour
         using var www = new WWW(GameManager.Instance.BASE_URL + "create_lobby/" + _id + "/");
         yield return www;
         _lobbyPlayerCount = 1;
-        Debug.Log(_lobbyPlayerCount);
         _lobbyNames = new List<string>();
         _lobbyNames.Add(www.text);
         membersText.text = _lobbyNames[0];
-        _lobbyPlayerCount = 1;
         lobbyCountText.text = _lobbyPlayerCount + "/5";
         heistPrepScreen.SetActive(true);
         safeDialogue.SetActive(false);
@@ -206,6 +204,7 @@ public class SafeUIManager : MonoBehaviour
             }
             
             lobbyCountText.text = response[0] + "/5";
+            _lobbyPlayerCount = int.Parse(response[0]);
             if (GameObject.Find("RURaidUI") != null && GameObject.Find("RURaidUI").activeInHierarchy)
                 isRURaid = true;
             

@@ -250,6 +250,7 @@ public class
         yield return UpdateSafesAfterPlacing();
         yield return new WaitForSeconds(20f);
         updateSafesCoroutine = StartCoroutine(UpdateSafes());
+        GameObject.Find("UI").GetComponent<UIManager>().setSafeMoney();
     }
 
     public IEnumerator UpdateSafes()
