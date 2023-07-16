@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -466,6 +466,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 402947610, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 846921371, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -549,6 +553,22 @@ PrefabInstance:
     - target: {fileID: 1216873440430999633, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509428501898889407, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_text
+      value: ROB
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509428501898889407, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_fontSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509428501898889407, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509428501936074824, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_text
+      value: CANCEL
       objectReference: {fileID: 0}
     - target: {fileID: 1509428502003932802, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
       propertyPath: safeInfoText
@@ -646,9 +666,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2381597087119802451, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_text
+      value: RobUnion
+      objectReference: {fileID: 0}
     - target: {fileID: 2568872558801935894, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3162640364730135297, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_text
+      value: CLOSE
       objectReference: {fileID: 0}
     - target: {fileID: 5778922416060052934, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
       propertyPath: m_IsActive
@@ -661,6 +689,18 @@ PrefabInstance:
     - target: {fileID: 7688386917609593457, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8435244868798865020, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_text
+      value: RAID
+      objectReference: {fileID: 0}
+    - target: {fileID: 8435244868798865020, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_fontSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8435244868798865020, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8755805976896176888, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
       propertyPath: m_IsActive

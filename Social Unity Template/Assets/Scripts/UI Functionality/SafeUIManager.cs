@@ -61,8 +61,8 @@ public class SafeUIManager : MonoBehaviour
         isRURaid = true;
         _createLobby = createLobby;
         _id = id;
-        safeLevelTextDialogue.text = "Level " + level + " RobUnion";
-        safeLevelTextScreen.text = "Level " + level + " RobUnion\nWaiting for Players...";
+        safeLevelTextDialogue.text = "RobUnion";
+        safeLevelTextScreen.text = "RobUnion\nWaiting for Players...";
         locationTextDialogue.text = "Coordinates: " +
                                     Math.Round(locationX, 4)
                                         .ToString(CultureInfo.CurrentCulture)
