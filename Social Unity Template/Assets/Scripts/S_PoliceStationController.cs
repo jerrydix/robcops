@@ -179,7 +179,7 @@ public class S_PoliceStationController : MonoBehaviour
     public IEnumerator UpgradeWeapons()
     {
         var form = new WWWForm();
-        form.AddField("cost", 50000);
+        form.AddField("cost", 100000);
         using var www = new WWW(GameManager.Instance.BASE_URL + "upgrade_weapons/", form);
         yield return www;
         int result = -1;
@@ -202,7 +202,7 @@ public class S_PoliceStationController : MonoBehaviour
     public IEnumerator UpgradeArmor()
     {
         var form = new WWWForm();
-        form.AddField("cost", 50000);
+        form.AddField("cost", 100000);
         using var www = new WWW(GameManager.Instance.BASE_URL + "upgrade_armor/", form);
         yield return www;
         int result = -1;

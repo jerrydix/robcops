@@ -508,7 +508,15 @@ def arrest_lobby(request):
                     event.arrested = True
                     event.penalty = 1
                     event.save()
-                    request.user.player.money += 100000
+                    safe = Safe.objects.get(id=safeId)
+                    if safe == 1:
+                        request.user.player.money += 10000
+                    elif safe == 2:
+                        request.user.player.money += 100000
+                    elif safe == 3:
+                        request.user.player.money += 250000
+                    elif safe == 4:
+                        request.user.player.money += 1000000
                     request.user.player.save()
                     return HttpResponse(f"{event.arrested}|{event.penalty}")
                 else:
@@ -729,7 +737,10 @@ def start_robbery(request):
     elif breakInCurrent.safe.level == 3:
         breakInCurrent.reward = random.randint(20000, 50000)
     elif breakInCurrent.safe.level == 4:
-        breakInCurrent.reward = random.randint(75000, 120000)
+        if request.user.player.role == 1:
+            breakInCurrent.reward = random.randint(100000, 250000)
+        else:
+            breakInCurrent.reward = random.randint(75000, 120000)
     breakInCurrent.save()
     response = f'{breakInCurrent.timeForRobbery}|{breakInCurrent.safe.hp}|{breakInCurrent.safe.level}'
     return HttpResponse(response)
@@ -997,7 +1008,7 @@ def generate_robunion_by_id(cop_id):
     cop.policeStation.robUnionY = yLong
     cop.policeStation.hints = 0
     cop.policeStation.save()
-    safe = Safe(level=4, hp=250000, locationX=xLat, locationY=yLong, isRobUnion=1)
+    safe = Safe(level=4, hp=500000, locationX=xLat, locationY=yLong, isRobUnion=1)
     safe.save()
     cop.policeStation.robUnionSafeID = safe.id
     cop.policeStation.save()

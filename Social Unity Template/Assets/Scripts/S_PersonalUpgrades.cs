@@ -42,7 +42,7 @@ public class S_PersonalUpgrades : MonoBehaviour
     public IEnumerator upgradeAmount()
     {
         var form = new WWWForm();
-        form.AddField("cost", 50000);
+        form.AddField("cost", 250000);
         using var www = new WWW(GameManager.Instance.BASE_URL + "upgrade_amount_of_clicks/", form);
         yield return www;
         var subs = www.text.Split("|");
@@ -53,7 +53,7 @@ public class S_PersonalUpgrades : MonoBehaviour
         }
         else
         {
-            GameManager.Instance.successMessage.PopUp("Base damage increased!");
+            GameManager.Instance.successMessage.PopUp("Damage multiplied!");
             amountLevel.text = "Lvl: " + subs[1];
             StartCoroutine(GameManager.Instance.GetPlayerMoneyOnce());
         }
@@ -62,7 +62,7 @@ public class S_PersonalUpgrades : MonoBehaviour
     public IEnumerator upgradePower()
     {
         var form = new WWWForm();
-        form.AddField("cost", 50000);
+        form.AddField("cost", 40000);
         using var www = new WWW(GameManager.Instance.BASE_URL + "upgrade_click_power/", form);
         yield return www;
         var subs = www.text.Split("|");
@@ -73,7 +73,7 @@ public class S_PersonalUpgrades : MonoBehaviour
         }
         else
         {
-            GameManager.Instance.successMessage.PopUp("Damage multiplied!");
+            GameManager.Instance.successMessage.PopUp("Base damage increased!");
             
             powerLevel.text = "Lvl: " + int.Parse(subs[1]);
             StartCoroutine(GameManager.Instance.GetPlayerMoneyOnce());

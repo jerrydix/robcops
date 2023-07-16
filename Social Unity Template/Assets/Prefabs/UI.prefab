@@ -15841,7 +15841,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50k
+  m_text: 40k
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56c4e1f8e7a35e740932858b3510e53b, type: 2}
   m_sharedMaterial: {fileID: -5405882748149710917, guid: 56c4e1f8e7a35e740932858b3510e53b, type: 2}
@@ -17867,7 +17867,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7487186851106755765}
         m_TargetAssemblyTypeName: S_PersonalUpgrades, Assembly-CSharp
-        m_MethodName: UpgradeAmount
+        m_MethodName: UpgradePower
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19334,7 +19334,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50k
+  m_text: 250k
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56c4e1f8e7a35e740932858b3510e53b, type: 2}
   m_sharedMaterial: {fileID: -5405882748149710917, guid: 56c4e1f8e7a35e740932858b3510e53b, type: 2}
@@ -20632,7 +20632,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7487186851106755765}
         m_TargetAssemblyTypeName: S_PersonalUpgrades, Assembly-CSharp
-        m_MethodName: UpgradePower
+        m_MethodName: UpgradeAmount
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
