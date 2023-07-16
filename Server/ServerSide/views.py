@@ -374,7 +374,7 @@ def damage_safe(request):
     policeDamage = 1
     if request.user.player.policeStation is not None:
         policeDamage = request.user.player.policeStation.armorLvl * request.user.player.policeStation.weaponLvl
-    damage = int(request.user.player.amountOfClicks * request.user.player.clickPower * policeDamage)
+    damage = int(request.user.player.amountOfClicks * (request.user.player.clickPower + policeDamage))
     safe = Safe.objects.select_for_update().get(id=request.user.player.event.safe.id)
     safe.hp -= damage
     safe.save()
@@ -552,20 +552,20 @@ def buy_powerup(request, item):
     union = request.user.player.robUnion
     members = union.robUnion.all()
     if item == 0:
-        if union.guildMoney < 1000:
+        if union.guildMoney < 20000:
             return HttpResponse("0|Not enough money!")
         else:
-            union.guildMoney -= 1000
+            union.guildMoney -= 20000
             for a in members:
                 a.c4 += 1
                 a.save()
             union.save()
             return HttpResponse(union.guildMoney)
     elif item == 1:
-        if union.guildMoney < 5000:
+        if union.guildMoney < 10000:
             return HttpResponse("0|Not enough money!")
         else:
-            union.guildMoney -= 5000
+            union.guildMoney -= 10000
             for a in members:
                 a.alarmDisabler += 1
                 a.save()
@@ -714,7 +714,7 @@ def start_robbery(request):
     breakInCurrent = request.user.player.event
     breakInCurrent.isStarted = True
     breakInCurrent.startTime = datetime.datetime.now()
-    breakInCurrent.safe.hp -= breakInCurrent.c4s * 500
+    breakInCurrent.safe.hp -= breakInCurrent.c4s * 250
     breakInCurrent.safe.status = 3
     breakInCurrent.safe.save()
     breakInCurrent.timeForRobbery = 1.0
@@ -722,7 +722,14 @@ def start_robbery(request):
     minutes = int(breakInCurrent.timeForRobbery)
     seconds = (breakInCurrent.timeForRobbery * 60) % 60
     breakInCurrent.timeForRobbery = minutes + (seconds * 0.01)
-    breakInCurrent.reward = breakInCurrent.safe.level * random.randint(10000, 30000)
+    if breakInCurrent.safe.level == 1:
+        breakInCurrent.reward = random.randint(2500, 8000)
+    elif breakInCurrent.safe.level == 2:
+        breakInCurrent.reward = random.randint(8000, 20000)
+    elif breakInCurrent.safe.level == 3:
+        breakInCurrent.reward = random.randint(20000, 50000)
+    elif breakInCurrent.safe.level == 4:
+        breakInCurrent.reward = random.randint(75000, 120000)
     breakInCurrent.save()
     response = f'{breakInCurrent.timeForRobbery}|{breakInCurrent.safe.hp}|{breakInCurrent.safe.level}'
     return HttpResponse(response)
@@ -806,8 +813,8 @@ def switch_role(request):
         request.user.player.robUnion = None
         request.user.player.policeStation = None
         request.user.player.event = None
-        if request.user.player.money < 10000:
-            request.user.player.money = 10000
+        if request.user.player.money < 20000:
+            request.user.player.money = 20000
         request.user.player.safesActive = 0
         request.user.player.c4 = 0
         request.user.player.alarmDisabler = 0
@@ -899,7 +906,7 @@ def update_money(request):
         ru = RobUnion.objects.get(id=id)
         while True:
             time.sleep(3600)
-            ru.guildMoney += ru.machines * 100000
+            ru.guildMoney += ru.machines * 10000
             ru.save()
 
 
@@ -990,7 +997,7 @@ def generate_robunion_by_id(cop_id):
     cop.policeStation.robUnionY = yLong
     cop.policeStation.hints = 0
     cop.policeStation.save()
-    safe = Safe(level=random.randrange(3, 4), hp=500000, locationX=xLat, locationY=yLong, isRobUnion=1)
+    safe = Safe(level=4, hp=250000, locationX=xLat, locationY=yLong, isRobUnion=1)
     safe.save()
     cop.policeStation.robUnionSafeID = safe.id
     cop.policeStation.save()
@@ -1029,7 +1036,7 @@ def generate_random_safe(request):
 
     xLat = x + x0
     yLong = y + y0
-    safe = Safe(level=1, hp=1000, locationY=yLong, locationX=xLat)
+    safe = Safe(level=1, hp=400, locationY=yLong, locationX=xLat)
     safe.save()
     return HttpResponse(f'{safe.locationX}|{safe.locationY}')
 

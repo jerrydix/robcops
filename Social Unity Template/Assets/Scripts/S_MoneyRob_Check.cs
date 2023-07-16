@@ -12,7 +12,7 @@ public class S_MoneyRob_Check : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int money = controller.machinesCount * 100;
+        int money = controller.machinesCount * 10;
         moneyText.text = "+" + money + "K/Hour";
     }
 }
