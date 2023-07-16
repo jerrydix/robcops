@@ -48,6 +48,7 @@ urlpatterns = [
     path('give_hint/', views.give_hint, name='give_hint'),
     path('give_hint_test/<int:copId>/', views.give_hint_test, name='give_hint_test'),
     path('check_safes/', views.check_safes, name='check_safes'),
+    path('get_active_safes/', views.get_active_safes, name='get_active_safes'),
 
     # Lobby Settings
     path('create_personal_safe/', views.create_personal_safe, name='create_personal_safe'),

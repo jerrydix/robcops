@@ -838,6 +838,21 @@ def get_robberxp(request):
 
 
 @login_required
+def get_active_safes(request):
+    money = 0
+    for safe in request.user.placed_safes.all():
+        if safe.level == 1:
+            money += 1000
+        elif safe.level == 2:
+            money += 5000
+        elif safe.level == 3:
+            money += 10000
+        elif safe.level == 4:
+            money += 50000
+    return HttpResponse(f'{request.user.placed_safes.count()}|{money}')
+
+
+@login_required
 def get_policexp(request):
     return HttpResponse(request.user.player.policeXP)
 
@@ -892,7 +907,17 @@ def update_policeman_money(request):
     policeman = request.user.player
     while True:
         time.sleep(3600)
-        policeman.money += policeman.safesActive * 1000
+        money = 0
+        for safe in request.user.placed_safes.all():
+            if safe.level == 1:
+                money += 1000
+            elif safe.level == 2:
+                money += 5000
+            elif safe.level == 3:
+                money += 10000
+            elif safe.level == 4:
+                money += 50000
+        policeman.money += money
         policeman.save()
 
 
