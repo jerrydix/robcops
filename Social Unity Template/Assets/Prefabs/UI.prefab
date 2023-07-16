@@ -748,6 +748,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -786,7 +798,7 @@ GameObject:
   - component: {fileID: 193438025}
   - component: {fileID: 193438024}
   m_Layer: 5
-  m_Name: SoundAudioButton
+  m_Name: SfxButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -897,7 +909,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: SoundSwitch
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -907,9 +919,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4698410911464028749}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: ButtonPressedSound
+      - m_Target: {fileID: 4009907105551970407}
+        m_TargetAssemblyTypeName: SettingsUIHandler, Assembly-CSharp
+        m_MethodName: SfxSwitch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1638,6 +1650,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -1910,6 +1934,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1509428502003932802}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: PlaceLevel2SafeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2420,6 +2456,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -2796,6 +2844,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -2931,6 +2991,18 @@ MonoBehaviour:
       - m_Target: {fileID: 642850096}
         m_TargetAssemblyTypeName: SafeUIManager, Assembly-CSharp
         m_MethodName: CancelButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4031,6 +4103,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -4253,6 +4337,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -4353,7 +4449,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4009907105551970407}
+        m_TargetAssemblyTypeName: SettingsUIHandler, Assembly-CSharp
+        m_MethodName: MusicVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &912803546
 GameObject:
   m_ObjectHideFlags: 0
@@ -4401,6 +4509,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 965735622}
+  - component: {fileID: 4009907105551970407}
   m_Layer: 5
   m_Name: SettingsUI
   m_TagString: Untagged
@@ -4431,6 +4540,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4009907105551970407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965735621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e066ffc5d38f8643bfd9ed450371848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicVolumeButton: {fileID: 1990266658}
+  sfxVolumeButton: {fileID: 193438022}
+  musicVolumeSlider: {fileID: 900583186}
+  sfxVolumeSlider: {fileID: 1112975718}
 --- !u!1 &978730939
 GameObject:
   m_ObjectHideFlags: 0
@@ -5090,6 +5215,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -5497,7 +5634,7 @@ GameObject:
   - component: {fileID: 1112975719}
   - component: {fileID: 1112975720}
   m_Layer: 5
-  m_Name: VolumeSoundSlider
+  m_Name: VolumeSfxSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5577,13 +5714,13 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 4009907105551970407}
+        m_TargetAssemblyTypeName: SettingsUIHandler, Assembly-CSharp
+        m_MethodName: SfxVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5849,6 +5986,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1509428502003932802}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: PlaceSafeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6247,6 +6396,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1509428502003932802}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: PlaceLevel1SafeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7290,6 +7451,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -8117,6 +8290,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1551277730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8892,6 +9077,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -9383,6 +9580,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -9704,6 +9913,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -9842,6 +10063,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1509428502003932802}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: PlaceLevel3SafeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10078,6 +10311,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -10213,6 +10458,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1509428502003932802}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: SettingsButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10361,6 +10618,18 @@ MonoBehaviour:
       - m_Target: {fileID: 642850096}
         m_TargetAssemblyTypeName: SafeUIManager, Assembly-CSharp
         m_MethodName: WireCutterButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10639,8 +10908,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4698410911464028749}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+      - m_Target: {fileID: 4009907105551970407}
+        m_TargetAssemblyTypeName: SettingsUIHandler, Assembly-CSharp
         m_MethodName: MusicSwitch
         m_Mode: 1
         m_Arguments:
@@ -10653,7 +10922,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: ButtonPressedSound
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11145,6 +11414,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -11415,6 +11696,18 @@ MonoBehaviour:
       - m_Target: {fileID: 3041784850013830817}
         m_TargetAssemblyTypeName: S_Create, Assembly-CSharp
         m_MethodName: create
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12020,6 +12313,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -12614,6 +12919,18 @@ MonoBehaviour:
       - m_Target: {fileID: 6723071638408172444}
         m_TargetAssemblyTypeName: S_Create, Assembly-CSharp
         m_MethodName: deactivateUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13507,6 +13824,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -13967,6 +14296,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1509428502003932802}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: DeactivateDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14529,6 +14870,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1731219842169244541
 GameObject:
   m_ObjectHideFlags: 0
@@ -14955,6 +15308,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -15103,6 +15468,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1509428502003932802}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: BackToMapButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16151,6 +16528,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -16925,6 +17314,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -17330,6 +17731,18 @@ MonoBehaviour:
       - m_Target: {fileID: 7487186851106755765}
         m_TargetAssemblyTypeName: S_PersonalUpgrades, Assembly-CSharp
         m_MethodName: UpgradeAmount
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19003,6 +19416,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 4698410911464028749}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ButtonPressedSound
         m_Mode: 1
         m_Arguments:
@@ -19368,6 +19793,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2684481236971627287}
         m_TargetAssemblyTypeName: S_Penalty, Assembly-CSharp
         m_MethodName: no
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20068,6 +20505,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6663478164557266718
 GameObject:
   m_ObjectHideFlags: 0
@@ -20247,6 +20696,18 @@ MonoBehaviour:
       - m_Target: {fileID: 3019590222194986672}
         m_TargetAssemblyTypeName: SafeUIManager, Assembly-CSharp
         m_MethodName: LobbyScreenButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20485,6 +20946,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1509428502003932802}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: DeactivateRURaidDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21601,6 +22074,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8104297157794723061
 GameObject:
   m_ObjectHideFlags: 0
@@ -22015,6 +22500,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1509428502003932802}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: BackToMapButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4698410911464028749}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22574,6 +23071,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1112975718}
     - target: {fileID: 5269349775122568130, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: sfxSounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568130, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
       propertyPath: sounds.Array.data[0].loop
       value: 0
       objectReference: {fileID: 0}
@@ -22584,6 +23085,14 @@ PrefabInstance:
     - target: {fileID: 5269349775122568130, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
       propertyPath: sounds.Array.data[0].volume
       value: 0.507
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269349775122568130, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: sfxSounds.Array.data[0].Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
+    - target: {fileID: 5269349775122568130, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
+      propertyPath: sfxSounds.Array.data[0].name
+      value: ButtonPressed
       objectReference: {fileID: 0}
     - target: {fileID: 5269349775122568131, guid: 6d0ceb8de29e33a48bb60711ce992990, type: 3}
       propertyPath: m_Name
