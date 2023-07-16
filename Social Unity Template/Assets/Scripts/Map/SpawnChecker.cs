@@ -1,3 +1,4 @@
+using Mapbox.Map;
 using Mapbox.Unity.Map;
 using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
@@ -9,13 +10,13 @@ public static class SpawnChecker
     public static bool CheckObjectFreePosition(GameObject obj, Vector3 position) //Assume position to be the center
     {
         Vector3[] points = new Vector3[4];
-        Vector3 scale = obj.transform.localScale;
-        points[0] = new Vector3(position.x - (scale.x / 2), 10, position.z - (scale.z / 2));
-        points[1] = new Vector3(position.x + (scale.x / 2), 10, position.z - (scale.z / 2));
-        points[2] = new Vector3(position.x - (scale.x / 2), 10, position.z + (scale.z / 2));
-        points[3] = new Vector3(position.x + (scale.x / 2), 10, position.z + (scale.z / 2));
+        Vector3 dimension = obj.GetComponent<Collider>().bounds.extents;
+        points[0] = new Vector3(position.x + dimension.x, position.y + dimension.y, position.z + dimension.z);
+        points[1] = new Vector3(position.x + dimension.x, position.y + dimension.y, position.z - dimension.z);
+        points[2] = new Vector3(position.x - dimension.x, position.y + dimension.y, position.z + dimension.z);
+        points[3] = new Vector3(position.x - dimension.x, position.y + dimension.y, position.z - dimension.z);
         //Debug.Log(points[0]);
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < points.Length; i++)
         {
             if (!CheckIsFreePos(points[i]))
             {
@@ -23,6 +24,12 @@ public static class SpawnChecker
             }
         }
         return true;
+    }
+
+    public static bool CheckObjectFreePosition(GameObject obj, AbstractMap map, string locationX, string locationY) //Assume position to be the center
+    {
+        Vector3 pos = ConvertPos(map, locationX, locationY);
+        return CheckObjectFreePosition(obj, pos);
     }
 
     public static bool CheckIsFreePos(Vector3 position)
