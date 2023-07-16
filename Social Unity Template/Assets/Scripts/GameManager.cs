@@ -413,16 +413,16 @@ public class
         switch (level)
         {
             case 1:
-                hp = 50000;
+                hp = 400;
                 break;
             case 2:
-                hp = 100000;
+                hp = 5000;
                 break;
             case 3:
-                hp = 250000;
+                hp = 50000;
                 break;
             case 4:
-                hp = 500000;
+                hp = 250000;
                 break;
         }
 
