@@ -147,7 +147,7 @@ public class UIManager : MonoBehaviour
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_active_safes/");
         yield return www;
-        safeInfoText.text = "Safes: " + www.text.Split("|")[1] + " - " + www.text.Split("|")[1] + "/Hour";
+        safeInfoText.text = "Safes: " + www.text.Split("|")[0] + " | +" + www.text.Split("|")[1] + "/Hour";
     }
 
     public void GuildButton()

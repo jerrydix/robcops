@@ -13,6 +13,6 @@ public class S_MoneyRob_Check : MonoBehaviour
     void Update()
     {
         int money = controller.machinesCount * 100;
-        moneyText.text = money + "K/Hour";
+        moneyText.text = "+" + money + "K/Hour";
     }
 }
