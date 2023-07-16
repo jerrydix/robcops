@@ -53,9 +53,8 @@ public class
     public S_Error errorMessage;
     public S_Success successMessage;
     
-    
-
-    //private bool cannotPlaceAnyMoreSafes = false;
+    public float sfxVolume;
+    public bool sfxOn;
 
     public static GameManager Instance { set; get; }
 
@@ -63,13 +62,13 @@ public class
     {
         BASE_URL = "http://robcops.de/";
         currentRobUnionSafeID = -1;
+        sfxOn = true;
     }
 
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         errorMessage = GameObject.Find("Error").GetComponent<S_Error>();
-        //successMessage = GameObject.Find("Success").GetComponent<S_Success>();
 
         if (Instance == null)
         {
@@ -251,40 +250,6 @@ public class
         yield return new WaitForSeconds(20f);
         updateSafesCoroutine = StartCoroutine(UpdateSafes());
     }
-    
-    private bool CheckIsFreePos(string locationX, string locationY)
-    {
-        //var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //cube.GetComponent<Collider>().enabled = false;
-        //cube.GetComponent<MeshRenderer>().enabled = false;
-        var temp = locationX + "," + locationY;
-        var temp2 = Conversions.StringToLatLon(temp);
-        //cube.transform.position = _map.GeoToWorldPosition(temp2);
-        Vector3 pos = _map.GeoToWorldPosition(temp2);
-        //cube.transform.position = new Vector3(cube.transform.position.x, cube.transform.position.y + 5,
-        //    cube.transform.position.z);
-        pos += new Vector3(0, 10, 0);
-        //Vector3 newVector = cube.transform.position;
-        /*
-        RaycastHit hit;
-        if (Physics.Raycast(newVector, Vector3.down, out hit, Mathf.Infinity))
-        {
-            GameObject other = hit.collider.gameObject;
-            if (other.CompareTag("Building") || other.CompareTag("Safe"))
-            {
-                
-                //Debug.Log("hit");
-                cube.Destroy();
-                return false;
-            }
-        }
-        //Debug.Log("no hit");
-        cube.Destroy();
-        
-        return true;
-        */
-        return SpawnChecker.CheckIsFreePos(pos);
-    }
 
     public IEnumerator UpdateSafes()
     {
@@ -444,189 +409,6 @@ public class
         updateSafesCoroutine = StartCoroutine(UpdateSafes());
     }
 
-    /*private void CreateSafeIfNone()
-    {
-        //Check if there any safes are in Range
-        for (int i = 0; i < locations.Count; i++)
-        {
-            var LocationFromList = Conversions.StringToLatLon(locations[i]);
-            if (CalculateDistanceToNorm(LocationFromList) || CalculateDistanceInEditor(LocationFromList))
-            {
-                return;
-            }
-        }
-
-        //Randomly Generate Safe and Location
-        var position = new Vector2d(48.264518, 11.6713515);
-        //var position = ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude;
-        var num = Random.Range(1.0f,4.0f);
-        Debug.Log(num);
-        
-
-        for (var i = 0; i < num; i++)
-        {
-            var deviations = Random.Range(0.1f,0.6f);
-            var deviations1 = Random.Range(0.1f,0.6f);
-            var NewPosition = new Vector2d(position.x + deviations, position.y + deviations1);
-            var Level = GetRandomLevel();
-            var Health = GetCorrespondingNumber(Level);
-            //StartCoroutine(CreateSafe(NewPosition.x.ToString(), NewPosition.y.ToString(), Health, Level));
-        }
-    }*/
-
-    /*
-    private int GetCorrespondingNumber(int level)
-    {
-        switch (level)
-        {
-            case 1:
-            {
-                return 50000;
-            }
-            case 2:
-            {
-                return 100000;
-            }
-            case 3:
-            {
-                return 250000;
-            }
-            case 4:
-            {
-                return 500000;
-            }
-            default: return 1;
-        }
-    }
-
-    private int GetRandomLevel()
-    {
-        var num = Random.Range(0f, 4f);
-        switch (num)
-        {
-            case 1:
-            {
-                return 1;
-            }
-            case 2:
-            {
-                return 2;
-            }
-            case 3:
-            {
-                return 3;
-            }
-            case 4:
-            {
-                return 4;
-            }
-            default: return 1;
-        }
-    }
-    */
-
-    /*private IEnumerator CreateSafe(string locationX, string locationY, int hp, int level)
-    {
-        var form = new WWWForm();
-        form.AddField("level", level);
-        form.AddField("hp", hp);
-        form.AddField("locationX", locationX);
-        form.AddField("locationY", locationY);
-        using var www = new WWW(BASE_URL + "create_safe/", form);
-        yield return www;
-        yield return UpdateSafes();
-        yield return new WaitForSeconds(60f);
-        yield return UpdateSafesAfterPlacing();
-    }*/
-
-
-    /*private IEnumerator SendNewSafesToServer(string locationX, string locationY, int Health, int Level)
-    {
-        var form = new WWWForm();
-        form.AddField("level", Level);
-        form.AddField("hp", Health);
-        form.AddField("locationX", locationX);
-        form.AddField("locationY", locationY);
-        using var www = new WWW(BASE_URL + "place_safe/", form);
-        yield return www;
-        Debug.Log(www.text);
-
-        yield return UpdateSafesAfterPlacing();
-        yield return new WaitForSeconds(60f);
-        updateSafesCoroutine = StartCoroutine(UpdateSafes());
-    }*/
-
-
-    private bool CalculateDistanceToNorm(Vector2d location)
-    {
-        for (var i = 0; i < spawnOnMap._locationStrings.Count; i++)
-        {
-            if (spawnOnMap._locationStrings[i] == null) continue;
-            //Get Locations of Safe and Player
-
-            //var currentString = spawnOnMap._locationStrings[i];
-            var instance = location;
-            var x = Conversions.StringToLatLon(ImmediatePositionWithLocationProvider.LocationProvider
-                .CurrentLocation.LatitudeLongitude.ToString());
-            var playerLocation = x.x;
-            var playerLocationy = x.y;
-
-            //Calculate the Distance
-
-            var deltaLat = (instance.x - playerLocation) * Mathd.PI / 180;
-            var deltaLon = (instance.y - playerLocationy) * Mathd.PI / 180;
-
-            var calc = Mathd.Pow(Mathd.Sin(deltaLat / 2), 2) + Mathd.Cos(playerLocation * Mathd.PI / 180)
-                * Mathd.Cos(instance.x * Mathd.PI / 180) * Mathd.Pow(Mathd.Sin(deltaLon / 2), 2);
-            var temp = 2 * Mathd.Atan2(Mathd.Sqrt(calc), Mathd.Sqrt(1 - calc));
-            var result = 6371 * temp;
-            result *= 1000;
-            var finalResult = Mathd.Abs(result);
-
-            //Filter Safes that are more than 1km away
-
-            if (finalResult <= 350)
-                return true;
-        }
-
-        return false;
-    }
-
-
-    private bool CalculateDistanceInEditor()
-    {
-        for (var i = 0; i < spawnOnMap._locationStrings.Count; i++)
-        {
-            if (spawnOnMap._locationStrings[i] == null) continue;
-            //Get Locations of Safe and Player
-
-            //var currentString = spawnOnMap._locationStrings[i];
-            var x = transform.position;
-            var playerLocation = x.x;
-            var playerLocationy = x.y;
-
-            //Calculate the Distance
-
-            var deltaLat = (x.x - playerLocation) * Mathd.PI / 180;
-            var deltaLon = (x.y - playerLocationy) * Mathd.PI / 180;
-
-            var calc = Mathd.Pow(Mathd.Sin(deltaLat / 2), 2) + Mathd.Cos(playerLocation * Mathd.PI / 180)
-                * Mathd.Cos(x.x * Mathd.PI / 180) * Mathd.Pow(Mathd.Sin(deltaLon / 2), 2);
-            var temp = 2 * Mathd.Atan2(Mathd.Sqrt(calc), Mathd.Sqrt(1 - calc));
-            var result = 6371 * temp;
-            result *= 1000;
-            var finalResult = Mathd.Abs(result);
-
-            //Filter Safes that are more than 1km away
-
-            if (finalResult <= 350)
-                Debug.Log("Yay");
-            return true;
-        }
-
-        return false;
-    }
-    
     public static void SetData(List<string> list)
     {
         Instance.username = list[1];

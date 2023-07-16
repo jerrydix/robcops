@@ -18,40 +18,27 @@ public class Player : MonoBehaviour
     private ImmediatePositionWithLocationProvider _immediatePositionWithLocationProvider;
     private LocationArrayEditorLocationProvider _locationArrayEditorLocationProvider;
     private Quaternion _rotation;
-    public TextMeshProUGUI debugText;
-    public TextMeshProUGUI debugText2;
-
-    
-    public Faction faction { get; set; }
-    public List<Friend> friends { get; set; }
-
-    // TODO: Change MapPosition to whatever Position Property we use
-    //private MapPosition _position { get; set; }
 
     public double money { get; set; }
 
     public int xp { get; set; }
     public const int xpRequiredForFactionChange = 2000; //Change Value if needed
 
-    public List<ItemListElement> items { get; set; }
-    
     // Start is called before the first frame update
     void Start()
     {
         _spawnOnMap = GameObject.FindWithTag("Spawner").GetComponent<SpawnOnMap>();
-        //debugText2.text = "BEFORE";
+       
         _immediatePositionWithLocationProvider =
             GameObject.FindWithTag("Player").GetComponent<ImmediatePositionWithLocationProvider>();
-        //_locationArrayEditorLocationProvider =
-        //    GameObject.FindWithTag("EditorOnly").GetComponent<LocationArrayEditorLocationProvider>();
+        
         _rotation = transform.rotation;
-       //debugText2.text = "AFTER";
+       
 
         SenPlayerPOLOZHENIE();
-        //StartCoroutine(SendPlayerLocationAndRotationToServer());
+        
         distance = new List<double>();
-        //CalculateDistanceInEditor();
-        //CalculateDistanceWithImmediatePosition();
+        
         for (int i = 0; i < distance.Count; i++)
         {
             Debug.Log(distance[i] + " m");
@@ -61,24 +48,13 @@ public class Player : MonoBehaviour
 
     public void SenPlayerPOLOZHENIE()
     {
-        //debugText2.text = "START COR";
         StartCoroutine(SendPlayerLocationAndRotationToServer());
     }
 
     // Update is called once per frame
     void Update()
     {
-        //CalculateDistanceInEditor();
-        //CalculateDistanceWithImmediatePosition();
         _rotation = transform.localRotation;
-        //var locationX =
-        //    _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(
-       //         CultureInfo.InvariantCulture).Replace(",", ".");
-       
-       // var locationY =
-       //     _immediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(
-        //        CultureInfo.InvariantCulture).Replace(",", ".");
-       // debugText.text = "X: " + locationX + " Y: " + locationY;
     }
 
 
@@ -90,72 +66,7 @@ public class Player : MonoBehaviour
         money += amount;
     }
 
-    public void AddFriend(Friend neu)
-    {
-        if (friends.Contains(neu))
-        {
-            Debug.LogError("Friend already registerd!");
-            return;
-        }
-        friends.Add(neu);
-    }
-
-    public void RemoveFriend(Friend toRemove)
-    {
-        if (!friends.Contains(toRemove))
-        {
-            Debug.LogError("Friend does not exist anyway!");
-            return;
-        }
-        friends.Remove(toRemove);
-    }
-
-    public void SendFriendRequest()
-    {
-        // TODO: Add Friend Request Functionality
-    }
-
-    public void AddItem(Item item) 
-    {
-        foreach (ItemListElement i in items)
-        {
-            if(i.item.GetType() == item.GetType())
-            {
-                i.count++;
-                return;
-            }
-        }
-        items.Add(new ItemListElement(item));
-    }
-
-    public void RemoveItem(Item item) 
-    {
-        foreach(ItemListElement i in items)
-        {
-            if(i.item.GetType() == item.GetType())
-            {
-                i.count--;
-                if(i.count == 0)
-                {
-                    items.Remove(i);
-                }
-                return;
-            }        
-        }
-    }
-
-    /**
-     * Returns true if is Robber, false if is PoliceOfficer
-     */
-    public bool isRobber()
-    {
-        return faction.isRobber();
-    }
-
-    public bool canChangeFaction()
-    {
-        return xp >= xpRequiredForFactionChange;
-    }
+   
 
     public IEnumerator SendPlayerLocationAndRotationToServer()
     {
@@ -277,7 +188,7 @@ public class Player : MonoBehaviour
             
             //Filter Safes that are more than 1km away
 
-            if (finalResult <=  1000)
+            if (finalResult <= 1000)
             {
                 distance.Add((int) finalResult);
             }

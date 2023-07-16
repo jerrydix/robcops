@@ -20,6 +20,21 @@ public class SettingsUIHandler : MonoBehaviour
         sfxVolumeButton.GetComponent<Image>().color = Color.white;
     }
 
+    private void Start() //setzen
+    {
+        sfxVolumeSlider.GetComponent<Slider>().value = GameManager.Instance.sfxVolume;
+        if (GameManager.Instance.sfxOn)
+        {
+            sfxVolumeSlider.SetActive(true);
+            sfxVolumeButton.GetComponent<Image>().color = Color.white;
+        }
+        else
+        {
+            sfxVolumeSlider.SetActive(false);
+            sfxVolumeButton.GetComponent<Image>().color = Color.red;
+        }
+    }
+
 
     public void MusicSwitch()
     {
@@ -41,10 +56,12 @@ public class SettingsUIHandler : MonoBehaviour
         if (sfxVolumeButton.GetComponent<Image>().color == Color.red)
         {
             sfxVolumeButton.GetComponent<Image>().color = Color.white;
+            GameManager.Instance.sfxOn = true; //setzen isOn
         }
         else
         {
             sfxVolumeButton.GetComponent<Image>().color = Color.red;
+            GameManager.Instance.sfxOn = false; //setzen isOn
         }
     }
 
@@ -55,40 +72,8 @@ public class SettingsUIHandler : MonoBehaviour
 
     public void SfxVolume()
     {
+        GameManager.Instance.sfxVolume = sfxVolumeSlider.GetComponent<Slider>().value; //setzen volume
         AudioManager.instance.SfxVolume(sfxVolumeSlider.GetComponent<Slider>().value);
     }
     
-    
-    
-
-    // Start is called before the first frame update
-    /*public void MusicSwitch()
-    {
-        
-        public Button musicVolumeButtom;
-            if (musicMuted == true)
-        {
-            musicVolumeSlider.SetActive(false);
-            musicVolumeButton.GetComponent<Image>().color = Color.red;
-        }
-        else
-        {
-            musicVolumeSlider.SetActive(true);
-            musicVolumeButton.GetComponent<Image>().color = Color.white;
-        }
-    }
-    public void SoundSwitch()
-    {
-        soundMuted = !soundMuted;
-        if (soundMuted == true)
-        {
-            soundVolumeSlider.SetActive(false);
-            soundVolumeButton.GetComponent<Image>().color = Color.red;
-        }
-        else
-        {
-            soundVolumeSlider.SetActive(true);
-            soundVolumeButton.GetComponent<Image>().color = Color.white;
-        }
-    }*/
 }

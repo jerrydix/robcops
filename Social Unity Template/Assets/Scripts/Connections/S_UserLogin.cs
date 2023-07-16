@@ -17,7 +17,6 @@ public class S_UserLogin : MonoBehaviour
     [SerializeField] private GameObject logo;
     private int amountOfClicks;
     private float clickPower;
-    private Guild guild; //todo fetch guilds from server before login, save them in eg. game manager
     private Vector2 location;
     private int money;
     private string password;

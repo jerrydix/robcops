@@ -13,11 +13,6 @@ public class S_ListElement : MonoBehaviour
     public int guildId;
     public bool cop;
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-    }
-
     public void SetParameters(string num, string nennung, int id, bool isList, bool isCop)
     {
         number.text = num;
