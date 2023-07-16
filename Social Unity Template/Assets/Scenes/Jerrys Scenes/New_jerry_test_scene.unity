@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -466,6 +466,82 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 193438023, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 905
+      objectReference: {fileID: 0}
+    - target: {fileID: 193438023, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 447
+      objectReference: {fileID: 0}
+    - target: {fileID: 193438023, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 193438023, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 193438023, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 193438023, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 193438025, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 193438025, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 193438025, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_Color.r
+      value: 0.02921462
+      objectReference: {fileID: 0}
+    - target: {fileID: 330704769, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 400725256, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_text
+      value: SOUND
+      objectReference: {fileID: 0}
+    - target: {fileID: 400725256, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_fontSize
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 400725256, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 56c4e1f8e7a35e740932858b3510e53b, type: 2}
+    - target: {fileID: 400725256, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400725256, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400725256, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400725256, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 400725256, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5405882748149710917, guid: 56c4e1f8e7a35e740932858b3510e53b, type: 2}
+    - target: {fileID: 400725256, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 402947610, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -488,6 +564,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1014599624, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014599624, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 165.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014599624, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.699997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064355810, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1148476708, guid: 3cc189f82b7f1a047b341444557b8859, type: 3}
