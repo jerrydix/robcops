@@ -63,6 +63,7 @@ public class
         BASE_URL = "http://robcops.de/";
         currentRobUnionSafeID = -1;
         sfxOn = true;
+        sfxVolume = 0.5f;
     }
 
     private void Start()

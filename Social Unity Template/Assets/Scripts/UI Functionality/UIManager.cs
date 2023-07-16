@@ -190,6 +190,10 @@ public class UIManager : MonoBehaviour
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_all_robunions/");
         yield return www;
+        if (www.text.Equals(""))
+        {
+            yield break;
+        }
         var robunions = www.text.Split("|");
         for (var i = 0; i < robunions.Length; i++)
         {
@@ -240,6 +244,10 @@ public class UIManager : MonoBehaviour
     {
         using var www = new WWW(GameManager.Instance.BASE_URL + "get_all_stations/");
         yield return www;
+        if (www.text.Equals(""))
+        {
+            yield break;
+        }
         var stations = www.text.Split("|");
         for (var i = 0; i < stations.Length; i++)
         {
