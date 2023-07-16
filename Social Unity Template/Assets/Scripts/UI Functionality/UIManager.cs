@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI safeLvl4Text;
     [SerializeField] private Image switchImage;
     [SerializeField] private Image switchImageBack;
+    [SerializeField] private TextMeshProUGUI safeInfoText;
     public Sprite copIcon;
     public Sprite robIcon;
 
@@ -75,6 +76,16 @@ public class UIManager : MonoBehaviour
             switchButtonActivated = true;
             switchRoleButton.interactable = switchButtonActivated;
         }
+
+        if (GameManager.Instance.role)
+        {
+            safeInfoText.gameObject.SetActive(true);
+            StartCoroutine(setSafeMoneyText());
+        }
+        else
+        {
+            safeInfoText.gameObject.SetActive(false);
+        }
         //safeUpdateRoutine = StartCoroutine(GameManager.Instance.UpdateSafes());
     }
 
@@ -104,6 +115,7 @@ public class UIManager : MonoBehaviour
     public void DeactivateDialogue()
     {
         safeUIManager.gameObject.SetActive(false);
+        setSafeMoney();
     }
 
     public void ActivateRURaidDialogue(int level, double locationX, double locationY, bool createLobby, int id)
@@ -115,6 +127,27 @@ public class UIManager : MonoBehaviour
     public void DeactivateRURaidDialogue()
     {
         RURaidSafeUIManager.gameObject.SetActive(false);
+    }
+
+    public void setSafeMoney()
+    {
+        StartCoroutine(setSafeMoneyText());
+    }
+
+    public IEnumerator updateSafeMoneyText()
+    {
+        while (true)
+        {
+            StartCoroutine(setSafeMoneyText());
+            yield return new WaitForSeconds(30);
+        }
+    }
+
+    public IEnumerator setSafeMoneyText()
+    {
+        using var www = new WWW(GameManager.Instance.BASE_URL + "get_active_safes/");
+        yield return www;
+        safeInfoText.text = "Safes: " + www.text.Split("|")[1] + " - " + www.text.Split("|")[1] + "/Hour";
     }
 
     public void GuildButton()

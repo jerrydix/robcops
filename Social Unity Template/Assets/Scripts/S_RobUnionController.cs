@@ -21,6 +21,7 @@ public class S_RobUnionController : MonoBehaviour
     private int money = 0;
     private string name;
     private GameObject startPlus;
+    public int machinesCount;
 
 
     // Start is called before the first frame update
@@ -81,6 +82,7 @@ public class S_RobUnionController : MonoBehaviour
         yield return www;
         Debug.Log(www.text);
         var amount = int.Parse(www.text);
+        machinesCount = amount;
         if (amount > 0)
         {
             startPlus.Destroy();
