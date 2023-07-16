@@ -248,8 +248,8 @@ public class S_PoliceStationController : MonoBehaviour
         weaponlvlText.text = "Weapons Lvl: " + weaponlvl;
         armorlvlText.text = "Armors Lvl: " + armorlvl;
         hintsText.text = "Hints: " + hints + "/5";
-        locationXText.text = "LONG: " + locationX;
-        locationYText.text = "LAT: " + locationY;
+        locationXText.text = "LON:\n" + locationX;
+        locationYText.text = "LAT:\n" + locationY;
     }
 
     public void ClosePoliceStationScreen()
