@@ -216,7 +216,7 @@ public class
     public bool InitializeSafe(int level, int cost)
     {
         //TODO COMMENT OUT FOR DEMO
-        if (!CheckIsFreePos(ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(CultureInfo.InvariantCulture),
+        if (!SpawnChecker.CheckIsFreePos(_map, ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.x.ToString(CultureInfo.InvariantCulture),
                 ImmediatePositionWithLocationProvider.LocationProvider.CurrentLocation.LatitudeLongitude.y.ToString(CultureInfo.InvariantCulture)))
         {
             //Debug.Log("Cannot Spawn Safe In InitializeSafe, go outside");
@@ -254,16 +254,19 @@ public class
     
     private bool CheckIsFreePos(string locationX, string locationY)
     {
-        var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        cube.GetComponent<Collider>().enabled = false;
-        cube.GetComponent<MeshRenderer>().enabled = false;
+        //var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        //cube.GetComponent<Collider>().enabled = false;
+        //cube.GetComponent<MeshRenderer>().enabled = false;
         var temp = locationX + "," + locationY;
         var temp2 = Conversions.StringToLatLon(temp);
-        cube.transform.position = _map.GeoToWorldPosition(temp2);
-        cube.transform.position = new Vector3(cube.transform.position.x, cube.transform.position.y + 5,
-            cube.transform.position.z);
-        Vector3 newVector = cube.transform.position;
-            RaycastHit hit;
+        //cube.transform.position = _map.GeoToWorldPosition(temp2);
+        Vector3 pos = _map.GeoToWorldPosition(temp2);
+        //cube.transform.position = new Vector3(cube.transform.position.x, cube.transform.position.y + 5,
+        //    cube.transform.position.z);
+        pos += new Vector3(0, 10, 0);
+        //Vector3 newVector = cube.transform.position;
+        /*
+        RaycastHit hit;
         if (Physics.Raycast(newVector, Vector3.down, out hit, Mathf.Infinity))
         {
             GameObject other = hit.collider.gameObject;
@@ -277,7 +280,10 @@ public class
         }
         //Debug.Log("no hit");
         cube.Destroy();
+        
         return true;
+        */
+        return SpawnChecker.CheckIsFreePos(pos);
     }
 
     public IEnumerator UpdateSafes()
