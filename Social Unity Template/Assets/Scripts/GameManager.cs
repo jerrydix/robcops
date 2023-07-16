@@ -112,11 +112,11 @@ public class
                 StopCoroutine(moneyRoutine);
         }
 
-        if (GameObject.Find("Error").GetComponent<S_Error>() != null)
+        if (GameObject.Find("Error") != null)
         {
             errorMessage = GameObject.Find("Error").GetComponent<S_Error>();
         }
-        if (GameObject.Find("Success").GetComponent<S_Success>() != null)
+        if (GameObject.Find("Success") != null)
         {
             successMessage = GameObject.Find("Success").GetComponent<S_Success>();
         }
