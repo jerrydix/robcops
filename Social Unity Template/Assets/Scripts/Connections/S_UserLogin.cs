@@ -9,7 +9,7 @@ public class S_UserLogin : MonoBehaviour
 {
     // For now only local address
 
-    public string BASE_URL = "http://robcops.de/";
+    public string BASE_URL = "http://robcops.de:42069/";
     [HideInInspector] public string socialTab = "members/";
 
     [SerializeField] private LoginScreenUIManager manager;

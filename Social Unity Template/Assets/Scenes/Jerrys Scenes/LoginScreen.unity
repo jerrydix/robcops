@@ -1105,7 +1105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d40d656a8d86a564c96030eed554c858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BASE_URL: http://robcops.de/
+  BASE_URL: http://robcops.de:42069/
   socialTab: members/
   manager: {fileID: 968689975}
   roleSwitchScreen: {fileID: 1083070754}
@@ -4355,7 +4355,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5964815412879233282, guid: 36b7034ccef7aca40a8fd24e4833e15c, type: 3}
       propertyPath: BASE_URL
-      value: http://robcops.de/
+      value: http://robcops.de:42069/
       objectReference: {fileID: 0}
     - target: {fileID: 5964815412879233283, guid: 36b7034ccef7aca40a8fd24e4833e15c, type: 3}
       propertyPath: m_RootOrder

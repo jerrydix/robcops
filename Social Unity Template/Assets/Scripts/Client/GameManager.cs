@@ -13,7 +13,7 @@ public class
     GameManager : MonoBehaviour //TODO IF ANY PROBLEMS IN POLAYER INFO, USE GET PLAYER INFO SERVER METHOD, AND USE SETDATA METHOD FORM USER LOGIN
 
 {
-    public string BASE_URL = "http://robcops.de/";
+    public string BASE_URL = "http://robcops.de:42069/";
     [HideInInspector] public string socialTab = "members/";
     public int amountOfClicks;
 
