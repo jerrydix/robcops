@@ -4353,10 +4353,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5964815412879233282, guid: 36b7034ccef7aca40a8fd24e4833e15c, type: 3}
-      propertyPath: BASE_URL
-      value: http://robcops.de:42069/
-      objectReference: {fileID: 0}
     - target: {fileID: 5964815412879233283, guid: 36b7034ccef7aca40a8fd24e4833e15c, type: 3}
       propertyPath: m_RootOrder
       value: 7
