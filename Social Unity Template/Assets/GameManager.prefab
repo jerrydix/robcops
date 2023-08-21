@@ -44,18 +44,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 283b3b88a39448b4a9e5d4f453ba54f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BASE_URL: http://87.143.147.178:8000/
+  BASE_URL: http://robcops.de:42069/
   socialTab: members/
   amountOfClicks: 0
   clickPower: 0
-  guild: {fileID: 0}
+  guild: 0
   currentHP: 0
   hp: 0
   currentMinutes: 0
   currentSeconds: 0
+  currentSafeLevel: 0
   ImmediatePositionWithLocationProvider: {fileID: 0}
   level: 0
   location: {x: 0, y: 0}
   money: 0
   role: 0
   username: 
+  userId: 0
+  xp: 0
+  currentRobUnionSafeID: 0
+  safe: 0
+  errorMessage: {fileID: 0}
+  successMessage: {fileID: 0}
+  sfxVolume: 0
+  sfxOn: 0

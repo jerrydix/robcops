@@ -60,7 +60,7 @@ public class
 
     private void Awake()
     {
-        BASE_URL = "http://robcops.de/";
+        BASE_URL = "http://robcops.de:42069/";
         currentRobUnionSafeID = -1;
         sfxOn = true;
         sfxVolume = 0.5f;

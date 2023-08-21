@@ -60,9 +60,7 @@ public class UIManager : MonoBehaviour
         switchRoleButton.interactable = switchButtonActivated;
         //Debug.Log(GameManager.Instance.role);
         ChangePlaceSafeButton(GameManager.Instance.role);
-        Debug.Log(GameManager.Instance.xp);
         switchImage.fillAmount = (float) GameManager.Instance.xp / XPthreshold;
-        Debug.Log((float) GameManager.Instance.xp / XPthreshold);
         if (GameManager.Instance.role)
         {
             ChangeBrassKnucklesSpriteAndText();
